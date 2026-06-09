@@ -99,6 +99,31 @@ function renderBrowse(catIdx) {
    QUIZ
    ========================================================= */
 let qIndex = 0, score = 0, answeredCount = 0, answered = false;
+let activeQuestions = [];
+
+// Tasowanie (Fisher–Yates)
+function shuffle(arr) {
+  const a = arr.slice();
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+// Buduje potasowaną listę pytań; tasuje też kolejność odpowiedzi
+// i przelicza indeks poprawnej odpowiedzi.
+function buildActiveQuestions(test) {
+  const pytania = shuffle(test.pytania).map((q) => {
+    if (!Array.isArray(q.odpowiedzi) || typeof q.poprawna !== "number") return Object.assign({}, q);
+    const order = shuffle(q.odpowiedzi.map((_, i) => i));
+    return Object.assign({}, q, {
+      odpowiedzi: order.map((i) => q.odpowiedzi[i]),
+      poprawna: order.indexOf(q.poprawna)
+    });
+  });
+  return pytania;
+}
 
 function startTest(si, ti) {
   activeTest = CAT.podkategorie[si].testy[ti];
@@ -110,6 +135,7 @@ function startTest(si, ti) {
 
 function restartTest() {
   qIndex = 0; score = 0; answeredCount = 0; answered = false;
+  activeQuestions = buildActiveQuestions(activeTest); // nowa losowa kolejność za każdym razem
   document.getElementById("result-view").classList.add("hidden");
   document.getElementById("quiz-view").classList.remove("hidden");
   renderQuestion();
@@ -117,15 +143,15 @@ function restartTest() {
 }
 
 function renderQuestion() {
-  const q = activeTest.pytania[qIndex];
+  const q = activeQuestions[qIndex];
   answered = false;
 
   document.getElementById("q-progress").textContent =
-    "Pytanie " + (qIndex + 1) + " / " + activeTest.pytania.length;
+    "Pytanie " + (qIndex + 1) + " / " + activeQuestions.length;
   document.getElementById("q-score").textContent = "Poprawne: " + score;
   document.getElementById("q-text").textContent = q.pytanie;
   document.getElementById("quiz-progress").style.width =
-    Math.round((qIndex / activeTest.pytania.length) * 100) + "%";
+    Math.round((qIndex / activeQuestions.length) * 100) + "%";
 
   const fb = document.getElementById("feedback");
   fb.textContent = "";
@@ -163,7 +189,7 @@ function answer(choice, btn) {
   if (answered) return;
   answered = true;
   answeredCount++;
-  const q = activeTest.pytania[qIndex];
+  const q = activeQuestions[qIndex];
   const buttons = document.querySelectorAll("#q-options .option");
 
   buttons.forEach((b, i) => {
@@ -193,11 +219,11 @@ function answer(choice, btn) {
 
   const nb = document.getElementById("next-btn");
   nb.classList.remove("hidden");
-  nb.textContent = (qIndex + 1 < activeTest.pytania.length) ? "Dalej →" : "Zobacz wynik →";
+  nb.textContent = (qIndex + 1 < activeQuestions.length) ? "Dalej →" : "Zobacz wynik →";
 }
 
 function revealModel() {
-  const q = activeTest.pytania[qIndex];
+  const q = activeQuestions[qIndex];
   const model = document.getElementById("open-model");
   const correct = (typeof q.poprawna === "number") ? (LETTERS[q.poprawna] + ") " + q.odpowiedzi[q.poprawna]) : "";
   model.innerHTML =
@@ -209,7 +235,7 @@ function revealModel() {
 
 function nextQuestion() {
   qIndex++;
-  if (qIndex < activeTest.pytania.length) renderQuestion();
+  if (qIndex < activeQuestions.length) renderQuestion();
   else showResult();
 }
 
@@ -219,8 +245,8 @@ function finishEarly() {
 }
 
 function showResult() {
-  const total = (qIndex + 1 >= activeTest.pytania.length && answered)
-    ? activeTest.pytania.length
+  const total = (qIndex + 1 >= activeQuestions.length && answered)
+    ? activeQuestions.length
     : Math.max(answeredCount, 1);
   const pct = Math.round((score / total) * 100);
   const results = Store.get("results", []);
