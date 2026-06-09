@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Testy — LexMentor</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="bg-fx"></div>
+
+  <nav class="nav">
+    <div class="wrap nav-inner">
+      <a class="brand" href="index.html"><span class="mark">§</span><span class="name">Lex<b>Mentor</b></span></a>
+      <div class="nav-links">
+        <a href="index.html">Start</a>
+        <a href="index.html#kategorie" class="active">Kategorie</a>
+        <a href="fiszki.html">Fiszki</a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="page-head wrap">
+    <div class="crumbs" id="crumbs"></div>
+    <h1 id="cat-title">Kategoria</h1>
+    <p class="sub" id="cat-sub"></p>
+  </header>
+
+  <main class="wrap" style="padding-bottom:60px">
+    <!-- WIDOK: przeglądanie testów -->
+    <div id="browse-view"></div>
+
+    <!-- WIDOK: quiz -->
+    <div class="quiz-card hidden" id="quiz-view">
+      <div class="q-meta">
+        <span id="q-progress">Pytanie 1</span>
+        <span id="q-score">Poprawne: 0</span>
+      </div>
+      <div class="progress-bar"><span id="quiz-progress"></span></div>
+      <div class="q-text" id="q-text">Ładowanie…</div>
+      <div class="options" id="q-options"></div>
+      <div class="explain hidden" id="q-explain"></div>
+
+      <!-- Pytania kazusowe: pole na odpowiedź + wzorcowa odpowiedź -->
+      <div class="open-area hidden" id="open-area">
+        <div class="open-label" id="open-polecenie"></div>
+        <textarea class="open-input" id="open-input" rows="5" placeholder="Tu wpisz swoją odpowiedź…"></textarea>
+        <button class="btn btn-ghost btn-sm" id="reveal-btn" onclick="revealModel()">Pokaż wzorcową odpowiedź</button>
+        <div class="explain hidden" id="open-model"></div>
+      </div>
+
+      <div class="quiz-foot">
+        <span class="feedback" id="feedback"></span>
+        <div style="display:flex; gap:10px; align-items:center">
+          <button class="btn btn-ghost btn-sm" id="finish-btn" onclick="finishEarly()" title="Zakończ i pokaż wynik">Zakończ</button>
+          <button class="btn btn-gold hidden" id="next-btn" onclick="nextQuestion()">Dalej →</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- WIDOK: wynik -->
+    <div class="result hidden" id="result-view">
+      <div class="ring" id="result-ring"><span class="score" id="result-score">0%</span></div>
+      <h2 id="result-title">Gotowe!</h2>
+      <p id="result-text"></p>
+      <div class="res-actions">
+        <button class="btn btn-gold" onclick="restartTest()">Rozwiąż ponownie ↺</button>
+        <button class="btn btn-ghost" onclick="backToBrowse()">← Inne testy</button>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer"><div class="wrap">© <span id="year"></span> <b>LexMentor</b> — portal do nauki prawa</div></footer>
+
+  <script src="pytania-spadkowe.js"></script>
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+  <script>initCategory();</script>
+</body>
+</html>
