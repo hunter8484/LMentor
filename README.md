@@ -21,12 +21,17 @@ Przykładowo:
 |------|------|
 | `index.html` | Strona główna z kategoriami i statystykami |
 | `test.html`  | Przeglądanie testów w kategorii + rozwiązywanie quizu |
-| `fiszki.html`| Tryb fiszek (generowany automatycznie z pytań testowych) |
+| `fiszki.html`| Fiszki — powtórki rozłożone w czasie |
+| `fiszki-zobowiazania.js` | Fiszki z Prawa zobowiązań (wczytywane przez fiszki.html) |
 | `style.css`  | Wygląd (nowoczesny motyw prawniczy) |
 | `app.js`     | Logika |
 | `data.js`    | **Treści — kategorie, testy i pytania** |
 | `pytania-spadkowe.js` | Pytania z prawa spadkowego (wczytywane przez `data.js`) |
 
+> Fiszki (Prawo zobowiązań): po odsłonięciu odpowiedzi oceniasz kartę
+> (Ponownie / Trudne / OK / Łatwe). „Ponownie" wraca do puli w tej sesji, pozostałe
+> oddalają termin powtórki o dni. Postęp zapisuje się w przeglądarce (localStorage).
+>
 > Pytania zamknięte: po wybraniu odpowiedzi pojawia się wyjaśnienie.
 > Pytania kazusowe (otwarte): dostępne jest pole do wpisania odpowiedzi, a przycisk
 > „Pokaż wzorcową odpowiedź" odsłania prawidłowe rozwiązanie z podstawą prawną.

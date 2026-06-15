@@ -277,56 +277,175 @@ function backToBrowse() {
 }
 
 /* =========================================================
-   FISZKI (generowane z pytań testowych)
+   FISZKI — powtórki rozłożone w czasie (SRS)
+   ---------------------------------------------------------
+   Stan karty: { ef, reps, interval(dni), due(timestamp) }
+   Oceny: again / hard / good / easy. Postęp w localStorage.
    ========================================================= */
-let decks = [], deckIdx = 0, cardIdx = 0, flipped = false;
+const DAY = 86400000;
+let fcDecks = [], fcDeck = null, fcQueue = [], fcCurrent = -1, fcRevealed = false;
 
-function buildDecks() {
-  decks = [];
-  LEX_DATA.kategorie.forEach(cat => {
-    const karty = [];
-    cat.podkategorie.forEach(sub => sub.testy.forEach(t => {
-      t.pytania.forEach(q => {
-        karty.push({
-          przod: q.pytanie,
-          tyl: q.odpowiedzi[q.poprawna],
-          src: q.wyjasnienie || ""
-        });
-      });
-    }));
-    if (karty.length) decks.push({ nazwa: cat.nazwa, karty });
-  });
+function escapeHtml(s) {
+  return (s || "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+}
+
+function buildFcDecks() {
+  fcDecks = [];
+  // Główna talia: Prawo zobowiązań (gotowe fiszki przód/tył)
+  if (typeof ZOBOWIAZANIA_FISZKI !== "undefined") {
+    fcDecks.push({ id: "zobowiazania", nazwa: "Prawo zobowiązań", karty: ZOBOWIAZANIA_FISZKI });
+  }
+  // Dodatkowe talie generowane z pytań testowych
+  if (typeof LEX_DATA !== "undefined") {
+    LEX_DATA.kategorie.forEach((cat, ci) => {
+      const karty = [];
+      cat.podkategorie.forEach(sub => sub.testy.forEach(t => t.pytania.forEach(q => {
+        if (Array.isArray(q.odpowiedzi) && typeof q.poprawna === "number") {
+          karty.push({
+            przod: q.pytanie,
+            tyl: "<p class='fc-h'>Prawidłowa odpowiedź:</p><p>" + escapeHtml(q.odpowiedzi[q.poprawna]) + "</p>" +
+                 (q.wyjasnienie ? "<p>" + escapeHtml(q.wyjasnienie) + "</p>" : "")
+          });
+        }
+      })));
+      if (karty.length) fcDecks.push({ id: "cat" + ci, nazwa: cat.nazwa, karty });
+    });
+  }
+}
+
+function srsAll() { return Store.get("srs", {}); }
+function srsDeck() { return srsAll()[fcDeck.id] || {}; }
+function setCardState(idx, st) {
+  const all = srsAll();
+  (all[fcDeck.id] = all[fcDeck.id] || {})[idx] = st;
+  Store.set("srs", all);
 }
 
 function initFlashcards() {
-  buildDecks();
+  buildFcDecks();
   const select = document.getElementById("deck-select");
-  decks.forEach((d, i) => {
-    const opt = document.createElement("option");
-    opt.value = i; opt.textContent = d.nazwa + " (" + d.karty.length + ")";
-    select.appendChild(opt);
+  fcDecks.forEach((d, i) => {
+    const o = document.createElement("option");
+    o.value = i; o.textContent = d.nazwa + " (" + d.karty.length + ")";
+    select.appendChild(o);
   });
-  select.addEventListener("change", () => { deckIdx = +select.value; cardIdx = 0; renderCard(); });
-  renderCard();
+  let start = 0;
+  const want = getParam("deck");
+  if (want) { const i = fcDecks.findIndex(d => d.id === want); if (i >= 0) start = i; }
+  select.value = start;
+  select.addEventListener("change", () => startDeck(+select.value));
+
+  // skróty klawiaturowe: spacja = pokaż, 1-4 = oceny
+  document.addEventListener("keydown", (e) => {
+    if (document.getElementById("fc-card").classList.contains("hidden")) return;
+    if (!fcRevealed && (e.code === "Space" || e.code === "Enter")) { e.preventDefault(); revealFc(); }
+    else if (fcRevealed) {
+      if (e.key === "1") rateFc("again");
+      else if (e.key === "2") rateFc("hard");
+      else if (e.key === "3") rateFc("good");
+      else if (e.key === "4") rateFc("easy");
+    }
+  });
+
+  startDeck(start);
 }
 
-function renderCard() {
-  if (!decks.length) return;
-  const deck = decks[deckIdx];
-  const card = deck.karty[cardIdx];
-  const el = document.getElementById("flashcard");
-  el.classList.remove("flipped"); flipped = false;
-  document.getElementById("card-front").textContent = card.przod;
-  document.getElementById("card-back").textContent = "✓ " + card.tyl;
-  document.getElementById("card-src").textContent = card.src;
-  document.getElementById("card-counter").textContent = (cardIdx + 1) + " / " + deck.karty.length;
-  document.getElementById("flash-progress").style.width =
-    Math.round(((cardIdx + 1) / deck.karty.length) * 100) + "%";
+function startDeck(i) {
+  fcDeck = fcDecks[i];
+  buildQueue();
+  renderFc();
 }
 
-function flipCard() {
-  flipped = !flipped;
-  document.getElementById("flashcard").classList.toggle("flipped", flipped);
+function buildQueue() {
+  const now = Date.now();
+  const s = srsDeck();
+  const due = [];
+  fcDeck.karty.forEach((_, idx) => {
+    const st = s[idx];
+    if (!st || (st.due || 0) <= now) due.push(idx);
+  });
+  fcQueue = shuffle(due);
 }
-function nextCard() { const d = decks[deckIdx]; cardIdx = (cardIdx + 1) % d.karty.length; renderCard(); }
-function prevCard() { const d = decks[deckIdx]; cardIdx = (cardIdx - 1 + d.karty.length) % d.karty.length; renderCard(); }
+
+function nextState(st, grade) {
+  let ef = st.ef || 2.5, reps = st.reps || 0, interval = st.interval || 0;
+  const now = Date.now();
+  if (grade === "again") { ef = Math.max(1.3, ef - 0.2); return { ef, reps: 0, interval: 0, due: now }; }
+  if (grade === "hard") { ef = Math.max(1.3, ef - 0.15); interval = interval < 1 ? 1 : Math.max(1, Math.round(interval * 1.2)); }
+  else if (grade === "good") { interval = interval < 1 ? 1 : Math.round(interval * ef); reps++; }
+  else if (grade === "easy") { ef = ef + 0.15; interval = interval < 1 ? 4 : Math.round(interval * ef * 1.3); reps++; }
+  return { ef, reps, interval, due: now + interval * DAY };
+}
+
+function ivLabel(grade) {
+  if (grade === "again") return "<1 dz";
+  const st = srsDeck()[fcCurrent] || {};
+  const n = nextState(st, grade).interval;
+  return n + (n === 1 ? " dzień" : " dni");
+}
+
+function renderFc() {
+  const card = document.getElementById("fc-card");
+  const done = document.getElementById("fc-done");
+  const actions = document.getElementById("fc-actions");
+
+  document.getElementById("fc-count").textContent =
+    "Do powtórki: " + fcQueue.length + " / " + fcDeck.karty.length;
+
+  if (fcQueue.length === 0) {
+    card.classList.add("hidden"); actions.classList.add("hidden");
+    done.classList.remove("hidden");
+    return;
+  }
+  done.classList.add("hidden");
+  card.classList.remove("hidden"); actions.classList.remove("hidden");
+
+  fcCurrent = fcQueue[0];
+  fcRevealed = false;
+  const c = fcDeck.karty[fcCurrent];
+  document.getElementById("fc-front").innerHTML = "<p>" + escapeHtml(c.przod) + "</p>";
+  document.getElementById("fc-back").innerHTML = c.tyl;
+  document.getElementById("fc-back").classList.add("hidden");
+  document.getElementById("fc-divider").classList.add("hidden");
+  document.getElementById("fc-reveal").classList.remove("hidden");
+  document.getElementById("fc-rate").classList.add("hidden");
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+function revealFc() {
+  if (fcRevealed || fcQueue.length === 0) return;
+  fcRevealed = true;
+  document.getElementById("fc-back").classList.remove("hidden");
+  document.getElementById("fc-divider").classList.remove("hidden");
+  document.getElementById("fc-reveal").classList.add("hidden");
+  document.getElementById("fc-rate").classList.remove("hidden");
+  document.getElementById("iv-again").textContent = ivLabel("again");
+  document.getElementById("iv-hard").textContent = ivLabel("hard");
+  document.getElementById("iv-good").textContent = ivLabel("good");
+  document.getElementById("iv-easy").textContent = ivLabel("easy");
+}
+
+function rateFc(grade) {
+  if (!fcRevealed) return;
+  const idx = fcCurrent;
+  const prev = srsDeck()[idx] || { ef: 2.5, reps: 0, interval: 0 };
+  setCardState(idx, nextState(prev, grade));
+  fcQueue.shift();
+  if (grade === "again") fcQueue.push(idx); // wraca do puli (koniec kolejki sesji)
+  renderFc();
+}
+
+// Powtórka wszystkich kart, niezależnie od harmonogramu
+function studyAll() {
+  fcQueue = shuffle(fcDeck.karty.map((_, i) => i));
+  renderFc();
+}
+
+// Wyzerowanie postępu bieżącej talii
+function resetDeck() {
+  const all = srsAll();
+  delete all[fcDeck.id];
+  Store.set("srs", all);
+  buildQueue();
+  renderFc();
+}
