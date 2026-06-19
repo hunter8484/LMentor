@@ -159,22 +159,47 @@ function renderQuestion() {
   ex.classList.add("hidden"); ex.innerHTML = "";
   document.getElementById("next-btn").classList.add("hidden");
 
-  // budowa odpowiedzi (jednokrotny wybór / prawda-fałsz)
+  // budowa odpowiedzi
   const box = document.getElementById("q-options");
   box.innerHTML = "";
-  q.odpowiedzi.forEach((ans, i) => {
-    const btn = document.createElement("button");
-    btn.className = "option";
-    btn.innerHTML = '<span class="letter">' + LETTERS[i] + '</span><span>' + ans + '</span>';
-    btn.onclick = () => answer(i, btn);
-    box.appendChild(btn);
-  });
 
-  // pytanie kazusowe (otwarte) — pole na odpowiedź + wzorcowa odpowiedź
+  const isOpen = q.typ === "otwarte" || q.otwarte;
+
+  if (q.typ === "luka") {
+    // pytanie z luką — pole tekstowe + przycisk "Sprawdź"
+    const wrap = document.createElement("div");
+    wrap.className = "luka-wrap";
+    const inp = document.createElement("input");
+    inp.type = "text";
+    inp.id = "luka-input";
+    inp.className = "luka-input";
+    inp.placeholder = "Wpisz brakujące słowo…";
+    inp.autocomplete = "off";
+    inp.addEventListener("keydown", (e) => { if (e.key === "Enter") { e.preventDefault(); checkLuka(); } });
+    const chk = document.createElement("button");
+    chk.className = "btn btn-gold btn-sm";
+    chk.id = "luka-check";
+    chk.textContent = "Sprawdź";
+    chk.onclick = checkLuka;
+    wrap.appendChild(inp);
+    wrap.appendChild(chk);
+    box.appendChild(wrap);
+  } else if (!isOpen) {
+    // jednokrotny wybór / prawda-fałsz
+    q.odpowiedzi.forEach((ans, i) => {
+      const btn = document.createElement("button");
+      btn.className = "option";
+      btn.innerHTML = '<span class="letter">' + LETTERS[i] + '</span><span>' + ans + '</span>';
+      btn.onclick = () => answer(i, btn);
+      box.appendChild(btn);
+    });
+  }
+
+  // pytanie otwarte (kazus / zadanie) — pole na odpowiedź + odpowiedź wzorcowa
   const open = document.getElementById("open-area");
-  if (q.otwarte) {
+  if (isOpen) {
     document.getElementById("open-polecenie").textContent =
-      q.polecenie || "Uzasadnij swoją odpowiedź, wskazując podstawę prawną.";
+      q.polecenie || "Rozwiąż zadanie, a następnie porównaj z odpowiedzią wzorcową.";
     document.getElementById("open-input").value = "";
     const model = document.getElementById("open-model");
     model.classList.add("hidden"); model.innerHTML = "";
@@ -222,15 +247,70 @@ function answer(choice, btn) {
   nb.textContent = (qIndex + 1 < activeQuestions.length) ? "Dalej →" : "Zobacz wynik →";
 }
 
+// sprawdzenie pytania z luką (uzupełnianie)
+function norm(s) {
+  return (s || "").toString().trim().toLowerCase()
+    .replace(/\s+/g, " ")
+    .replace(/[.,;:!?]+$/, "");
+}
+function checkLuka() {
+  if (answered) return;
+  const q = activeQuestions[qIndex];
+  const inp = document.getElementById("luka-input");
+  const val = norm(inp.value);
+  if (!val) return;
+  answered = true;
+  answeredCount++;
+
+  const accept = (q.luki || []).map(norm);
+  const ok = accept.includes(val);
+
+  inp.disabled = true;
+  const chk = document.getElementById("luka-check");
+  if (chk) chk.disabled = true;
+
+  const fb = document.getElementById("feedback");
+  if (ok) {
+    score++;
+    inp.classList.add("luka-ok");
+    fb.textContent = "✓ Poprawnie";
+    fb.style.color = "var(--green)";
+  } else {
+    inp.classList.add("luka-bad");
+    fb.textContent = "✕ Niepoprawnie — poprawna odpowiedź: " + (q.luki ? q.luki[0] : "");
+    fb.style.color = "var(--red)";
+  }
+  document.getElementById("q-score").textContent = "Poprawne: " + score;
+
+  if (q.wyjasnienie) {
+    const ex = document.getElementById("q-explain");
+    ex.innerHTML = "<b>Wyjaśnienie:</b> " + q.wyjasnienie;
+    ex.classList.remove("hidden");
+  }
+
+  const nb = document.getElementById("next-btn");
+  nb.classList.remove("hidden");
+  nb.textContent = (qIndex + 1 < activeQuestions.length) ? "Dalej →" : "Zobacz wynik →";
+}
+
 function revealModel() {
   const q = activeQuestions[qIndex];
   const model = document.getElementById("open-model");
-  const correct = (typeof q.poprawna === "number") ? (LETTERS[q.poprawna] + ") " + q.odpowiedzi[q.poprawna]) : "";
+  const hasOptions = Array.isArray(q.odpowiedzi) && typeof q.poprawna === "number";
+  const correct = hasOptions ? (LETTERS[q.poprawna] + ") " + q.odpowiedzi[q.poprawna]) : "";
+  const tresc = q.wzor || q.wyjasnienie || "";
   model.innerHTML =
     (correct ? "<b>Prawidłowa odpowiedź:</b> " + correct + "<br><br>" : "") +
-    (q.wyjasnienie ? "<b>Wzorzec:</b> " + q.wyjasnienie : "");
+    (tresc ? "<b>Odpowiedź wzorcowa:</b> " + tresc : "");
   model.classList.remove("hidden");
   document.getElementById("reveal-btn").classList.add("hidden");
+
+  // zadanie otwarte (bez wariantów ABC) — po odsłonięciu pozwól przejść dalej
+  if (!hasOptions) {
+    const nb = document.getElementById("next-btn");
+    nb.classList.remove("hidden");
+    nb.textContent = (qIndex + 1 < activeQuestions.length) ? "Dalej →" : "Zobacz wynik →";
+  }
 }
 
 function nextQuestion() {

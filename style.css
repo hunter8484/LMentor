@@ -273,6 +273,42 @@ body::after {
   .fc-q { font-size: 21px; }
 }
 
+/* ---------- Pytania z luką (uzupełnianie) ---------- */
+.luka-wrap {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-top: 4px;
+}
+.luka-input {
+  flex: 1 1 240px;
+  min-width: 180px;
+  padding: 14px 18px;
+  font-family: var(--sans);
+  font-size: 17px;
+  color: var(--ink);
+  background: rgba(255,255,255,0.04);
+  border: 1.5px solid var(--line);
+  border-radius: var(--radius-sm);
+  outline: none;
+  transition: border-color .2s, box-shadow .2s;
+}
+.luka-input::placeholder { color: var(--muted); }
+.luka-input:focus {
+  border-color: var(--gold);
+  box-shadow: 0 0 0 3px rgba(216,180,99,0.18);
+}
+.luka-input:disabled { opacity: 1; }
+.luka-input.luka-ok {
+  border-color: var(--green);
+  box-shadow: 0 0 0 3px rgba(70,224,160,0.18);
+}
+.luka-input.luka-bad {
+  border-color: var(--red);
+  box-shadow: 0 0 0 3px rgba(255,122,122,0.18);
+}
+
 /* ---------- Animacje ---------- */
 @keyframes rise { from { opacity:0; transform: translateY(22px); } to { opacity:1; transform: translateY(0); } }
 .rise { animation: rise .7s cubic-bezier(.2,.7,.2,1) both; }
