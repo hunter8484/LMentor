@@ -34,544 +34,206 @@ const LEX_DATA = {
     /* ===================== PRAWO FINANSOWE ===================== */
     {
       nazwa: "Prawo finansowe",
-      ikona: "💰",
-      opis: "Prawo podatkowe i finansów publicznych: zobowiązania podatkowe, odpowiedzialność, formy opodatkowania, budżet. Pytania jednokrotnego wyboru, prawda/fałsz oraz uzupełnianie luk.",
+      ikona: "\uD83D\uDCB0",
+      opis: "Prawo finansowe i finansów publicznych: zobowiązania podatkowe, odpowiedzialność, dyscyplina finansów publicznych, dług publiczny, poręczenia i gwarancje, procedura budżetowa. Po wybraniu odpowiedzi pokazuje się uzasadnienie.",
       podkategorie: [
         {
           nazwa: "Testy",
           testy: [
-
-            /* ---- TEST 1: JEDNA ODPOWIEDŹ PRAWIDŁOWA ---- */
             {
-              nazwa: "Jedna odpowiedź prawidłowa",
+              nazwa: "Prawo finansowe — baza (191 pyta\u0144)",
               pytania: [
-                {
-                  pytanie: "Decyzja ustalająca zobowiązanie podatkowe:",
-                  odpowiedzi: ["ma charakter konstytutywny", "ma charakter deklaratoryjny", "ma charakter mieszany"],
-                  poprawna: 0,
-                  wyjasnienie: "Decyzja ustalająca tworzy (konstytuuje) zobowiązanie podatkowe — powstaje ono dopiero z chwilą jej doręczenia. Decyzja określająca jest deklaratoryjna."
-                },
-                {
-                  pytanie: "Zaznacz prawidłowe zdanie:",
-                  odpowiedzi: [
-                    "istnienie obowiązku podatkowego jest warunkiem powstania zobowiązania podatkowego",
-                    "istnienie zobowiązania podatkowego jest warunkiem powstania obowiązku podatkowego",
-                    "obowiązek podatkowy i zobowiązanie podatkowe to byty od siebie niezależne"
-                  ],
-                  poprawna: 0,
-                  wyjasnienie: "Obowiązek podatkowy jest pierwotny — z niego dopiero może powstać (skonkretyzować się) zobowiązanie podatkowe."
-                },
-                {
-                  pytanie: "Wynikająca z ustaw, nieskonkretyzowana powinność przymusowego świadczenia pieniężnego w związku z zaistnieniem określonego zdarzenia to:",
-                  odpowiedzi: ["obowiązek podatkowy", "zobowiązanie podatkowe", "podstawa opodatkowania"],
-                  poprawna: 0,
-                  wyjasnienie: "To ustawowa definicja obowiązku podatkowego (art. 4 Ordynacji podatkowej) — jest nieskonkretyzowany, w odróżnieniu od zobowiązania."
-                },
-                {
-                  pytanie: "Organem odwoławczym od decyzji naczelnika urzędu skarbowego jest:",
-                  odpowiedzi: ["dyrektor izby administracji skarbowej", "dyrektor izby skarbowej", "Samorządowe Kolegium Odwoławcze"],
-                  poprawna: 0,
-                  wyjasnienie: "Po reformie KAS organem odwoławczym jest dyrektor izby administracji skarbowej (izby skarbowe już nie istnieją)."
-                },
-                {
-                  pytanie: "Zobowiązanie podatkowe powstaje:",
-                  odpowiedzi: [
-                    "z chwilą doręczenia decyzji ustalającej zobowiązanie podatkowe",
-                    "z chwilą wydania decyzji ustalającej zobowiązanie podatkowe",
-                    "z chwilą doręczenia decyzji określającej zobowiązanie podatkowe"
-                  ],
-                  poprawna: 0,
-                  wyjasnienie: "W przypadku decyzji konstytutywnej zobowiązanie powstaje z chwilą jej DORĘCZENIA (nie wydania)."
-                },
-                {
-                  pytanie: "Zobowiązanie podatkowe w przypadku podatku od spadków i darowizn powstaje:",
-                  odpowiedzi: [
-                    "w dniu doręczenia decyzji ustalającej zobowiązanie podatkowe",
-                    "w dniu otwarcia spadku",
-                    "w dniu doręczenia decyzji określającej zobowiązanie podatkowe"
-                  ],
-                  poprawna: 0,
-                  wyjasnienie: "Podatek od spadków i darowizn powstaje z chwilą doręczenia decyzji ustalającej (decyzja konstytutywna)."
-                },
-                {
-                  pytanie: "Dłużnikiem w stosunku zobowiązania podatkowego jest:",
-                  odpowiedzi: ["podatnik", "wierzyciel podatkowy", "organ podatkowy"],
-                  poprawna: 0,
-                  wyjasnienie: "W stosunku zobowiązaniowym podatnik jest dłużnikiem, a Skarb Państwa / jednostka samorządu — wierzycielem podatkowym."
-                },
-                {
-                  pytanie: "Wskaż podmiot, w którego kompetencjach NIE znajduje się obowiązek obliczenia podatku:",
-                  odpowiedzi: ["inkasent", "organ podatkowy", "płatnik"],
-                  poprawna: 0,
-                  wyjasnienie: "Inkasent jedynie pobiera i wpłaca podatek. Obliczenia dokonuje płatnik (oraz organ w decyzji)."
-                },
-                {
-                  pytanie: "Umorzenie zaległości podatkowej to:",
-                  odpowiedzi: [
-                    "nieefektywny sposób wygaśnięcia zobowiązania podatkowego",
-                    "efektywny sposób wygaśnięcia zobowiązania podatkowego",
-                    "nieefektywny sposób wygaśnięcia obowiązku podatkowego"
-                  ],
-                  poprawna: 0,
-                  wyjasnienie: "Przy umorzeniu wierzyciel podatkowy nie otrzymuje świadczenia — to nieefektywny sposób wygaśnięcia zobowiązania."
-                },
-                {
-                  pytanie: "Która z form opodatkowania dochodu wyklucza możliwość rozliczenia kosztów uzyskania przychodu?",
-                  odpowiedzi: [
-                    "ryczałt od przychodów ewidencjonowanych",
-                    "zasady ogólne (skala podatkowa)",
-                    "podatek liniowy 19% od dochodu z działalności gospodarczej"
-                  ],
-                  poprawna: 0,
-                  wyjasnienie: "W ryczałcie podstawą jest przychód — kosztów uzyskania przychodu się nie rozlicza."
-                },
-                {
-                  pytanie: "Który z podatków posiada w swojej konstrukcji podstawę opodatkowania?",
-                  odpowiedzi: ["ryczałt od przychodów ewidencjonowanych", "karta podatkowa", "ryczałt dla osób duchownych"],
-                  poprawna: 0,
-                  wyjasnienie: "W ryczałcie ewidencjonowanym podstawą jest przychód. Karta podatkowa i ryczałt dla osób duchownych mają kwoty ustalane bez klasycznej podstawy opodatkowania."
-                },
-                {
-                  pytanie: "W ryczałcie od przychodów ewidencjonowanych podstawą opodatkowania jest:",
-                  odpowiedzi: ["przychód", "dochód", "poniesiony koszt"],
-                  poprawna: 0,
-                  wyjasnienie: "Ryczałt liczony jest od przychodu, bez pomniejszania o koszty."
-                },
-                {
-                  pytanie: "Forma opodatkowania, w której organ podatkowy ustala kwotę podatku w drodze decyzji ustalającej, to:",
-                  odpowiedzi: ["karta podatkowa", "ryczałt od przychodów ewidencjonowanych", "zasady ogólne (skala podatkowa)"],
-                  poprawna: 0,
-                  wyjasnienie: "W karcie podatkowej wysokość podatku wynika z decyzji organu (decyzja ustalająca). Ryczałt i zasady ogólne — z mocy prawa."
-                },
-                {
-                  pytanie: "Wysokość podatku płaconego w formie karty podatkowej wynika z:",
-                  odpowiedzi: ["decyzji organu podatkowego", "postanowienia organu podatkowego", "samoobliczenia podatku przez podatnika"],
-                  poprawna: 0,
-                  wyjasnienie: "Stawkę karty podatkowej ustala naczelnik urzędu skarbowego w drodze decyzji."
-                },
-                {
-                  pytanie: "Podatnik, którego dochody opodatkowane są kartą podatkową:",
-                  odpowiedzi: [
-                    "składa deklarację, w której wykazana jest wysokość zapłaconych składek na ubezpieczenie zdrowotne",
-                    "ma obowiązek złożyć roczne zeznanie o osiągniętych dochodach",
-                    "nie składa żadnej deklaracji ani zeznania"
-                  ],
-                  poprawna: 0,
-                  wyjasnienie: "Podatnik karty nie składa zeznania rocznego, ale składa deklarację (PIT-16A) o wysokości zapłaconej składki zdrowotnej."
-                },
-                {
-                  pytanie: "Stawka podatku liniowego (proporcjonalnego) dla osób fizycznych prowadzących działalność gospodarczą wynosi:",
-                  odpowiedzi: ["19% podstawy obliczenia podatku", "19% osiągniętego przychodu", "15% osiągniętego dochodu"],
-                  poprawna: 0,
-                  wyjasnienie: "Podstawą jest dochód, a stawka wynosi 19% podstawy obliczenia podatku."
-                },
-                {
-                  pytanie: "Która z form opodatkowania NIE może być wykorzystana do opodatkowania dochodów uzyskanych przez osoby duchowne?",
-                  odpowiedzi: [
-                    "ryczałt od przychodów ewidencjonowanych",
-                    "zasady ogólne (skala podatkowa)",
-                    "zryczałtowany podatek dochodowy od przychodów osób duchownych"
-                  ],
-                  poprawna: 0,
-                  wyjasnienie: "Osoby duchowne mogą rozliczać się ryczałtem dla osób duchownych albo na zasadach ogólnych — nie ryczałtem ewidencjonowanym."
-                },
-                {
-                  pytanie: "Osoba fizyczna, która została obdarowana, staje się podatnikiem:",
-                  odpowiedzi: ["podatku od spadków i darowizn", "podatku dochodowego od osób fizycznych", "podatku od darowizn"],
-                  poprawna: 0,
-                  wyjasnienie: "Nabycie tytułem darowizny podlega podatkowi od spadków i darowizn (nie ma odrębnego „podatku od darowizn”)."
-                },
-                {
-                  pytanie: "Podatek od spadków i darowizn:",
-                  odpowiedzi: ["stanowi dochód jednostki samorządu terytorialnego", "stanowi dochód budżetu państwa", "jest dzielony po połowie między państwo a gminę"],
-                  poprawna: 0,
-                  wyjasnienie: "Wpływy z podatku od spadków i darowizn zasilają budżet gminy."
-                },
-                {
-                  pytanie: "Podział podatników na grupy podatkowe występuje w:",
-                  odpowiedzi: ["żadnym z wymienionych (jest w podatku od spadków i darowizn)", "podatku dochodowym od osób fizycznych", "ryczałcie od przychodów ewidencjonowanych"],
-                  poprawna: 0,
-                  wyjasnienie: "Grupy podatkowe (zależne od pokrewieństwa) charakterystyczne są dla podatku od spadków i darowizn."
-                },
-                {
-                  pytanie: "Darowizny na cele kultu religijnego pomniejszają:",
-                  odpowiedzi: ["dochód do opodatkowania", "kwotę podatku", "stawkę podatkową"],
-                  poprawna: 0,
-                  wyjasnienie: "To ulga odliczana od dochodu (w granicach ustawowego limitu)."
-                },
-                {
-                  pytanie: "Podatnik (osoba fizyczna) rozliczający dochód ze stosunku pracy może uwzględnić koszty:",
-                  odpowiedzi: [
-                    "ryczałtowe, tj. w kwocie wskazanej w ustawie",
-                    "poniesione w kwocie rzeczywistej",
-                    "według własnego wyboru: rzeczywiste albo ryczałtowe"
-                  ],
-                  poprawna: 0,
-                  wyjasnienie: "Koszty uzyskania przychodu ze stosunku pracy są zryczałtowane — określone kwotowo w ustawie o PIT."
-                },
-                {
-                  pytanie: "Nieodpłatność podatku oznacza, że:",
-                  odpowiedzi: [
-                    "podatnik za zapłacony podatek nie otrzymuje nic w zamian",
-                    "zapłacony we właściwej wysokości podatek nie podlega zwrotowi",
-                    "podatnik jest objęty zwolnieniem podatkowym"
-                  ],
-                  poprawna: 0,
-                  wyjasnienie: "Cechą podatku jest nieodpłatność — brak bezpośredniego, ekwiwalentnego świadczenia wzajemnego ze strony państwa."
-                },
-                {
-                  pytanie: "Zobowiązania podatkowe ulegają przedawnieniu z upływem:",
-                  odpowiedzi: ["pięciu lat", "trzech lat", "roku"],
-                  poprawna: 0,
-                  wyjasnienie: "Zasada ogólna: 5 lat, licząc od końca roku kalendarzowego, w którym upłynął termin płatności podatku (art. 70 Ordynacji podatkowej)."
-                },
-                {
-                  pytanie: "Zobowiązanie podatkowe z tytułu PIT (zasady ogólne) za 2015 r. uległo przedawnieniu:",
-                  odpowiedzi: ["1 stycznia 2022 r.", "1 stycznia 2023 r.", "1 stycznia 2020 r."],
-                  poprawna: 0,
-                  wyjasnienie: "Termin płatności przypadał na 30 kwietnia 2016 r. Bieg liczymy od końca 2016 r.; po 5 latach (koniec 2021 r.) przedawnienie następuje z dniem 1 stycznia 2022 r."
-                },
-                {
-                  pytanie: "Które kryterium NIE decyduje o rezydencji podatkowej osoby fizycznej w Polsce?",
-                  odpowiedzi: ["obywatelstwo polskie", "przebywanie na terytorium RP co najmniej 183 dni w roku", "centrum interesów życiowych"],
-                  poprawna: 0,
-                  wyjasnienie: "O rezydencji decyduje centrum interesów życiowych lub pobyt powyżej 183 dni — nie obywatelstwo."
-                },
-                {
-                  pytanie: "Firmujący to:",
-                  odpowiedzi: [
-                    "podmiot, który w celu zatajenia prowadzenia działalności gospodarczej posługuje się imieniem i nazwiskiem, nazwą lub firmą innej osoby",
-                    "osoba prowadząca działalność gospodarczą odpowiedzialna za swoje zobowiązania podatkowe",
-                    "osoba, za zgodą której podatnik posługuje się jej imieniem i nazwiskiem"
-                  ],
-                  poprawna: 0,
-                  wyjasnienie: "Firmujący posługuje się cudzymi danymi dla zatajenia działalności. Osoba, która na to zezwala, to firmowany (odpowiada jako osoba trzecia)."
-                },
-                {
-                  pytanie: "Czy konkubent może być osobą odpowiedzialną za zobowiązania podatkowe podatnika?",
-                  odpowiedzi: [
-                    "tak, ale tylko wtedy, gdy osiąga korzyść majątkową z działalności gospodarczej prowadzonej przez podatnika",
-                    "nie — konkubent nie jest członkiem rodziny, więc nie odpowiada",
-                    "tak, ale tylko wtedy, gdy istnieje między nim a podatnikiem wspólność majątkowa"
-                  ],
-                  poprawna: 0,
-                  wyjasnienie: "Osoba pozostająca w faktycznym pożyciu odpowiada jak członek rodziny — gdy stale współdziała w działalności i osiąga z niej korzyści majątkowe."
-                },
-                {
-                  pytanie: "Które źródło przychodów NIE może być opodatkowane ryczałtem od przychodów ewidencjonowanych?",
-                  odpowiedzi: ["stosunek pracy", "najem prywatny", "działalność gospodarcza"],
-                  poprawna: 0,
-                  wyjasnienie: "Przychody ze stosunku pracy rozliczane są na zasadach ogólnych (skala) — nie podlegają ryczałtowi."
-                },
-                {
-                  pytanie: "Nadpłata jest zaliczana na poczet wymagalnych zobowiązań podatkowych:",
-                  odpowiedzi: ["z urzędu", "na wniosek podatnika", "w trybie umowy"],
-                  poprawna: 0,
-                  wyjasnienie: "Organ zalicza nadpłatę na poczet zaległości i bieżących zobowiązań z urzędu."
-                },
-                {
-                  pytanie: "Oprócz małżonków z preferencyjnego (łącznego) opodatkowania dochodów w PIT może skorzystać:",
-                  odpowiedzi: ["osoba samotnie wychowująca dzieci", "cudzoziemiec z prawem stałego pobytu", "emeryci i renciści"],
-                  poprawna: 0,
-                  wyjasnienie: "Z preferencyjnego rozliczenia (obliczenie podatku w podwójnej wysokości od połowy dochodów) korzysta także osoba samotnie wychowująca dzieci."
-                },
-                {
-                  pytanie: "Która przesłanka wyklucza wspólne opodatkowanie małżonków w PIT?",
-                  odpowiedzi: ["ustanie wspólności majątkowej w wyniku separacji", "brak dochodów po stronie jednego z małżonków", "śmierć małżonka w trakcie roku podatkowego"],
-                  poprawna: 0,
-                  wyjasnienie: "Orzeczenie separacji (i ustanie wspólności) wyłącza wspólne rozliczenie. Brak dochodów jednego z małżonków oraz wdowieństwo nie wykluczają wspólnego opodatkowania."
-                },
-                {
-                  pytanie: "Przy obliczaniu podstawy podatku dochodowego od osób fizycznych odliczeniu NIE podlegają:",
-                  odpowiedzi: ["składki z tytułu ubezpieczenia zdrowotnego", "darowizny przekazane na cele kultu religijnego", "wydatki na korzystanie z Internetu (ulga internetowa)"],
-                  poprawna: 0,
-                  wyjasnienie: "Składki zdrowotnej nie odlicza się od podstawy (dochodu). Darowizny na kult i ulga internetowa są odliczane od dochodu."
-                },
-                {
-                  pytanie: "Zgodnie z Konstytucją RP każdy jest obowiązany do ponoszenia ciężarów i świadczeń publicznych, w tym podatków, określonych w:",
-                  odpowiedzi: ["ustawie", "Konstytucji", "przepisach prawa"],
-                  poprawna: 0,
-                  wyjasnienie: "Art. 84 i 217 Konstytucji — nakładanie podatków następuje w drodze ustawy."
-                },
-                {
-                  pytanie: "Podstawę opodatkowania dla budynku w podatku od nieruchomości stanowi:",
-                  odpowiedzi: ["powierzchnia użytkowa (w m²)", "wartość rynkowa budynku", "liczba kondygnacji"],
-                  poprawna: 0,
-                  wyjasnienie: "Dla budynków lub ich części podstawą jest powierzchnia użytkowa wyrażona w metrach kwadratowych."
-                },
-                {
-                  pytanie: "Wyłącznie do budżetu państwa trafiają wpływy z podatku:",
-                  odpowiedzi: ["akcyzowego", "od nieruchomości", "rolnego"],
-                  poprawna: 0,
-                  wyjasnienie: "Akcyza jest dochodem budżetu państwa. Podatek od nieruchomości i rolny zasilają budżety gmin."
-                },
-                {
-                  pytanie: "Reguły sankcyjne (procedury ostrożnościowe) z ustawy o finansach publicznych stosuje się, gdy relacja państwowego długu publicznego do PKB przekroczy:",
-                  odpowiedzi: ["55%", "45%", "70%"],
-                  poprawna: 0,
-                  wyjasnienie: "Pierwszy próg ostrożnościowy uruchamiający ograniczenia to 55% relacji długu do PKB. (Warto zweryfikować z materiałami kursu.)"
-                }
-              ]
-            },
-
-            /* ---- TEST 2: PRAWDA / FAŁSZ ---- */
-            {
-              nazwa: "Prawda / Fałsz",
-              pytania: [
-                {
-                  pytanie: "Odpowiedzialność podatkowa osób trzecich ma charakter osobisty.",
-                  odpowiedzi: ["Prawda", "Fałsz"],
-                  poprawna: 0,
-                  wyjasnienie: "Osoba trzecia odpowiada całym swoim majątkiem — jest to odpowiedzialność osobista (choć solidarna z podatnikiem i subsydiarna)."
-                },
-                {
-                  pytanie: "Odpowiedzialność osób trzecich za zobowiązania podatkowe powstaje z mocy prawa.",
-                  odpowiedzi: ["Prawda", "Fałsz"],
-                  poprawna: 1,
-                  wyjasnienie: "Fałsz — powstaje dopiero w drodze konstytutywnej decyzji organu podatkowego o odpowiedzialności konkretnej osoby trzeciej."
-                },
-                {
-                  pytanie: "Odpowiedzialność podatkowa osób trzecich dotyczy zamkniętego katalogu podmiotów.",
-                  odpowiedzi: ["Prawda", "Fałsz"],
-                  poprawna: 0,
-                  wyjasnienie: "Prawda — Ordynacja podatkowa wymienia zamknięty (enumeratywny) katalog osób trzecich."
-                },
-                {
-                  pytanie: "W niektórych przypadkach odpowiedzialność osób trzecich może być ograniczona kwotowo lub przedmiotowo.",
-                  odpowiedzi: ["Prawda", "Fałsz"],
-                  poprawna: 0,
-                  wyjasnienie: "Prawda — np. nabywca przedsiębiorstwa odpowiada do wartości nabytego majątku, a rozwiedziony małżonek do wysokości udziału w majątku wspólnym."
-                },
-                {
-                  pytanie: "Rozwiedziony małżonek odpowiada za zaległości podatkowe z okresu małżeństwa całym swoim majątkiem, lecz tylko do wysokości przypadającego mu udziału w majątku wspólnym.",
-                  odpowiedzi: ["Prawda", "Fałsz"],
-                  poprawna: 0,
-                  wyjasnienie: "Prawda — to ograniczenie kwotowe odpowiedzialności rozwiedzionego małżonka (art. 110 Ordynacji podatkowej)."
-                },
-                {
-                  pytanie: "Nabywca przedsiębiorstwa odpowiada jako osoba trzecia za zaległości zbywcy z tytułu podatku od spadków i darowizn.",
-                  odpowiedzi: ["Prawda", "Fałsz"],
-                  poprawna: 1,
-                  wyjasnienie: "Fałsz — odpowiedzialność nabywcy obejmuje zaległości związane z prowadzeniem przedsiębiorstwa; osobisty podatek od spadków i darowizn zbywcy nie jest nią objęty."
-                },
-                {
-                  pytanie: "Zgodnie z Ordynacją podatkową wyłącznie podatnik odpowiada za zapłatę należności podatkowej.",
-                  odpowiedzi: ["Prawda", "Fałsz"],
-                  poprawna: 1,
-                  wyjasnienie: "Fałsz — odpowiadać mogą także płatnik, inkasent oraz osoby trzecie."
-                },
-                {
-                  pytanie: "Pożyczka jest przychodem w rozumieniu ustawy o podatku dochodowym od osób fizycznych.",
-                  odpowiedzi: ["Prawda", "Fałsz"],
-                  poprawna: 1,
-                  wyjasnienie: "Fałsz — pożyczka jest zwrotna, nie stanowi definitywnego przysporzenia, więc nie jest przychodem."
-                },
-                {
-                  pytanie: "Podatnik opodatkowany stałą 19% stawką (liniową) może skorzystać z kwoty wolnej od podatku.",
-                  odpowiedzi: ["Prawda", "Fałsz"],
-                  poprawna: 1,
-                  wyjasnienie: "Fałsz — kwota wolna od podatku przysługuje przy rozliczeniu według skali podatkowej, nie przy podatku liniowym."
-                },
-                {
-                  pytanie: "Powstanie obowiązku podatkowego oznacza, że podatnik zawsze będzie musiał zapłacić podatek.",
-                  odpowiedzi: ["Prawda", "Fałsz"],
-                  poprawna: 1,
-                  wyjasnienie: "Fałsz — obowiązek podatkowy to dopiero stan abstrakcyjny; konkretne zobowiązanie (i zapłata) może nie powstać, np. z uwagi na ulgi czy brak podstawy opodatkowania."
-                },
-                {
-                  pytanie: "Członek zarządu spółki z o.o. w żadnym wypadku nie odpowiada za zobowiązania podatkowe tej spółki.",
-                  odpowiedzi: ["Prawda", "Fałsz"],
-                  poprawna: 1,
-                  wyjasnienie: "Fałsz — członek zarządu odpowiada subsydiarnie jako osoba trzecia (art. 116 Ordynacji podatkowej), jeśli egzekucja z majątku spółki jest bezskuteczna."
-                },
-                {
-                  pytanie: "W Ordynacji podatkowej podatnik znajdzie regulacje dotyczące konstrukcji poszczególnych podatków (np. stawek PIT).",
-                  odpowiedzi: ["Prawda", "Fałsz"],
-                  poprawna: 1,
-                  wyjasnienie: "Fałsz — Ordynacja zawiera część ogólną prawa podatkowego; konstrukcje poszczególnych podatków regulują ustawy szczególne."
-                },
-                {
-                  pytanie: "Podatnik PIT uzyskujący przychody ze stosunku pracy może zaliczyć do kosztów uzyskania przychodu każdy wydatek służący uzyskaniu przychodu.",
-                  odpowiedzi: ["Prawda", "Fałsz"],
-                  poprawna: 1,
-                  wyjasnienie: "Fałsz — koszty ze stosunku pracy są ryczałtowe (kwotowo określone w ustawie), a nie ustalane indywidualnie."
-                },
-                {
-                  pytanie: "Osoby duchowne nie płacą w Polsce podatku dochodowego.",
-                  odpowiedzi: ["Prawda", "Fałsz"],
-                  poprawna: 1,
-                  wyjasnienie: "Fałsz — osoby duchowne płacą zryczałtowany podatek dochodowy od przychodów osób duchownych (albo rozliczają się na zasadach ogólnych)."
-                },
-                {
-                  pytanie: "Podatnik prowadzący działalność opodatkowaną ryczałtem od przychodów ewidencjonowanych może kwotę podatku pomniejszyć o zapłacone składki na ubezpieczenie zdrowotne.",
-                  odpowiedzi: ["Prawda", "Fałsz"],
-                  poprawna: 1,
-                  wyjasnienie: "Fałsz — ryczałtowiec nie odlicza składki zdrowotnej od kwoty podatku; może jedynie pomniejszyć przychód o 50% zapłaconych składek zdrowotnych."
-                },
-                {
-                  pytanie: "Źródłem obowiązku podatkowego może być wyłącznie ustawa.",
-                  odpowiedzi: ["Prawda", "Fałsz"],
-                  poprawna: 0,
-                  wyjasnienie: "Prawda — podatki nakłada się wyłącznie w drodze ustawy (art. 217 Konstytucji)."
-                },
-                {
-                  pytanie: "Zapłata podatku może zostać dokonana przez inną osobę niż podatnik.",
-                  odpowiedzi: ["Prawda", "Fałsz"],
-                  poprawna: 0,
-                  wyjasnienie: "Prawda — np. małżonek lub najbliższa rodzina bez ograniczeń, a inny podmiot, gdy kwota podatku nie przekracza 1000 zł."
-                },
-                {
-                  pytanie: "Co do zasady skala w podatku dochodowym od osób fizycznych ma charakter progresywny.",
-                  odpowiedzi: ["Prawda", "Fałsz"],
-                  poprawna: 0,
-                  wyjasnienie: "Prawda — wraz ze wzrostem podstawy rośnie stawka (skala 12% i 32%)."
-                },
-                {
-                  pytanie: "Podatek płacony w formie karty podatkowej zasila budżet gminy.",
-                  odpowiedzi: ["Prawda", "Fałsz"],
-                  poprawna: 0,
-                  wyjasnienie: "Prawda — wpływy z karty podatkowej są dochodem gminy (mimo że organem właściwym jest naczelnik US)."
-                },
-                {
-                  pytanie: "Stawka opłaty prolongacyjnej jest równa obniżonej stawce odsetek za zwłokę.",
-                  odpowiedzi: ["Prawda", "Fałsz"],
-                  poprawna: 0,
-                  wyjasnienie: "Prawda — opłata prolongacyjna odpowiada obniżonej (połowie) stawce odsetek za zwłokę."
-                },
-                {
-                  pytanie: "Podatnicy karty podatkowej wpłacają podatek w formie miesięcznych zaliczek.",
-                  odpowiedzi: ["Prawda", "Fałsz"],
-                  poprawna: 1,
-                  wyjasnienie: "Fałsz — płacą stałą miesięczną kwotę podatku wynikającą z decyzji, a nie zaliczki liczone od dochodu."
-                },
-                {
-                  pytanie: "Do obowiązków inkasenta należy obliczanie wysokości podatku.",
-                  odpowiedzi: ["Prawda", "Fałsz"],
-                  poprawna: 1,
-                  wyjasnienie: "Fałsz — inkasent jedynie pobiera i wpłaca podatek; obliczenia dokonuje płatnik lub organ."
-                },
-                {
-                  pytanie: "Prawo do zwrotu nadpłaty podatku wygasa po upływie 5 lat, licząc od końca roku, w którym upłynął termin jej zwrotu.",
-                  odpowiedzi: ["Prawda", "Fałsz"],
-                  poprawna: 0,
-                  wyjasnienie: "Prawda — to ogólny 5-letni termin z Ordynacji podatkowej."
-                },
-                {
-                  pytanie: "Wieloletni plan finansowy państwa stanowi podstawę przygotowania projektu ustawy budżetowej na kolejny rok.",
-                  odpowiedzi: ["Prawda", "Fałsz"],
-                  poprawna: 0,
-                  wyjasnienie: "Prawda — wieloletni plan finansowy państwa jest punktem odniesienia dla projektu ustawy budżetowej."
-                }
-              ]
-            },
-
-            /* ---- TEST 3: UZUPEŁNIANIE LUK ---- */
-            {
-              nazwa: "Uzupełnianie luk",
-              pytania: [
-                {
-                  typ: "luka",
-                  pytanie: "Podmiot, który ma obowiązek obliczyć, pobrać i wpłacić podatek, to __________.",
-                  luki: ["płatnik", "platnik"],
-                  wyjasnienie: "To definicja płatnika (art. 8 Ordynacji podatkowej)."
-                },
-                {
-                  typ: "luka",
-                  pytanie: "W podatku dochodowym od osób fizycznych __________ obowiązek podatkowy obejmuje osoby fizyczne, które nie mają w Polsce miejsca zamieszkania.",
-                  luki: ["ograniczony"],
-                  wyjasnienie: "Nierezydenci podlegają ograniczonemu obowiązkowi podatkowemu — tylko od dochodów osiągniętych w Polsce."
-                },
-                {
-                  typ: "luka",
-                  pytanie: "Decyzja organu podatkowego, która nie powoduje powstania nowych praw i obowiązków podatnika, a jedynie stwierdza ich istnienie, to decyzja __________.",
-                  luki: ["określająca", "okreslajaca", "deklaratoryjna"],
-                  wyjasnienie: "Decyzja określająca ma charakter deklaratoryjny — potwierdza zobowiązanie, które powstało z mocy prawa."
-                },
-                {
-                  typ: "luka",
-                  pytanie: "Decyzja powodująca powstanie zobowiązania podatkowego to decyzja __________.",
-                  luki: ["ustalająca", "ustalajaca", "konstytutywna"],
-                  wyjasnienie: "Decyzja ustalająca ma charakter konstytutywny — z chwilą jej doręczenia powstaje zobowiązanie podatkowe."
-                },
-                {
-                  typ: "luka",
-                  pytanie: "Zobowiązania podatkowe ulegają przedawnieniu z upływem __________ lat (wpisz cyfrę).",
-                  luki: ["5", "pięciu", "pieciu"],
-                  wyjasnienie: "Zasada ogólna z art. 70 Ordynacji podatkowej — 5 lat."
-                },
-                {
-                  typ: "luka",
-                  pytanie: "Odpowiedzialność osób trzecich za zobowiązania podatkowe ma charakter __________, co oznacza, że do zapłaty całej kwoty zobowiązana jest zarówno osoba trzecia, jak i podatnik.",
-                  luki: ["solidarny", "solidarna", "solidarnej"],
-                  wyjasnienie: "Odpowiedzialność solidarna — wierzyciel może dochodzić całości lub części długu od każdego z dłużników."
-                },
-                {
-                  typ: "luka",
-                  pytanie: "Odpowiedzialność podatkowa osób trzecich ma charakter __________, co oznacza, że jest uwarunkowana brakiem skuteczności egzekucji prowadzonej z majątku podatnika.",
-                  luki: ["subsydiarny", "subsydiarna", "posiłkowy"],
-                  wyjasnienie: "Subsydiarność — osoba trzecia odpowiada dopiero, gdy egzekucja z majątku podatnika okaże się bezskuteczna."
-                },
-                {
-                  typ: "luka",
-                  pytanie: "Jedyną jednostką samorządu terytorialnego, która posiada „własne” podatki, jest __________.",
-                  luki: ["gmina"],
-                  wyjasnienie: "Tylko gmina ma własne podatki (np. od nieruchomości, rolny, leśny, od środków transportowych)."
-                },
-                {
-                  typ: "luka",
-                  pytanie: "Wierzycielem podatkowym w polskim systemie podatkowym może być Skarb Państwa bądź __________.",
-                  luki: ["gmina", "jednostka samorządu terytorialnego", "jednostka samorzadu terytorialnego"],
-                  wyjasnienie: "Wierzycielem podatkowym jest Skarb Państwa albo jednostka samorządu terytorialnego (gmina)."
-                },
-                {
-                  typ: "luka",
-                  pytanie: "Zdarzenie faktyczne bądź prawne, z którym prawo wiąże powstanie obowiązku podatkowego, to __________ opodatkowania (element konstrukcji podatku).",
-                  luki: ["przedmiot"],
-                  wyjasnienie: "To przedmiot opodatkowania — sytuacja faktyczna lub prawna rodząca obowiązek podatkowy."
-                },
-                {
-                  typ: "luka",
-                  pytanie: "Podstawę opodatkowania w ryczałcie od przychodów ewidencjonowanych stanowi __________.",
-                  luki: ["przychód", "przychod"],
-                  wyjasnienie: "W ryczałcie podstawą jest przychód, bez pomniejszania o koszty."
-                },
-                {
-                  typ: "luka",
-                  pytanie: "Ulga prorodzinna polega na odliczeniu określonej kwoty od __________.",
-                  luki: ["podatku"],
-                  wyjasnienie: "Ulga prorodzinna (na dzieci) jest odliczana od podatku, a nie od dochodu."
-                },
-                {
-                  typ: "luka",
-                  pytanie: "Stawki w podatku dochodowym od osób fizycznych w ramach skali podatkowej wynoszą 12 i __________ procent.",
-                  luki: ["32"],
-                  wyjasnienie: "Aktualna skala PIT to dwie stawki: 12% i 32%."
-                },
-                {
-                  typ: "luka",
-                  pytanie: "Podstawowa stawka w podatku od towarów i usług (VAT) wynosi __________ procent.",
-                  luki: ["23"],
-                  wyjasnienie: "Podstawowa stawka VAT w Polsce wynosi 23%."
-                },
-                {
-                  typ: "luka",
-                  pytanie: "Adam Smith sformułował cztery klasyczne zasady podatkowe: równość, pewność, taniość oraz __________.",
-                  luki: ["dogodność", "dogodnosc"],
-                  wyjasnienie: "Czwarta zasada to dogodność (poboru) podatku."
-                },
-                {
-                  typ: "luka",
-                  pytanie: "Podatek do zapłaty w podatku od towarów i usług to różnica między podatkiem należnym a podatkiem __________.",
-                  luki: ["naliczonym", "naliczony"],
-                  wyjasnienie: "VAT do zapłaty = podatek należny − podatek naliczony."
-                },
-                {
-                  typ: "otwarte",
-                  pytanie: "Małżonkowie rozliczają się wspólnie. Jeden z nich osiągnął w roku podatkowym dochód 200 000 zł, drugi nie uzyskał żadnego dochodu (0 zł). Ile wyniesie ich podatek dochodowy (PIT) przy wspólnym rozliczeniu według skali podatkowej?",
-                  polecenie: "Policz podatek i wpisz wynik wraz z obliczeniami, a następnie kliknij „Pokaż odpowiedź wzorcową”.",
-                  wzor: "<b>16 800 zł.</b> Przy wspólnym rozliczeniu podatek liczy się w podwójnej wysokości od połowy łącznych dochodów małżonków. Połowa = 200 000 / 2 = 100 000 zł. Kwota 100 000 zł mieści się w I progu skali (do 120 000 zł), więc podatek od niej: 12% × 100 000 − 3 600 (kwota zmniejszająca podatek) = 12 000 − 3 600 = 8 400 zł. Podatek łączny = 2 × 8 400 = <b>16 800 zł</b>.<br><br>Dla porównania: gdyby osoba zarabiająca 200 000 zł rozliczała się samodzielnie, weszłaby w II próg i zapłaciła 10 800 + 32% × (200 000 − 120 000) = 10 800 + 25 600 = 36 400 zł. Wspólne rozliczenie daje tu więc dużą oszczędność. (Założenie upraszczające: dochód = podstawa opodatkowania, bez składek i ulg.)",
-                  wyjasnienie: "Mechanizm wspólnego opodatkowania: podatek = 2 × podatek obliczony od (łączny dochód ÷ 2)."
-                }
+                { pytanie: "Za zobowiązania podatkowe fundacji odpowiada/odpowiadają:", odpowiedzi: ["wyłącznie prezes zarządu fundacji", "prezes fundacji", "organ założycielski", "rada fundacji", "członkowie zarządu fundacji"], poprawna: 4, wyjasnienie: "Zgodnie z Ordynacją podatkową odpowiedzialność członków zarządu innych osób prawnych stosuje się odpowiednio także do fundacji, dlatego za jej zaległości podatkowe odpowiadają członkowie zarządu." },
+                { pytanie: "Karalność czynów stanowiących naruszenie dyscypliny finansów publicznych ustaje, jeśli od ich popełnienia minęło:", odpowiedzi: ["w zakresie dyscypliny finansów publicznych nie dochodzi do przedawnienia", "3 lata", "5 lat", "1 rok", "10 lat"], poprawna: 1, wyjasnienie: "Karalność naruszenia dyscypliny finansów publicznych ustaje co do zasady po upływie 3 lat od popełnienia czynu." },
+                { pytanie: "Zobowiązanie podatkowe przedawnia się z upływem 5 lat licząc od:", odpowiedzi: ["dnia powstania obowiązku podatkowego", "upływu terminu płatności podatku", "końca roku kalendarzowego, w którym upłynął termin płatności", "końca miesiąca, w którym upłynął termin płatności podatku", "dnia następnego po dniu, w którym upłynął term złożenia deklaracji/zeznania podatkowego"], poprawna: 2, wyjasnienie: "Ordynacja podatkowa przewiduje, że zobowiązanie podatkowe przedawnia się po 5 latach liczonych od końca roku kalendarzowego, w którym upłynął termin płatności podatku." },
+                { pytanie: "Dniem wejścia w życie ustawy podatkowej jest", odpowiedzi: ["dzień złożenia projektu ustawy przez jej wnioskodawców", "dzień wskazany w ustawie", "dzień podpisania ustawy przez Prezydenta RP", "dzień uchwalenia przez Sejm RP", "dzień opublikowania w ustawy w Dzienniku Ustaw"], poprawna: 1, wyjasnienie: "O wejściu w życie ustawy decyduje przepis końcowy samej ustawy, który wskazuje datę albo regułę jej wejścia w życie." },
+                { pytanie: "Jednostki samorządu terytorialnego mają prawo ustalania wysokości podatków i opłat lokalnych", odpowiedzi: ["bez ograniczeń", "w zakresie określonym w ustawie", "zgodnie z posiadanym zakresem władztwa podatkowego", "na podstawie upoważnienia ministra finansów", "dowolnie, zgodnie z posiadaną autonomią finansową"], poprawna: 1, wyjasnienie: "Konstytucja RP przyznaje jednostkom samorządu terytorialnego prawo ustalania wysokości podatków i opłat lokalnych, ale tylko w granicach określonych ustawą." },
+                { pytanie: "Zobowiązanie podatkowe wygasa w całości lub w części wskutek:", odpowiedzi: ["przerzucenia ciężaru podatkowego", "zaniechania poboru", "przedawnienia terminu poboru podatku", "potrącenia wierzytelności podatnika wobec państwowej jednostki budżetowej", "rozłożenia płatności na raty"], poprawna: 1, wyjasnienie: "Zaniechanie poboru jest jednym z ustawowych sposobów wygaśnięcia zobowiązania podatkowego." },
+                { pytanie: "Odpowiedzialność za naruszenie dyscypliny finansów publicznych wymaga stwierdzenia:", odpowiedzi: ["przypisania winy konkretnej osobie/osobom", "istotnej szkodliwości dla finansów publicznych", "zawiadomienia właściwego rzecznika dyscypliny finansów publicznych przez podmiot wskazany w art. 93 ustawy", "umyślności działania", "dobrej znajomości przepisów prawa finansowego"], poprawna: 0, wyjasnienie: "Odpowiedzialność za naruszenie dyscypliny finansów publicznych jest odpowiedzialnością osobistą i wymaga przypisania winy konkretnej osobie." },
+                { pytanie: "Zgodnie z ustawą zasadniczą źródłami powszechnie obowiązującego prawa są na obszarze działania organów, które je ustanowiły:", odpowiedzi: ["wyłącznie ustawy i rozporządzenia", "umowy międzynarodowe", "akty prawa miejscowego", "orzeczenia sądów", "ustawy i rozporządzenia"], poprawna: 2, wyjasnienie: "Konstytucja RP wskazuje, że akty prawa miejscowego są źródłami prawa powszechnie obowiązującego na obszarze działania organów, które je ustanowiły." },
+                { pytanie: "Przeniesienie przez podatnika własności rzeczy na rzecz Skarbu Państwa, będące szczególnym przypadkiem wygaśnięcia zobowiązania podatkowego, następuje na podstawie umowy zawartej:", odpowiedzi: ["między podatnikiem a prezydentem miasta na prawach powiatu", "między podatnikiem a naczelnikiem urzędu skarbowego", "między podatnikiem a dyrektorem izby administracji skarbowej", "między podatnikiem a płatnikiem", "między podatnikiem a starostą"], poprawna: 4, wyjasnienie: "Przeniesienie własności rzeczy lub praw majątkowych na rzecz Skarbu Państwa następuje na podstawie umowy podatnika ze starostą wykonującym zadania z zakresu administracji rządowej." },
+                { pytanie: "Członek zarządu spółki z ograniczoną odpowiedzialnością odpowiada za zaległości podatkowe spółki:", odpowiedzi: ["jeżeli egzekucja z majątku spółki okazała się w całości lub w części bezskuteczna", "całym swoim majątkiem", "wyłącznie w okresie, gdy pełni/pełnił funkcje członka zarządu spółki", "solidarnie ze spółką", "jeśli wyrazi taką wolę"], poprawna: 0, wyjasnienie: "Członek zarządu spółki z o.o. odpowiada za zaległości podatkowe spółki wtedy, gdy egzekucja z majątku spółki okazała się w całości lub w części bezskuteczna." },
+                { pytanie: "Odpowiedzialność z tytułu naruszenia dyscypliny finansów publicznych dotyczy:", odpowiedzi: ["ograniczona jest do zamkniętego katalogu określonego w art. 5-18c ustawy o odpowiedzialności za naruszenie dyscypliny finansów publicznych", "dotyczy tylko zamówień publicznych", "wszelkich nieprawidłowości w zakresie gromadzenia i wydatkowania środków publicznych", "dotyczy tylko określonych nieprawidłowości w zakresie wydatkowania środków publicznych", "dotyczy tylko nieprawidłowości w zakresie kontroli zarządczej w jednostkach sektora finansów publicznych"], poprawna: 0, wyjasnienie: "Odpowiedzialność z tytułu naruszenia dyscypliny finansów publicznych obejmuje tylko czyny wskazane w zamkniętym katalogu ustawy." },
+                { pytanie: "Zobowiązanie podatkowe powstaje z dniem", odpowiedzi: ["wydania decyzji organu podatkowego określającej wysokość zobowiązania podatkowego", "1-go dnia każdego nowego roku", "wysłania zawiadomienia przez organ podatkowy na adres zamieszkania lub siedziby podatnika", "doręczenia decyzji organu podatkowego określającej wysokość zobowiązania podatkowego", "zaistnienia zdarzenia, z którym ustawa wiąże powstanie zobowiązania podatkowego"], poprawna: 4, wyjasnienie: "Zobowiązanie podatkowe powstające z mocy prawa powstaje z dniem zaistnienia zdarzenia, z którym ustawa wiąże jego powstanie." },
+                { pytanie: "Organami orzekającymi w sprawach naruszenia dyscypliny finansów publicznych są:", odpowiedzi: ["międzyresortowe komisje orzekające", "sądy powszechne", "regionalne komisje orzekające", "regionalne izby obrachunkowe", "wspólna komisja orzekająca"], poprawna: 2, wyjasnienie: "Regionalne komisje orzekające są organami orzekającymi w sprawach naruszenia dyscypliny finansów publicznych, zwłaszcza w sprawach dotyczących jednostek samorządowych." },
+                { pytanie: "Zawiadomienie o ujawnieniu okoliczności wskazujących naruszenie dyscypliny finansów publicznych składa do właściwego rzecznika:", odpowiedzi: ["każdy bez względu na miejsce zamieszkania", "każdy radny", "kierownik jednostki sektora finansów publicznych", "każdy poseł", "każda osoba fizyczna mająca miejsce zamieszkania na terytorium RP"], poprawna: 2, wyjasnienie: "Kierownik jednostki sektora finansów publicznych ma obowiązek zawiadomić właściwego rzecznika o ujawnionych okolicznościach wskazujących na naruszenie dyscypliny finansów publicznych." },
+                { pytanie: "Organ podatkowy, na wniosek podatnika, ogranicza pobór zaliczek na podatek, jeżeli:", odpowiedzi: ["nie ma takiej możliwości prawnej", "podatnik uprawdopodobni, że pobrane zaliczki obliczone wg zasad wynikających z ustaw podatkowych byłyby niewspółmiernie wysokie w stosunku do dochodu przewidzianego za dany rok podatkowy", "przemawia za tym interes publiczny", "przemawia za tym ważny interes podatnika", "pobranie zaliczek spowodowałoby uszczerbek dla podatnika"], poprawna: 1, wyjasnienie: "Organ podatkowy może ograniczyć pobór zaliczek, gdy podatnik uprawdopodobni, że zaliczki obliczone według ustawowych zasad byłyby niewspółmiernie wysokie do przewidywanego dochodu." },
+                { pytanie: "Rozporządzenia ministra finansów są publikowane", odpowiedzi: ["w Dzienniku Gazeta Prawna", "w Monitorze Polskim", "w Monitorze Skarbowym", "Dzienniku Ustaw", "na blogu ministra finansów"], poprawna: 3, wyjasnienie: "Rozporządzenia jako akty powszechnie obowiązujące są publikowane w Dzienniku Ustaw." },
+                { pytanie: "Zgodnie z Konstytucją RP", odpowiedzi: ["Minister Finansów może wprowadzić nowe podatki poprzez ogłoszenie na stronie gov.pl", "nakładanie podatków i innych danin publicznych może nastąpić w drodze ustawy lub uchwały", "Rada Ministrów może uznać uchwalony przez siebie projekt ustawy podatkowej za pilny, tym samym nadając moc prawnie wiążącą", "nakładanie podatków i innych danin publicznych może nastąpić w drodze ustawy lub rozporządzenia", "każdy jest obowiązany do ponoszenia ciężarów i świadczeń publicznych, w tym podatków, określonych w ustawie"], poprawna: 4, wyjasnienie: "Art. 84 Konstytucji RP stanowi, że każdy ma obowiązek ponoszenia ciężarów i świadczeń publicznych, w tym podatków, określonych w ustawie." },
+                { pytanie: "Małżonkowie opodatkowani łącznie od sumy swoich dochodów:", odpowiedzi: ["odpowiadają za zobowiązania podatkowe w proporcji ustalonej w intercyzie przedmałżeńskiej", "odpowiadają za zobowiązania podatkowe w proporcji odpowiadającej wysokości ich dochodów", "ponoszą solidarną odpowiedzialność za zobowiązanie podatkowe", "odpowiadają za zobowiązania podatkowe tylko, jeśli w danym czasie przebywają na terytorium RP", "są uprawnieni do zwrotu nadpłaty w częściach równych"], poprawna: 2, wyjasnienie: "Małżonkowie opodatkowani łącznie odpowiadają solidarnie za zobowiązanie podatkowe wynikające ze wspólnego rozliczenia." },
+                { pytanie: "Odpowiedzialność z tytułu naruszenia dyscypliny finansów publicznych ponoszą:", odpowiedzi: ["kierownicy i pracownicy jednostek sektora finansów publicznych", "wyłącznie pracownicy jednostek sektora finansów publicznych", "wyłącznie rektorzy uczelni publicznych", "tylko główny księgowy jednostki sektora finansów publicznych", "rektorzy uczelni publicznych i niepublicznych"], poprawna: 0, wyjasnienie: "Odpowiedzialność za naruszenie dyscypliny finansów publicznych mogą ponosić kierownicy i pracownicy jednostek sektora finansów publicznych, jeżeli powierzono im określone obowiązki." },
+                { pytanie: "Zgodnie z Konstytucją RP podmiot podatku, jego przedmiot oraz stawka podatkowa, a także zasady przyznawania ulg i umorzeń oraz kategorie podmiotów zwolnionych od podatku powinny być regulowane", odpowiedzi: ["w ustawie i rozporządzeniach", "w rozporządzeniach", "w uchwałach organów stanowiących jednostek samorządu terytorialnego", "orzeczeniach sądów", "w ustawie"], poprawna: 4, wyjasnienie: "Art. 217 Konstytucji RP wymaga ustawowej regulacji podstawowych elementów konstrukcji podatku, w tym podmiotu, przedmiotu, stawki, ulg, umorzeń i zwolnień." },
+                { pytanie: "Zobowiązanie podatkowe podlega potrąceniu z wierzytelności podatnika wobec państwowej jednostki budżetowej", odpowiedzi: ["wynika z usług wykonanych przez tego podatnika w trybie przepisów o zamówieniach publicznych", "jeśli zwróci się z prośbą do kierownika państwowej jednostki budżetowej", "nie ma takiej możliwości prawnej", "pod warunkiem, że wierzytelność ta jest bezsporna, bezpośrednia i wymagalna", "także jeśli wierzytelność została nabyta przez tego podatnika w drodze cesji"], poprawna: 3, wyjasnienie: "Potrącenie zobowiązania podatkowego z wierzytelnością podatnika wymaga, aby wierzytelność była m.in. bezsporna, bezpośrednia i wymagalna." },
+                { pytanie: "Spadkobiercy podatnika odpowiadają za zobowiązania podatkowe spadkodawcy:", odpowiedzi: ["po dziale spadku odpowiadają jedynie do wysokości zobowiązania odpowiadającego ich udziału w spadku", "w częściach ustalonych decyzją organu podatkowego orzekającą o odpowiedzialności podatkowej, jeżeli nie dokonano działu spadku", "solidarnie do chwili działu spadku", "w każdym przypadku jedynie do wysokości zobowiązania odpowiadającego ich udziałowi w spadku", "w żadnym przypadku nie dotyczy ich odpowiedzialność podatkowa"], poprawna: 2, wyjasnienie: "Do chwili działu spadku spadkobiercy odpowiadają za zobowiązania podatkowe spadkodawcy solidarnie; po dziale odpowiedzialność wiąże się z udziałem spadkowym." },
+                { pytanie: "Państwowy dług publiczny obejmuje:", odpowiedzi: ["wszystkie zobowiązania jednostek sektora finansów publicznych", "in. zobowiązania udzielonych poręczeń Skarbu Państwa", "zobowiązania z tytułu spłaty udzielonych przez Skarb Państwa kredytów i pożyczek", "in. zobowiązania z tytułu przyjętych depozytów"], poprawna: 3, wyjasnienie: "Państwowy dług publiczny obejmuje zobowiązania jednostek sektora finansów publicznych, w tym zobowiązania z tytułu przyjętych depozytów." },
+                { pytanie: "Przez wartość nominalną zobowiązania zaliczonego do PDP rozumie się wartość nominalną:", odpowiedzi: ["wyłącznie wyemitowanych państwowych papierów wartościowych", "in. zaciągniętej pożyczki, kredytu lub innego zobowiązania", "świadczenia głównego wraz z odsetkami", "świadczenia należnego na koniec roku kalendarzowego"], poprawna: 1, wyjasnienie: "Wartość nominalna zobowiązania dłużnego oznacza wartość świadczenia głównego, m.in. z tytułu zaciągniętej pożyczki, kredytu lub innego zobowiązania." },
+                { pytanie: "Kogo Minister Finansów informuje o nieprawidłowościach w zakresie przestrzegania zasady stanowiącej, że PDP/PKB <= 60%", odpowiedzi: ["organy nadzoru nad działalnością j.s.f.p.", "Komisję Nadzoru Finansowego"], poprawna: 0, wyjasnienie: "Minister Finansów informuje właściwe organy nadzoru nad działalnością jednostek sektora finansów publicznych o nieprawidłowościach związanych z przestrzeganiem limitu długu." },
+                { pytanie: "Kto opracowuje strategię zarządzania długiem Skarbu Państwa oraz oddziaływania na PDP?", odpowiedzi: ["Skarb Państwa", "Sejm i Senat", "Minister Finansów", "Rada Ministrów"], poprawna: 2, wyjasnienie: "Strategię zarządzania długiem Skarbu Państwa oraz oddziaływania na państwowy dług publiczny opracowuje Minister Finansów." },
+                { pytanie: "Kto zatwierdza strategię zarządzania długiem Skarbu Państwa oraz oddziaływania na PDP?", odpowiedzi: ["Minister Finansów", "Rada Ministrów", "Sejm i Senat", "Trybunał Konstytucyjny"], poprawna: 1, wyjasnienie: "Strategię zarządzania długiem zatwierdza Rada Ministrów po jej przygotowaniu przez Ministra Finansów." },
+                { pytanie: "Jaki zakres czasowy obejmuje strategia zarządzania długiem Skarbu Państwa oraz oddziaływania na PDP?", odpowiedzi: ["co najmniej rok budżetowy", "rok budżetowy i cztery kolejne lata", "cztery lata", "pięć lat"], poprawna: 2, wyjasnienie: "Strategia zarządzania długiem Skarbu Państwa oraz oddziaływania na państwowy dług publiczny obejmuje czteroletni horyzont czasowy." },
+                { pytanie: "Rada Ministrów przedstawia Sejmowi ww. strategię wraz z:", odpowiedzi: ["z uzasadnieniem ustawy budżetowej", "z uzasadnieniem projektu budżetu państwa", "z uzasadnieniem projektu uchwały budżetowej", "z uzasadnieniem projektu ustawy budżetowej"], poprawna: 3, wyjasnienie: "Rada Ministrów przedstawia strategię Sejmowi razem z uzasadnieniem projektu ustawy budżetowej." },
+                { pytanie: "Poręczenia i gwarancje udzielane przez SP to:", odpowiedzi: ["Poręczenia i gwarancje udzielane przez Ministra właściwego do sprawa Skarbu Państwa;", "Poręczenia i gwarancje udzielane przez BGŻ;", "Poręczenia i gwarancje udzielane przez Ministra właściwego ds. finansów publicznych."], poprawna: 2, wyjasnienie: "Poręczenia i gwarancje Skarbu Państwa są udzielane przez ministra właściwego do spraw finansów publicznych w zakresie przewidzianym ustawą." },
+                { pytanie: "Udzielanie gwarancji i poręczeń finansowych przez państwo, w rozumieniu art. 216 Konstytucji RP następuje na zasadach i w trybie określonych:", odpowiedzi: ["w zarządzeniach Ministra Finansów;", "w rozporządzeniu Ministra Finansów;", "w ustawie."], poprawna: 2, wyjasnienie: "Konstytucja RP wymaga, aby zasady i tryb udzielania poręczeń oraz gwarancji finansowych przez państwo były określone w ustawie." },
+                { pytanie: "Zgodnie z Konstytucją RP, nie wolno udzielać gwarancji i poręczeń finansowych, w następstwie których PDP:", odpowiedzi: ["przekroczy połowę wartości rocznego PKB;", "przekroczy 3/5 wartości rocznego PKB;", "przekroczy wartość rocznego PKB."], poprawna: 1, wyjasnienie: "Konstytucja RP zakazuje udzielania gwarancji i poręczeń finansowych, jeżeli skutkowałoby to przekroczeniem przez państwowy dług publiczny 3/5 rocznego PKB." },
+                { pytanie: "Poręczenia i gwarancje udzielane przez Radę Ministrów udzielane są w imieniu i na rachunek:", odpowiedzi: ["Rady Ministrów;", "Skarbu Państwa;", "Jednostek samorządu terytorialnego."], poprawna: 1, wyjasnienie: "Rada Ministrów, udzielając poręczeń i gwarancji, działa w imieniu i na rachunek Skarbu Państwa." },
+                { pytanie: "Poręczenia udzielane przez SP to poręczenia:", odpowiedzi: ["spłaty kredytów", "wykonania zobowiązań wynikających z wszelkich skarbowych papierów wartościowych", "wypłaty odszkodowań na podstawie ostatecznych decyzji administracyjnych oraz prawomocnych wyroków sądowych."], poprawna: 0, wyjasnienie: "Poręczenia Skarbu Państwa dotyczą m.in. spłaty kredytów." },
+                { pytanie: "Gwarancje udzielane przez SP to gwarancje:", odpowiedzi: ["spłaty pożyczek", "wykonania zobowiązań wynikających z obligacji", "wypłaty odszkodowania za zniszczone, uszkodzone lub skradzione eksponaty wystawowe."], poprawna: 1, wyjasnienie: "Gwarancje Skarbu Państwa mogą dotyczyć wykonania zobowiązań wynikających z obligacji." },
+                { pytanie: "Gwarancji w imieniu i na rachunek SP może udzielać:", odpowiedzi: ["Rada Ministrów; Minister właściwy ds. finansów publicznych; Bank Gospodarstwa Krajowego;", "Np. Prezes Rady Ministrów, Minister właściwy ds. Skarbu Państwa;", "wyłącznie Bank Gospodarstwa Krajowego."], poprawna: 0, wyjasnienie: "Ustawa przewiduje kompetencje Rady Ministrów, ministra właściwego do spraw finansów publicznych oraz Banku Gospodarstwa Krajowego w zakresie udzielania gwarancji w imieniu i na rachunek Skarbu Państwa." },
+                { pytanie: "Bank Gospodarstwa Krajowego udziela poręczenia lub gwarancji, w imieniu i na rachunek Skarbu Państwa, powyżej kwoty stanowiącej równowartość 10 mln € i do równowartości 30 mln €, jeżeli:", odpowiedzi: ["poręczenia lub gwarancje są udzielane do wysokości 90 % pozostającej do spłaty kwoty zobowiązania objętego poręczeniem lub gwarancją;", "poręczenie lub gwarancja jest udzielone na cel związany z zaspokojeniem potrzeb publicznych i w granicach określonych przez ustawę o finansach publicznych;", "poręczenie lub gwarancja są udzielane za wynagrodzeniem odpowiadającym wynagrodzeniu rynkowemu i poręczenie lub gwarancja są udzielane do wysokości 60 % pozostającej do spłaty kwoty zobowiązania objętego poręczeniem lub gwarancją wraz z 60 % należnych odsetek od tej kwoty i innych kosztów bezpośrednio związanych z tym zobowiązaniem."], poprawna: 2, wyjasnienie: "BGK może udzielać poręczeń lub gwarancji w określonym przedziale kwotowym przy spełnieniu ustawowych warunków rynkowego wynagrodzenia i limitu zaangażowania." },
+                { pytanie: "Rada Ministrów udziela poręczenia lub gwarancji, jeżeli kwota poręczenia lub gwarancji przekracza:", odpowiedzi: ["równowartość 30 mln €;", "równowartość 30 mln $;", "równowartość 30 mln zł."], poprawna: 0, wyjasnienie: "Jeżeli kwota poręczenia lub gwarancji przekracza równowartość 30 mln euro, kompetencja należy do Rady Ministrów." },
+                { pytanie: "Kwota poręczenia lub gwarancji Skarbu Państwa powinna przekraczać:", odpowiedzi: ["10 mln €;", "30 mln €;", "10 mln zł."], poprawna: 0, wyjasnienie: "W tym zestawie progów ustawowych przyjęto, że kwota poręczenia lub gwarancji Skarbu Państwa powinna przekraczać równowartość 10 mln euro." },
+                { pytanie: "W rozumieniu ustawy z dnia 8 maja 1997 r. poręczeń i gwarancji mogą udzielać niektóre osoby prawne np.:", odpowiedzi: ["Bank;", "Zakład ubezpieczeń;", "Państwowa osoba prawna utworzona w drodze ustawy."], poprawna: 2, wyjasnienie: "Ustawa o poręczeniach i gwarancjach dopuszcza, że uprawnienia do ich udzielania mogą mieć niektóre państwowe osoby prawne utworzone w drodze ustawy." },
+                { pytanie: "Państwowe osoby prawne utworzone w drodze ustawy:", odpowiedzi: ["Mogą być uprawnione na podstawie odrębnych przepisów do udzielania poręczeń lub gwarancji w ramach powierzonych im zadań publicznych;", "Mogą być uprawnione na podstawie odrębnych przepisów do udzielania poręczeń lub gwarancji w zakresie działalności jednostek sektora finansów publicznych;", "W każdym przypadku mogą udzielać poręczeń i gwarancji."], poprawna: 0, wyjasnienie: "Państwowe osoby prawne utworzone ustawą mogą być uprawnione na podstawie odrębnych przepisów do udzielania poręczeń lub gwarancji w ramach powierzonych im zadań publicznych." },
+                { pytanie: "Państwowa osoba prawna może udzielić poręczenia za zobowiązania:", odpowiedzi: ["Co do zasady, w łącznej wysokości nie wyższej niż 60% wartości kapitału (określonego wg stanu na koniec roku obrotowego poprzedzającego udzielenie poręczenia lub gwarancji);", "Co do zasady, do wysokości nie wyższej niż 30% wartości funduszu, gdy kwota poręczenia lub gwarancji udzielana jest za zobowiązania jednego podmiotu;", "Co do zasady, w łącznej wysokości nie wyższej niż 20% wartości funduszu (określonego wg stanu na koniec roku obrotowego poprzedzającego udzielenie poręczenia lub gwarancji)."], poprawna: 0, wyjasnienie: "Zgodnie z przepisami szczególnymi, państwowe osoby prawne mają ustawowy limit udzielania poręczeń i gwarancji powiązany z wartością ich kapitału własnego (właśnie do wysokości 60%)." },
+                { pytanie: "Czy państwowa osoba prawna utworzona w drodze ustawy może udzielić poręczenia za zobowiązania podmiotu przekraczające 60% jej kapitału własnego?", odpowiedzi: ["Nie, ustawowy nieprzekraczany próg wynosi 60% wartości kapitałów własnych w/w państwowej osoby prawnej;", "Tak, za zgodą ministra właściwego ds. finansów publicznych;", "Tak, za zgodą Rady Ministrów, ministra właściwego ds. finansów publicznych lub Banku Gospodarstwa Krajowego."], poprawna: 1, wyjasnienie: "Przepisy dopuszczają wyjątek od sztywnego limitu 60%, jednak wymaga to bezwzględnej zgody Ministra Finansów." },
+                { pytanie: "Jakie znaczenia ma forma prawna i struktura własności podmiotu ubiegającego się o udzielenie poręczenia lub gwarancji przez SP?", odpowiedzi: ["o uzyskanie poręczenia lub gwarancji mogą ubiegać się podmioty będące państwową osobą prawną utworzoną na podstawie ustawy, w której połowa kapitałów własnych podmiotu stanowi własność SP;", "o uzyskanie poręczenia lub gwarancji mogą ubiegać się podmioty bez względu na formę prawną oraz strukturę własności", "o uzyskanie poręczenia lub gwarancji mogą ubiegać się podmioty o określonej w ustawie formie prawnej oraz strukturze własności."], poprawna: 1, wyjasnienie: "Skarb Państwa może zabezpieczać zobowiązania różnych podmiotów rynkowych, o ile spełniają one kryteria zdolności finansowej i celowości wydatków." },
+                { pytanie: "W przypadku ubiegania się o poręczenie/gwarancję udzielane przez Radę Ministrów, wniosek o udzielenie takiego poręczenia/gwarancji należy kierować do:", odpowiedzi: ["Rady Ministrów;", "Banku Gospodarstwa Krajowego;", "Ministra Finansów."], poprawna: 2, wyjasnienie: "Choć ostateczną decyzję podejmuje cała Rada Ministrów, to Minister Finansów jest organem operacyjnie odpowiedzialnym za obsługę, analizę i przyjmowanie wniosków." },
+                { pytanie: "Poręczenia i gwarancje (wskaż twierdzenie w całości prawidłowe):", odpowiedzi: ["są terminowe, udzielane do kwoty z góry oznaczonej (co do zasady)", "wyjątkowo, gdy udzielane są międzynarodowej instytucji finansowej, której RP jest członkiem lub z którą podpisała umowę o współpracy nie muszą być udzielane do kwoty z góry oznaczonej, przy czym, to Rada Ministrów, na wniosek ministra właściwego do spraw finansów publicznych, może odstąpić od tego wymogu;", "odpowiedź a) i b) jest właściwa."], poprawna: 2, wyjasnienie: "Poręczenia mają charakter terminowy i kwotowy (a), ale ustawa przewiduje wyjątek dla międzynarodowych instytucji finansowych, gdzie za zgodą RM można odstąpić od sztywnego limitu kwotowego (b)." },
+                { pytanie: "Wskaż poręczenia i gwarancje zwolnione z opłaty prowizyjnej:", odpowiedzi: ["zasilenie funduszy utworzonych w BGK, jeżeli środki przeznaczone na spłatę kredytu pochodzą ze źródeł innych niż budżet państwa, z wyłączeniem środków budżetu państwa, które zostały wydatkowane na dopłaty do kredytu objętego preferencyjnym oprocentowaniem, wspieranie eksportu polskich towarów i usług w ramach realizacji programów rządowych;", "wspieranie importu polskich towarów i usług w ramach realizacji programów rządowych;", "odpowiedź a) i b) jest właściwa."], poprawna: 0, wyjasnienie: "Jest to dokładne brzmienie jednego z ustawowych zwolnień o charakterze podmiotowo-przedmiotowym w odniesieniu do funduszy obsługiwanych przez BGK." },
+                { pytanie: "Co do zasady, skuteczność poręczenia lub gwarancji jest uzależniona od:", odpowiedzi: ["struktury własności podmiotu, któremu udzielane jest poręczenie lub gwarancja;", "wniesienia opłaty prowizyjnej od poręczenia lub gwarancji", "formy prawnej podmiotu, któremu udzielane jest poręczenie lub gwarancja."], poprawna: 1, wyjasnienie: "Udzielenie poręczenia przez Skarb Państwa staje się prawnie skuteczne dopiero po uiszczeniu należnej opłaty prowizyjnej przez beneficjenta." },
+                { pytanie: "Po dokonaniu analizy finansowej przedsięwzięcia oraz analizy sytuacji ekonomiczno - finansowej podmiotu „A” stwierdzono, że podmiot „A”, którego zobowiązania mają być objęte gwarancją, nie będzie w stanie wykonać tych zobowiązań. W takiej sytuacji:", odpowiedzi: ["Nie udziela się gwarancji;", "Udziela się gwarancji do maksymalnej wysokości 60% kapitałów (funduszy) własnych podmiotu „A”;", "Udziela się gwarancji do maksymalnej wysokości 20% kapitałów (funduszy) własnych podmiotu „A”."], poprawna: 0, wyjasnienie: "Negatywna ocena wiarygodności finansowej dłużnika i ryzyka niewypłacalności bezwzględnie obliguje organy publiczne do odmowy udzielenia wsparcia (ochrona środków publicznych)." },
+                { pytanie: "Opłata prowizyjna od poręczenia lub gwarancji jest wpłacana na rachunek:", odpowiedzi: ["w NBP - na rachunek rezerw poręczeniowych i gwarancyjnych Skarbu Państwa;", "w BGK - na rachunek rezerw poręczeniowych i gwarancyjnych Skarbu Państwa;", "w MF - na rachunek rezerw poręczeniowych i gwarancyjnych Skarbu Państwa."], poprawna: 1, wyjasnienie: "Rachunek ten jest prowadzony dla Ministra Finansów właśnie w Banku Gospodarstwa Krajowego (BGK)." },
+                { pytanie: "Kapitał własny spółki SP wynosi 100 mln zł. Maksymalna kwota udzielonych poręczeń wyniesie:", odpowiedzi: ["60 mln zł na rzecz wszystkich podmiotów", "20 mln zł na rzecz wszystkich podmiotów", "20 mln na rzecz jednego podmiotu", "żadna z odpowiedzi nie jest właściwa"], poprawna: 3, wyjasnienie: "Spółka Skarbu Państwa (spółka prawa handlowego) – mimo że jej właścicielem jest państwo – działa na zasadach prawa prywatnego i jest wyłączona z sektora finansów publicznych oraz definicji \"państwowej osoby prawnej\" podlegającej tym publicznoprawnym limitom." },
+                { pytanie: "W państwowej osobie prawnej kapitał własny wynosi 200 mln zł. Wskaż właściwy wariant udzielenia poręczeń 3 podmiotom:", odpowiedzi: ["występuje brak możliwości udzielenia poręczeń", "60% kapitału własnego na rzecz każdego podmiotu", "max po 40 mln na rzecz każdego podmiotu", "po max 50 mln na rzecz każdego podmiotu"], poprawna: 2, wyjasnienie: "Łączny limit poręczeń wynosi 60% z 200 mln zł, czyli maksymalnie 120 mln zł. Dzieląc tę kwotę równomiernie na 3 podmioty, otrzymujemy dokładnie maks. 40 mln zł na każdy z nich." },
+                { pytanie: "Równowartość udzielonej gwarancji wyniosła 10 000 000,00 zł (1€=4,20 zł). kto udziela gwarancji?", odpowiedzi: ["Bank Gospodarstwa Krajowego", "Minister Finansów", "Rada Ministrów", "występuje brak możliwości udzielenia gwarancji"], poprawna: 3, wyjasnienie: "Ustawa nakłada minimalne progi kwotowe dla poszczególnych rodzajów procedur gwarancyjnych Skarbu Państwa (często wyrażone w milionach euro) i brak doprecyzowania celu lub niska kwota wyklucza standardowy tryb." },
+                { pytanie: "Wasza grupa stworzyła spółkę prawa handlowego. Chcąc uzyskać od SP gwarancję spłaty kredytu o równowartości 11 mln €:", odpowiedzi: ["Wasz kapitał własny musi wynosić co najmniej 100 mln zł", "musicie przekształcić się w spółkę cywilną", "możecie złożyć wniosek o udzielenie gwarancji do MF", "możecie ubiegać się o gwarancję wyłącznie spłaty pożyczki"], poprawna: 2, wyjasnienie: "Każdy uprawniony podmiot komercyjny wnioskuje o gwarancje Skarbu Państwa za pośrednictwem Ministra Finansów (MF)." },
+                { pytanie: "MF udzielił poręczenia wykonania zobowiązań wynikających z bonów skarbowych w wysokości 42 mln zł (4,2 zł/€)", odpowiedzi: ["prawda", "fałsz"], poprawna: 1, wyjasnienie: "Bony skarbowe to dłużne papiery wartościowe emitowane bezpośrednio przez Skarb Państwa (reprezentowany przez MF). Państwo jest tu głównym dłużnikiem, a podmiot nie może poręczać swojego własnego długu pierwotnego." },
+                { pytanie: "Kwota udzielonego poręczenia wynosić ma 30 000 000,00 mln €. Który organ udzieli poręczenia?", odpowiedzi: ["Rada Ministrów", "tylko Minister Finansów", "tylko BGK", "BGK albo MF (gdyż brakuje niektórych danych)"], poprawna: 3, wyjasnienie: "Kompetencja zależy od tego, czy poręczenie pochodzi z programu rządowego (wtedy często dystrybuuje je BGK), czy jest to klasyczne poręczenie systemowe (MF/RM)." },
+                { pytanie: "Łączną kwotę, do wielkości której mogą być udzielane przez Skarb Państwa poręczenia i gwarancje, określono w:", odpowiedzi: ["ustawie budżetowej", "ustawie o poręczeniach i gwarancjach z 1998 r.", "ustawie o finansach publicznych z 2009 r.", "Konstytucji RP (max 60% PKB)"], poprawna: 0, wyjasnienie: "Ustawa budżetowa na dany rok określa limity dłużne oraz maksymalne kwoty poręczeń i gwarancji, jakie państwo może wydać w danym roku." },
+                { pytanie: "Bank Gospodarstwa Krajowego (BGK) udzielił poręczenia zabezpieczenia eksponatów wystawowych na kwotę 3 mln zł (4,2 zł/€):", odpowiedzi: ["prawda", "fałsz"], poprawna: 1, wyjasnienie: "Gwarancje i poręczenia za eksponaty wystawowe leżą w wyłącznej kompetencji Rady Ministrów (na wniosek Ministra Kultury), a nie BGK (por. pytanie 70)." },
+                { pytanie: "Poręczeń i gwarancji spłaty kredytów nie udziela się:", odpowiedzi: ["Np. Kredytobiorcom;", "Np. bankom, jeżeli taki bank udzielił kredytodawcy poręczenia lub gwarancji za kredytobiorcę;", "Np. międzynarodowym instytucjom finansowym, jeżeli taka instytucja udzieliła kredytodawcy poręczenia lub gwarancji za kredytobiorcę oraz kredytodawcom."], poprawna: 0, wyjasnienie: "Poręczenia i gwarancji udziela się kredytodawcy (bankowi finansującemu), zabezpieczając jedynie spłatę długu, który zaciągnął kredytobiorca. Beneficjentem gwarancji jest bank udzielający kredytu." },
+                { pytanie: "Poręczenia i gwarancje spłaty kredytów udzielane przez RM lub MF, co do zasady, mogą być udzielane:", odpowiedzi: ["do wysokości 50 % pozostającej do spłaty kwoty kredytu objętego poręczeniem lub gwarancją wraz z 50 % należnych odsetek od tej kwoty i innych kosztów bezpośrednio związanych z tym kredytem;", "do wysokości 60 % pozostającej do spłaty kwoty kredytu objętego poręczeniem lub gwarancją wraz z 60 % należnych odsetek od tej kwoty i innych kosztów bezpośrednio związanych z tym kredytem;", "do wysokości 90 % pozostającej do spłaty kwoty kredytu objętego poręczeniem lub gwarancją wraz z 90 % należnych odsetek od tej kwoty i innych kosztów bezpośrednio związanych z tym kredytem."], poprawna: 0, wyjasnienie: "Ogólna zasada ustawowa ogranicza standardowe zaangażowanie Skarbu Państwa do 50% kwoty głównej kredytu wraz z odsetkami, aby bank komercyjny również ponosił część ryzyka." },
+                { pytanie: "Poręczenia i gwarancje wykonania zobowiązań wynikających z obligacji udziela:", odpowiedzi: ["Np. Rada Ministrów, na wniosek ministra właściwego do spraw finansów publicznych oraz minister właściwy do spraw finansów publicznych;", "NBP oraz Rada Polityki Pieniężnej;", "Prezes Rady Ministrów oraz Prezydent RP."], poprawna: 0, wyjasnienie: "Są to organy reprezentujące państwo w zakresie zaciągania i gwarantowania długu publicznego w randze obligacji." },
+                { pytanie: "Poręczenia wypłaty odszkodowania za zniszczone, uszkodzone lub skradzione eksponaty wystawowe może udzielić:", odpowiedzi: ["Minister właściwy do spraw kultury i ochrony dziedzictwa narodowego na wniosek Rady Ministrów;", "Bank Gospodarstwa Krajowego;", "Rada Ministrów na wniosek ministra właściwego do spraw kultury i ochrony dziedzictwa narodowego."], poprawna: 2, wyjasnienie: "Jest to tzw. gwarancja rządowa dla wystaw narodowych i międzynarodowych o dużym znaczeniu kulturowym." },
+                { pytanie: "Poręczenia wypłaty odszkodowania za zniszczone, uszkodzone lub skradzione eksponaty wystawowe można udzielić:", odpowiedzi: ["Organizatorowi wystawy;", "Rezydentom;", "Nierezydentom."], poprawna: 2, wyjasnienie: "Często eksponaty są wypożyczane od zagranicznych muzeów lub kolekcji prywatnych (nierezydentów), stąd zabezpieczenie kierowane jest bezpośrednio do nich jako właścicieli." },
+                { pytanie: "Poręczenia wypłaty odszkodowania z tytułu zniszczenia, uszkodzenia lub kradzieży nieubezpieczonych eksponatów, których właścicielami lub uprawnionymi posiadaczami są te osoby, udziela się, jeżeli:", odpowiedzi: ["eksponaty te składają się na wystawę artystyczną, organizowaną w Rzeczypospolitej Polskiej a łączna wartość eksponatów przekracza równowartość 500 tys. €;", "łączna wartość eksponatów przekracza równowartość 10 mln €;", "eksponaty te składają się na wystawę artystyczną organizowaną na terytorium któregokolwiek państwa członkowskiego UE."], poprawna: 0, wyjasnienie: "Przepisy precyzują minimalny próg wartości (500 tys. euro), od którego państwo zgadza się objąć wystawę darmowym lub uproszczonym poręczeniem publicznym." },
+                { pytanie: "Zasób majątkowy Skarbu Państwa:", odpowiedzi: ["środki uzyskane ze zbycia akcji (udziałów) składających się na zasób mogą być przeznaczone jedynie na zaspokojenie roszczeń z tytułu poręczeń i gwarancji udzielonych przez Radę Ministrów", "stanowią środki zgromadzone na rachunkach bankowych wszystkich jednostek sektora finansów publicznych;", "przeznaczony jest m.in. na zaspokojenie roszczeń z tytułu poręczeń i gwarancji udzielanych przez Skarb Państwa."], poprawna: 2, wyjasnienie: "Potwierdza to wprost fragment książki: „zasady tworzenia zasobu majątkowego Skarbu Państwa z udziałów (akcji) w spółkach (...) na zaspokojenie roszczeń z tytułu poręczeń i gwarancji udzielanych przez Skarb Państwa”." },
+                { pytanie: "Rachunek rezerw poręczeniowych i gwarancyjnych SP:", odpowiedzi: ["Otwierany jest przez ministra właściwego do spraw finansów publicznych w Banku Gospodarstwa Krajowego.", "Otwierany jest przez Radę Ministrów w Banku Gospodarstwa Krajowego.", "Otwierany jest przez ministra właściwego do spraw finansów publicznych w NBP."], poprawna: 0, wyjasnienie: "Zgodnie z systemem finansowym obsługę długu i funduszy gwarancyjnych Skarbu Państwa MF powierza państwowemu bankowi BGK." },
+                { pytanie: "Na rachunku rezerw poręczeniowych i gwarancyjnych gromadzi się:", odpowiedzi: ["odsetki z tytułu oprocentowania środków zgromadzonych na tym rachunku oraz opłaty prowizyjne od poręczeń i gwarancji", "środki pochodzące z przychodów z ze sprzedaży skarbowych papierów wartościowych w roku poprzednim;", "odpowiedź a) i b) jest właściwa."], poprawna: 0, wyjasnienie: "Są to naturalne, ustawowe źródła zasilania tego funduszu celowego (prowizje od podmiotów oraz zyski z oprocentowania wolnego kapitału)." },
+                { pytanie: "Wskaż twierdzenie prawdziwe: Środki gromadzone na rachunku rezerw poręczeniowych i gwarancyjnych:", odpowiedzi: ["są przeznaczone na wykonywanie zobowiązań z tytułu poręczeń lub gwarancji udzielonych przez Skarb Państwa oraz są przeznaczane na pokrycie kosztów dochodzenia wierzytelności SP powstałych z tytułu wykonania umowy poręczenia lub gwarancji;", "mogą być wykorzystywane na sfinansowanie potrzeb pożyczkowych budżetu państwa oraz w związku z zarządzaniem długiem Skarbu Państwa, przy czym podlegają one zwrotowi w wysokości i terminie umożliwiających ich przeznaczenie na cele ustawowe;", "odpowiedź a) i b) jest właściwa."], poprawna: 2, wyjasnienie: "Środki te służą pokrywaniu roszczeń wierzycieli oraz kosztów windykacji (a), ale ustawa pozwala także na ich czasowe, płynnościowe wykorzystanie na finansowanie potrzeb pożyczkowych państwa pod warunkiem ich terminowego zwrotu (b)." },
+                { pytanie: "Łączną kwotę, do wysokości której mogą być udzielane przez Skarb Państwa poręczenia i gwarancje w 2021 r., określa:", odpowiedzi: ["ustawa z dnia 8 maja 1997 r. o poręczeniach i gwarancjach udzielanych przez Skarb Państwa oraz niektóre osoby prawne;", "ustawa budżetowa na 2021 r.;", "ustawa z dnia 27 sierpnia 2009 r. o finansach publicznych."], poprawna: 1, wyjasnienie: "Każda roczna ustawa budżetowa sztywno określa limit kwotowy dla poręczeń na dany rok budżetowy." },
+                { pytanie: "W toku postępowania dotyczącego wierzytelności SP z tytułu wykonania umowy poręczenia lub gwarancji:", odpowiedzi: ["Minister właściwy do spraw finansów publicznych, w sytuacji, gdy spełnione zostanie świadczenie z tytułu udzielonego poręczenia lub gwarancji Skarbu Państwa, ma obowiązek dochodzenia wypłaconych kwot od podmiotu, za którego zobowiązania udzielone zostało poręczenie lub gwarancja.", "Minister właściwy do spraw finansów publicznych może sprzedać wierzytelność, zamienić wierzytelność w całości lub w części na akcje (udziały) dłużnika w spółce, rozłożyć wierzytelność w całości lub w części na raty (maksymalnie na 10 lat), zaś za zgodą Rady Ministrów może umorzyć wierzytelności w całości lub w części.", "Minister właściwy do spraw finansów publicznych może, w celu windykacji ww. wierzytelności, wystawić wykonawczy tytuł egzekucyjny;", "Każda z ww. odpowiedzi jest właściwa."], poprawna: 3, wyjasnienie: "Minister ma obowiązek dochodzenia zwrotu środków (a), szerokie uprawnienia restrukturyzacyjne, w tym zamianę na akcje lub rozłożenie na raty, a za zgodą RM – umorzenie (b), oraz może stosować uproszczone instrumenty egzekucyjne (c)." },
+                { pytanie: "Zobowiązania z tytułu udzielonych przez Skarb Państwa poręczeń i gwarancji wykonuje:", odpowiedzi: ["BGK", "Minister właściwy do spraw finansów publicznych", "Rada Ministrów."], poprawna: 1, wyjasnienie: "To Minister Finansów reprezentuje Skarb Państwa i technicznie wypłaca środki z rachunku rezerw w przypadku ziszczenia się ryzyka gwarancyjnego." },
+                { pytanie: "Zgodnie z Konstytucją RP nie wolno zaciągać pożyczek lub udzielać gwarancji i poręczeń finansowych, w następstwie których państwowy dług publiczny przekroczy:", odpowiedzi: ["3/5 wartości rocznego produktu krajowego brutto.", "3/5 wartości rocznego produktu krajowego netto.", "3/5 wartości rocznego produktu narodowego brutto."], poprawna: 0, wyjasnienie: "Tekst wprost cytuje art. 216 ust. 5 Konstytucji RP: „nie wolno zaciągać pożyczek lub udzielać gwarancji i poręczeń finansowych, w następstwie których państwowy dług publiczny przekroczy 3/5 wartości rocznego produktu krajowego brutto”." },
+                { pytanie: "Klasyfikacja dochodów publicznych i wydatków publicznych dokonywana jest według:", odpowiedzi: ["Części, działów i rozdziałów oraz paragrafów.", "Części, działów oraz paragrafów.", "Części, rozdziałów i paragrafów."], poprawna: 0, wyjasnienie: "Choć fragment wymienia bezpośrednio „działy, rozdziały i paragrafy” , to z innych części tekstu wynika jednoznacznie istnienie „części budżetowych” (np. dysponenci części budżetowych), które są najwyższym szczeblem polskiej klasyfikacji budżetowej." },
+                { pytanie: "Projekt budżetu państwa jest opiniowany przez:", odpowiedzi: ["NIK.", "NBP.", "KRRiT."], poprawna: 1, wyjasnienie: "Tekst stwierdza bezwzględnie: „Projekt budżetu państwa jest także opiniowany przez NBP; obowiązek przedłożenia takiej opinii wynika z ustawy (...) o Narodowym Banku Polskim”." },
+                { pytanie: "Rada Ministrów przedkłada Sejmowi sprawozdanie z wykonania ustawy budżetowej wraz z informacją o stanie zadłużenia państwa:", odpowiedzi: ["w ciągu 3 miesięcy od zakończenia roku budżetowego.", "w ciągu 4 miesięcy od zakończenia roku budżetowego.", "w ciągu 5 miesięcy od zakończenia roku budżetowego."], poprawna: 2, wyjasnienie: "Potwierdzają to wielokrotnie źródła: „Rada Ministrów w ciągu 5 miesięcy od zakończenia roku budżetowego (do dnia 31 maja roku następnego) przedkłada Sejmowi sprawozdanie...”." },
+                { pytanie: "Autopoprawki do projektu ustawy budżetowej wnosi:", odpowiedzi: ["Minister Finansów.", "Rada Ministrów.", "Prezes Rady Ministrów."], poprawna: 1, wyjasnienie: "Ponieważ wyłączność inicjatywy ustawodawczej w zakresie ustawy budżetowej przysługuje wyłącznie Radzie Ministrów jako całemu organowi, to również ten organ jako jedyny posiada prawo wnoszenia oficjalnych poprawek rządowych (autopoprawek) do własnego projektu przed jego uchwaleniem." },
+                { pytanie: "W budżecie państwa najwyższym szczeblem klasyfikacji są:", odpowiedzi: ["Części.", "Działy.", "Rozdziały"], poprawna: 0, wyjasnienie: "Potwierdza to struktura zarządzania środkami, gdzie najwyższy poziom stanowią dysponenci „części budżetowych” (np. konkretne ministerstwa lub urzędy centralne)." },
+                { pytanie: "Rada Ministrów przedstawia Sejmowi projekt ustawy budżetowej na rok następny:", odpowiedzi: ["Do 30 września roku poprzedzającego rok budżetowy.", "Do 30 października roku poprzedzającego rok budżetowy.", "Do 30 listopada roku poprzedzającego rok budżetowy."], poprawna: 0, wyjasnienie: "Zgodnie z tekstem: „Rada Ministrów uchwala projekt ustawy budżetowej i wraz z uzasadnieniem przedkłada go Sejmowi w terminie do dnia 30 września roku poprzedzającego rok budżetowy”." },
+                { pytanie: "Procedurę uchwalania ustawy budżetowej kończy:", odpowiedzi: ["Głosowanie w Sejmie nad poprawkami Senatu do projektu ustawy budżetowej.", "Podpisanie jej przez Prezydenta RP.", "Podpisanie jej przez Prezesa Rady Ministrów."], poprawna: 1, wyjasnienie: "Tekst precyzuje: „Procedurę uchwalania ustawy budżetowej kończy podpisanie jej przez Prezydenta RP...”." },
+                { pytanie: "Prezydent RP podpisuje ustawę budżetową albo ustawę o prowizorium budżetowym przedstawioną przez Marszałka Sejmu:", odpowiedzi: ["30 dni", "14 dni", "7 dni."], poprawna: 2, wyjasnienie: "Wprost z tekstu źródłowego: „Prezydent RP podpisuje ustawę budżetową albo ustawę o prowizorium budżetowym przedstawioną przez Marszałka Sejmu w ciągu 7 dni”." },
+                { pytanie: "Kontrolę nad sektorem finansów publicznych w zakresie przestrzegania zasady stanowiącej, że PDP nie może przekroczyć 60 % wartości rocznego PKB sprawuje:", odpowiedzi: ["Rada Ministrów.", "Minister Finansów.", "Prezes Rady Ministrów."], poprawna: 1, wyjasnienie: "Potwierdza to tekst: „Kontrolę przestrzegania konstytucyjnego limitu państwowego długu publicznego sprawuje Minister Finansów”." },
+                { pytanie: "Senat może uchwalić poprawki do ustawy budżetowej w ciągu:", odpowiedzi: ["20 dni od dnia przekazania jej Senatowi.", "21 dni od dnia przekazania jej Senatowi.", "30 dni od dnia przekazania jej Senatowi."], poprawna: 0, wyjasnienie: "Źródło podaje: „Senat może uchwalić poprawki do ustawy budżetowej w ciągu 20 dni od dnia przekazania ustawy do tej izby (art. 223 Konstytucji RP)”." },
+                { pytanie: "Projekt budżetu państwa opracowuje:", odpowiedzi: ["Minister Finansów.", "Prezes Rady Ministrów.", "Rada Ministrów."], poprawna: 0, wyjasnienie: "Według tekstu: „Minister Finansów opracowuje następnie (...) projekt budżetu państwa” , a potem przekazuje go Radzie Ministrów do uchwalenia." },
+                { pytanie: "Notę budżetową wydaje:", odpowiedzi: ["Prezes Rady Ministrów.", "Minister Finansów.", "Rada Polityki Pieniężnej."], poprawna: 1, wyjasnienie: "Materiały opracowuje się według formularzy określonych w tzw. nocie budżetowej , którą jako wytyczne dla dysponentów części wydaje Minister Finansów przygotowujący projekt budżetu." },
+                { pytanie: "Prace w komisjach sejmowych nad projektem ustawy budżetowej rozpoczynają się:", odpowiedzi: ["po pierwszym czytaniu projektu ustawy budżetowej na plenarnym posiedzeniu Sejmu.", "po drugim czytaniu projektu ustawy budżetowej na plenarnym posiedzeniu Sejmu.", "po wniesieniu poprawek do projektu ustawy budżetowej przez Senat."], poprawna: 0, wyjasnienie: "Jest to standardowa procedura legislacyjna w Sejmie RP; po pierwszym czytaniu plenarnym projekt jest kierowany do Komisji Finansów Publicznych oraz komisji branżowych." },
+                { pytanie: "Ustawa budżetowa jest publikowana:", odpowiedzi: ["w Dzienniku Urzędowym Rzeczypospolitej Polskiej „Monitor Polski”.", "w Dzienniku Ustaw.", "w Dzienniku Urzędowym Unii Europejskiej."], poprawna: 1, wyjasnienie: "Wszystkie ustawy powszechnie obowiązujące w Polsce są publikowane w Dzienniku Ustaw. W Monitorze Polskim publikuje się jedynie akty wewnętrzne lub plany, takie jak Wieloletni Plan Finansowy Państwa czy obwieszczenia." },
+                { pytanie: "Kwotę PDP i jego relację do PKB ogłasza?", odpowiedzi: ["Rada Ministrów", "Minister Finansów", "Prezes Rady Ministrów", "Komisja Finansów Publicznych"], poprawna: 1, wyjasnienie: "Wynika wprost z tekstu: „Minister Finansów ogłasza w Monitorze Polskim (...) kwotę i relację do produktu krajowego brutto: państwowego długu publicznego...”." },
+                { pytanie: "Relację niewymagalnych zobowiązań z tytułu poręczeń i gwarancji udzielonych przez jsfp do PKB ogłasza:", odpowiedzi: ["nikt nie ogłasza", "ogłasza Minister Sprawiedliwości", "ogłasza Rada Ministrów", "ogłasza aktualnie Minister Tadeusz Kościński"], poprawna: 0, wyjasnienie: "Zwróćmy uwagę na precyzję tekstu: Minister Finansów ogłasza kwotę i relację do PKB dla długu SP i PDP. Natomiast w przypadku jednostek sektora finansów publicznych (jsfp) ogłasza wyłącznie samą kwotę niewymagalnych zobowiązań, a nie ich relację do PKB. Stąd relacji tej nikt nie ogłasza." },
+                { pytanie: "Minister Finansów ogłasza kwotę i relację do PKB długu Skarbu Państwa:", odpowiedzi: ["wg stanu na 30 września danego roku sprawozdawczego", "wg stanu na 31 maja kolejnego roku budżetowego", "wg stanu na koniec roku budżetowego", "MF nie ogłasza tej relacji, ogłasza tylko relację długu jst do PKB"], poprawna: 2, wyjasnienie: "Tekst wprost wskazuje: „według stanu na koniec roku budżetowego” , natomiast samo ogłoszenie (techniczna publikacja) następuje później – do 31 maja roku następnego." },
+                { pytanie: "Miejsce publikacji obwieszczenia MF to:", odpowiedzi: ["Dziennik Urzędowy ministra Finansów „Monitor Finansowy”", "Dziennik Ustaw", "Ustawa budżetowa", "Dziennik Urzędowy Rzeczypospolitej Polskiej „Monitor Polski”"], poprawna: 3, wyjasnienie: "Tekst podaje literalnie: „Minister Finansów ogłasza w Monitorze Polskim następujące dane...”." },
+                { pytanie: "Wskaż twierdzenie prawdziwe:", odpowiedzi: ["dług SP obejmuje zadłużenie PDP", "PDP jest zakresowo szerszy jak dług SP", "PDP jest większy od EDP", "dług SP obejmuje zobowiązania z tytułu udzielonych poręczeń SP"], poprawna: 1, wyjasnienie: "Potwierdza to rozróżnienie zawarte w tekście: „długu Skarbu Państwa, który ogranicza się do długu państwowego oraz państwowego długu publicznego – czyli długu wszystkich jednostek sektora finansów publicznych”. Ponieważ PDP obejmuje cały sektor, jest pojęciem szerszym." },
+                { pytanie: "Poręczenia i gwarancje SP:", odpowiedzi: ["obejmują zobowiązania z tytułu udzielonych kredytów i pożyczek", "są częścią poręczeń i gwarancji udzielanych przez jsfp", "stanowią zobowiązania wymagalne", "stanowią dług realny"], poprawna: 1, wyjasnienie: "Skarb Państwa (oraz jego organy i jednostki budżetowe) stanowi integralną część sektora finansów publicznych (jsfp). Z tego względu poręczenia udzielane przez SP są podzbiorem (częścią) wszystkich poręczeń generowanych wewnątrz całego sektora." },
+                { pytanie: "Do kiedy musi być opublikowane (w warunkach określonych w art. 38 ufp) obwieszczenie za 2020 r.?", odpowiedzi: ["do końca 2020 r.", "do końca maja 2021 r.", "do 31 czerwca 2021 r.", "do 31 maja 2022 r."], poprawna: 1, wyjasnienie: "Zgodnie z art. 38 ustawy o finansach publicznych (ufp), Minister Finansów ogłasza w drodze obwieszczenia relację państwowego długu publicznego do PKB w terminie do 31 maja roku następnego. Dla danych za rok 2020 termin ten upływa dokładnie 31 maja 2021 r.." },
+                { pytanie: "Projekt WPFP sporządza:", odpowiedzi: ["Rada Ministrów;", "Prezes Rady Ministrów", "Minister Finansów."], poprawna: 2, wyjasnienie: "Ustawa nakłada na Ministra Finansów obowiązek przygotowania i przedstawienia Radzie Ministrów projektu Wieloletniego Planu Finansowego Państwa." },
+                { pytanie: "Ministrowie przedkładają Ministrowi Finansów informacje o realizacji WPFP, w terminie:", odpowiedzi: ["do dnia 15 kwietnia", "do dnia 31 maja", "do dnia 30 czerwca."], poprawna: 0, wyjasnienie: "Wynika to bezpośrednio z obowiązków informacyjnych nałożonych na dysponentów części budżetowych w celu umożliwienia MF corocznej aktualizacji kroczącego planu wieloletniego." },
+                { pytanie: "WPFP stanowi podstawę przygotowywania:", odpowiedzi: ["ustawy budżetowej na kolejny rok budżetowy", "projektu ustawy budżetowej na kolejny rok budżetowy", "uchwały budżetowej jst na kolejny rok budżetowy."], poprawna: 1, wyjasnienie: "Materiały źródłowe wprost wskazują, że: „Wieloletni Plan Finansowy Państwa stanowi podstawę przygotowywania projektu ustawy budżetowej na kolejny rok budżetowy”." },
+                { pytanie: "WPFP uchwala:", odpowiedzi: ["Sejm", "Rada Ministrów", "Minister Finansów."], poprawna: 1, wyjasnienie: "WPFP nie jest prawem powszechnie obowiązującym i nie uchwala go Sejm; przyjmuje formę uchwały Rady Ministrów." },
+                { pytanie: "WPFP sporządzany jest w układzie:", odpowiedzi: ["kasowym", "zadaniowym", "memoriałowym."], poprawna: 1, wyjasnienie: "Regulacje ufp silnie wiążą WPFP z celami, miernikami oraz strukturą funkcji państwa, czyli z metodologią budżetowania zadaniowego." },
+                { pytanie: "Minister Finansów przedstawia (wskaż odpowiedź w całości prawidłową):", odpowiedzi: ["Prezesowi Rady Ministrów założenia budżetu państwa na rok następny, uwzględniające ustalenia oraz kierunki działań zawarte w WPFP;", "Radzie Polityki Pieniężnej założenia WPFP na kolejne 4 lata budżetowe, uwzględniając ustalenia oraz kierunki działań zawarte w projekcie ustawy budżetowej;", "Radzie Ministrów założenia projektu budżetu państwa na rok następny, uwzględniające ustalenia oraz kierunki działań zawarte w WPFP."], poprawna: 2, wyjasnienie: "Zgodnie z art. 138 ust. 1 ufp, Minister Finansów przedstawia Radzie Ministrów założenia projektu budżetu, które muszą uwzględniać kierunki określone w WPFP." },
+                { pytanie: "Program konwergencji zawiera:", odpowiedzi: ["in.: główne cele polityki społecznej i gospodarczej oraz planowane działania i ich wpływ na poziom dochodów i wydatków sektora instytucji rządowych i samorządowych, w tym na długookresową stabilność finansów publicznych;", "in.: planowaną wstępną kwotę wydatków obliczoną zgodnie ze stabilizującą regułą wydatkową, jak i zmiany w zakresie podejmowanych działań i celów, w stosunku do poprzedniego Programu Konwergencji oraz wstępną prognozę podstawowych wielkości makroekonomicznych wraz z założeniami stanowiącymi podstawę jej opracowania", "odpowiedź a i b jest prawidłowa."], poprawna: 2, wyjasnienie: "WPFP zawiera w sobie Program Konwergencji , który zgodnie z rozporządzeniami unijnymi musi opisywać cele społeczne, stabilność fiskalną (a) oraz wstępne kwoty wydatków i prognozy makroekonomiczne (b)." },
+                { pytanie: "Informacja o wykonaniu wydatków w układzie zadaniowym (wskaż odpowiedź w całości prawdziwą):", odpowiedzi: ["Minister Finansów przedstawia ww. informację Radzie Ministrów oraz Prezydentowi RP w terminie do 30 kwietnia roku następnego wraz z rocznym sprawozdaniem z wykonania WPFP;", "Rada Ministrów przedstawia ww. informację Sejmowi i Senatowi, w terminie do 30 kwietnia roku następnego wraz z rocznym sprawozdaniem z wykonania uchwały budżetowej;", "Rada Ministrów przedstawia ww. informację Sejmowi oraz NIK, w terminie do dnia 31 maja roku następnego wraz z rocznym sprawozdaniem z wykonania ustawy budżetowej;"], poprawna: 2, wyjasnienie: "Sprawozdanie z wykonania ustawy budżetowej wraz z informacją o wydatkach zadaniowych składa się w konstytucyjnym terminie 5 miesięcy od zakończenia roku (do 31 maja)." },
+                { pytanie: "Szczegółowy sposób, tryb i terminy opracowania materiałów do opracowania WPFP określa:", odpowiedzi: ["Rada Ministrów w drodze rozporządzenia;", "Minister Finansów w drodze rozporządzenia;", "Rada Ministrów w drodze uchwały."], poprawna: 1, wyjasnienie: "Upoważnienie ustawowe z ufp wskazuje Ministra Finansów jako organ wydający to rozporządzenie wykonawcze (analogicznie do noty budżetowej)." },
+                { pytanie: "Budżet środków europejskich jest:", odpowiedzi: ["rocznym planem dochodów i podlegających refundacji wydatków przeznaczonych na realizację programów finansowanych z udziałem środków europejskich, ze szczególnym uwzględnieniem środków przeznaczonych na realizację projektów pomocy technicznej", "rocznym planem dochodów i niepodlegających refundacji wydatków przeznaczonych na realizację programów finansowanych z udziałem środków europejskich, z wyłączeniem środków przeznaczonych na realizację projektów pomocy technicznej", "rocznym planem dochodów i podlegających refundacji wydatków przeznaczonych na realizację programów finansowanych z udziałem środków europejskich, z wyłączeniem środków przeznaczonych na realizację projektów pomocy technicznej."], poprawna: 2, wyjasnienie: "Środki przeznaczone na pomoc techniczną w programach europejskich są wyłączone z klasycznego budżetu środków europejskich i ujęte w ramach tradycyjnych części budżetu państwa." },
+                { pytanie: "W budżecie środków europejskich ujmuje się:", odpowiedzi: ["dochody z tytułu realizacji programów finansowanych z udziałem środków europejskich", "wydatki na realizację programów finansowanych z udziałem środków europejskich w części podlegającej refundacji", "zarówno a) jak i b)."], poprawna: 2, wyjasnienie: "Struktura tego budżetu ujmuje komplementarnie strumień dochodowy (np. refundacje z UE) oraz wydatki na realizację programów." },
+                { pytanie: "Wskaż twierdzenie prawdziwe:", odpowiedzi: ["różnica pomiędzy dochodami a wydatkami budżetu środków europejskich stanowi odpowiednio nadwyżkę budżetu środków europejskich albo deficyt budżetu środków europejskich", "deficyt budżetu środków europejskich albo nadwyżka środków europejskich są wliczane do, odpowiednio, deficytu albo nadwyżki budżetu państwa", "deficyt budżetu środków europejskich nie jest finansowany w ramach potrzeb pożyczkowych budżetu państwa"], poprawna: 0, wyjasnienie: "Jest to bezpośrednie, matematyczno-prawne ujęcie wyniku finansowego tego wyodrębnionego planu finansowego." },
+                { pytanie: "Dochody budżetu środków europejskich ujmuje się w ustawie budżetowej według:", odpowiedzi: ["części klasyfikacji budżetowej;", "paragrafów klasyfikacji budżetowej;", "programów finansowanych z udziałem środków europejskich;", "odpowiedź a) oraz c) jest właściwa."], poprawna: 3, wyjasnienie: "Zgodnie z art. 119 ufp, podział następuje zarówno według tradycyjnych części klasyfikacji budżetowej, jak i w układzie poszczególnych programów unijnych." },
+                { pytanie: "Wydatki budżetu środków europejskich ujmuje się w ustawie budżetowej w podziale na:", odpowiedzi: ["programy finansowane z udziałem środków europejskich w ramach części i działów klasyfikacji wydatków", "części i działy klasyfikacji wydatków;", "części, działy, rozdziały i paragrafy wydatków", "odpowiedź a) oraz b) jest właściwa"], poprawna: 3, wyjasnienie: "Wydatki te dzieli się tradycyjnie na części i działy klasyfikacji wydatków, z jednoczesnym, obowiązkowym przypisaniem ich do konkretnych programów operacyjnych." },
+                { pytanie: "Czy na wydatki związane z realizacją programów finansowych z udziałem środków europejskich można tworzyć rezerwę celową?", odpowiedzi: ["tak, przy czym w budżecie środków europejskich ujmuje się taką rezerwę celową w zakresie, w jakim wydatki te podlegają refundacji", "tak, przy czym w budżecie środków europejskich ujmuje się taka rezerwę celową w zakresie, w jakim wydatki te nie podlegają refundacji", "nie, na wydatki związane z realizacją programów finansowych z udziałem środków europejskich nie można tworzyć rezerwy celowej."], poprawna: 0, wyjasnienie: "Rezerwy celowe mogą służyć zabezpieczeniu finansowania projektów unijnych w części, która docelowo zostanie zrefundowana przez Komisję Europejską." },
+                { pytanie: "Do środków własnych Unii Europejskiej zalicza się m.in.:", odpowiedzi: ["udział we wpływach z ceł, opłat rolnych i cukrowych;", "środki obliczone na podstawie wartości rocznego dochodu narodowego brutto", "wszystkie odpowiedzi są prawidłowe."], poprawna: 2, wyjasnienie: "Budżet UE zasilany jest z tradycyjnych środków własnych, do których zalicza się cła oraz wpłaty państw członkowskich skalkulowane na podstawie ich Dochodu Narodowego Brutto (DNB)." },
+                { pytanie: "1.1. Katalog możliwych naruszeń dyscypliny finansów publicznych zawarty w ustawie o ndfp jest:", odpowiedzi: ["Katalogiem otwartym", "Katalogiem zamkniętym", "Katalogiem przykładowym."], poprawna: 1, wyjasnienie: "W prawie odpowiedzialności represyjnej obowiązuje zasada *nullum crimen sine lege*. Ustawa o odpowiedzialności za naruszenie dyscypliny finansów publicznych (uondfp) zawiera ściśle wyliczony, zamknięty katalog czynów będących czynem zabronionym." },
+                { pytanie: "2.4. Dyscyplina finansów publicznych to:", odpowiedzi: ["obowiązek przestrzegania określonych prawem reguł związanych z dysponowaniem środkami prywatnymi, a także środkami pochodzącymi z zasobów prywatnych, przekazanymi jednostkom spoza sektora finansów publicznych.", "obowiązek przestrzegania określonych prawem reguł związanych z dysponowaniem środkami publicznymi, a także środkami pochodzącymi z zasobów publicznych, przekazanymi jednostkom spoza sektora finansów publicznych.", "obowiązek przestrzegania określonych prawem reguł związanych z dysponowaniem środkami publicznymi, a także środkami pochodzącymi z zasobów prywatnych, przekazanymi jednostkom spoza sektora finansów publicznych."], poprawna: 1, wyjasnienie: "Jest to klasyczna materialnoprawna definicja tego pojęcia, akcentująca publiczny charakter zasobów finansowych." },
+                { pytanie: "Kara za naruszenie dyscypliny finansów publicznych nie jest:", odpowiedzi: ["Upomnienie.", "Nawiązka", "Kara pieniężna", "Zakaz pełnienia funkcji związanych z dysponowaniem środkami publicznymi."], poprawna: 1, wyjasnienie: "Art. 31 uondfp zawiera zamknięty katalog kar: upomnienie, nagana, kara pieniężna oraz zakaz pełnienia funkcji. Nawiązka to środek o charakterze stricte karnym/sądowym, niewystępujący w dyscyplinie budżetowej." },
+                { pytanie: "Rejestr ukaranych na podstawie naruszeń dyscypliny finansów publicznych (ustawy o ondfp) prowadzi:", odpowiedzi: ["Główna Komisja Orzekająca", "Minister Sprawiedliwości", "Minister Finansów."], poprawna: 0, wyjasnienie: "Organem odpowiedzialnym za prowadzenie centralnego rejestru ukaranych jest Główna Komisja Orzekająca (GKO) działająca przy Ministrze Finansów." },
+                { pytanie: "Zatarcie ukarania może nastąpić:", odpowiedzi: ["Wyłącznie na wniosek", "Wyłącznie z urzędu", "Na wniosek lub z urzędu."], poprawna: 2, wyjasnienie: "Podstawowym trybem jest zatarcie z urzędu (z mocy prawa po upływie czasu), jednak ustawa przewiduje też nadzwyczajną procedurę zatarcia na wniosek (np. ułaskawieniową)." },
+                { pytanie: "Karę zakazu pełnienia funkcji związanych z dysponowaniem środkami publicznymi wymierza się na okres:", odpowiedzi: ["od roku do 5 lat", "od 2 lat do 5 lat", "od 5 miesięcy do roku."], poprawna: 0, wyjasnienie: "Wynika bezpośrednio z art. 34 ust. 1 uondfp." },
+                { pytanie: "Naruszeniem dyscypliny finansów publicznych jest:", odpowiedzi: ["niesprawowanie kontroli zarządczej nad audytorem wewnętrznym;", "niewykonanie w terminie czynności audytowych;", "ani a), ani b) nie jest właściwa."], poprawna: 2, wyjasnienie: "Ani uchybienia terminowe technicznych czynności audytora, ani brak nadzoru zarządczego nad konkretną osobą nie są wprost stypizowanymi czynami zabronionymi w uondfp (karalne jest np. całkowite niewdrożenie audytu lub zaniechanie kontroli zarządczej skutkujące szkodą, a nie same uchybienia formalne wewnątrz procedury)." },
+                { pytanie: "Dyrektor Zespołu Szkół Ogólnokształcących w dniach 4-9 stycznia 2010 r. przeznaczył dochody uzyskiwane przez jednostkę z tytułu wpłat rodziców za posiłki wydawane w stołówce szkolnej na wydatki na artykuły żywnościowe. Dyrektor szkoły uznał, że zapewnienie dzieciom wyżywienia, za które rodzice uczniów wnieśli do kasy szkoły należne opłaty było oczywistym obowiązkiem szkoły, a na początku 2010 r. szkoła nie posiadała środków budżetowych i nie posiadała też środków żywnościowych w magazynie, zaś przejściowe wykorzystanie środków wpłaconych przez rodziców na zakup artykułów żywnościowych na wyżywienie uczniów w pełni realizowało cel, dla którego rodzice dokonali wpłat. W takiej sytuacji:", odpowiedzi: ["naruszono art. 11 ust. 1 u.f.p. w związku z czym uzasadniona jest o.n.df.p. z art. 7 u.o.n.d.f.p.", "naruszono art. 7 u.o.n.d.f.p., ale sprawa powinna być umorzona 78 ust. 1 pkt 7 u.o.n.d.f.p. w zw. z art. 28 ust. 1 u.o.n.d.f.p.", "nie naruszono dyscypliny finansów publicznych."], poprawna: 1, wyjasnienie: "Dyrektor formalnie złamał zasadę budżetowania brutto z art. 11 ufp (wykorzystał dochód zamiast go odprowadzić), co stanowi naruszenie dyscypliny. Jednak z uwagi na działanie w celu wyższej konieczności (karmienie dzieci) i brak realnej szkody ekonomicznej, sprawa podlega umorzeniu ze względu na znikomy stopień szkodliwości czynu dla finansów publicznych." },
+                { pytanie: "Janowi wymierzono karę pieniężną za n.d.f.p. Jan wykonał karę 1 stycznia 2019 r. Po upływie miesiąca Jan złożył do Ministra Finansów wniosek o zatarcie ukarania, ale bez jakiegokolwiek uzasadnienia. Minister uzyskał negatywną opinię Głównego Rzecznika Dyscypliny Finansów Publicznych, ale mimo to zatarł ukaranie. W takiej sytuacji:", odpowiedzi: ["Działanie Ministra było niedopuszczalne. Opinia musi być pozytywna.", "Działanie Ministra było uprawnione.", "Działanie Ministra było niedopuszczalne, ponieważ nie minęły 2 lata od wykonania kary."], poprawna: 0, wyjasnienie: "Przy przedterminowym, nadzwyczajnym zatarciu ukarania na wniosek, przepisy prawa proceduralnego wymagają obligatoryjnego uzyskania pozytywnej opinii organu finansowego/rzecznika dyscypliny. Negatywna opinia stanowi prawną blokadę dla Ministra." },
+                { pytanie: "21 maja 2020 r. komisja I instancji orzekła o o.n.d.f.p. przez Martynę C. i wymierzyła karę upomnienia. Martyna C. odwołała się od ww. orzeczenia, jednak GKO 12 grudnia 2020 r. utrzymała w mocy to rozstrzygnięcie. Kiedy nastąpi zatarcie ukarania?", odpowiedzi: ["21 maja 2022 r.", "12 grudnia 2022 r.", "11 grudnia 2022 r."], poprawna: 1, wyjasnienie: "Zatarcie ukarania karą upomnienia następuje z mocy prawa po upływie 2 lat od dnia, w którym orzeczenie stało się prawomocne (czyli od wydania ostatecznego rozstrzygnięcia przez GKO w II instancji). 2 lata od 12.12.2020 to dokładnie 12.12.2022." },
+                { pytanie: "Wieloletni Plan Finansowy Państwa:", odpowiedzi: ["ustala górny limit przychodów z budżetu państwa;", "obowiązuje przez 4 lata budżetowe (rok budżetowy i 3 kolejne lata);", "stanowi podstawę przygotowania projektu ustawy budżetowej."], poprawna: 2, wyjasnienie: "Tożsamość pojęciowa z pytaniem nr 104." },
+                { pytanie: "Rada Ministrów przedstawia Sejmowi projekt ustawy budżetowej na rok następny:", odpowiedzi: ["do 30 kwietnia roku poprzedzającego rok budżetowy:", "do 31 maja roku poprzedzającego rok budżetowy", "do 30 września roku poprzedzającego rok budżetowy."], poprawna: 2, wyjasnienie: "Jest to sztywny termin wynikający z art. 141 ufp oraz art. 222 Konstytucji RP." },
+                { pytanie: "W razie prawomocnego skazania za przestępstwo, będące równocześnie naruszeniem dyscypliny finansów publicznych, wszczęte postępowanie o n.d.f.p.:", odpowiedzi: ["podlega zawieszeniu;", "jest prowadzone, gdyż postępowanie to jest niezależne od innych postępowań;", "podlega umorzeniu."], poprawna: 2, wyjasnienie: "Zgodnie z ustawową zasadą eliminacji podwójnego karania za ten sam czyn (zasada *ne bis in idem*), prawomocny wyrok skazujący sądu karnego obliguje komisję orzekającą do umorzenia postępowania o naruszenie dyscypliny finansów publicznych." },
+                { pytanie: "Zgodnie z konstytucją RP, nie wolno udzielać gwarancji i poręczeń finansowych, w następstwie których PDP:", odpowiedzi: ["przekroczy połowę PKB;", "przekroczy 3/5 wartości rocznego PKB;", "przekroczy wartość rocznego PKB."], poprawna: 1, wyjasnienie: "Jest to powtórzenie konstytucyjnego limitu długu publicznego: nie wolno udzielać gwarancji i poręczeń finansowych, jeżeli państwowy dług publiczny przekroczyłby 3/5 wartości rocznego PKB." },
+                { pytanie: "Zatarcie ukarania następuje:", odpowiedzi: ["W razie odstąpienia od wymierzenia kary zatarcie ukarania z mocy prawa następuje po upływie 2 lat od dnia wydania orzeczenia.", "Np. na wniosek Ministra Finansów zaopiniowany przez Prezesa RM;", "Z mocy prawa, jeżeli od dnia wykonania kary lub przedawnienia jej wykonania upłynęły 2 lata"], poprawna: 2, wyjasnienie: "Potwierdzenie ogólnego terminu zatarcia z mocy prawa dla standardowych kar dyscyplinarnych (upomnienie, nagana, kara pieniężna)." },
+                { pytanie: "Łączną kwotę, do wysokości której mogą być udzielane przez Skarb Państwa poręczenia i gwarancje, określa:", odpowiedzi: ["ustawa z dnia 8 maja 1997 r. o poręczeniach i gwarancjach udzielanych przez Skarb Państwa oraz niektóre osoby prawne;", "ustawa budżetowa;", "ustawa z dnia 27 sierpnia 2009 r. o finansach publicznych."], poprawna: 1, wyjasnienie: "Maksymalny roczny limit kwotowy dla operacji poręczeniowych państwa określa się w załącznikach lub postanowieniach rocznej ustawy budżetowej." },
+                { pytanie: "Zbiór ilościowych i jakościowych reguł fiskalnych, których głównym celem jest ochrona sektora finansów publicznych przed konsekwencjami naruszenia konstytucyjnego limitu zadłużenia to:", odpowiedzi: ["procedury konwergencji:", "tytuły dłużne;", "procedury ostrożnościowe i sanacyjne."], poprawna: 2, wyjasnienie: "Naruszenie progów relacji długu do PKB skutkuje uruchomieniem procedur ostrożnościowych i sanacyjnych opisanych w ufp." },
+                { pytanie: "Główną jednostką klasyfikacji zadaniowej, grupującą wydatki jednego obszaru działalności państwa jest:", odpowiedzi: ["funkcja", "zadanie", "podzadanie."], poprawna: 0, wyjasnienie: "Najwyższym szczeblem w układzie zadaniowym grupującym wydatki są funkcje państwa (obecnie wyróżnia się ich 22)." },
+                { pytanie: "Poręczeń i gwarancji w imieniu i na rachunek Skarbu Państwa może udzielać:", odpowiedzi: ["Prezes Rady Ministrów;", "bank komercyjny:", "Bank Gospodarstwa Krajowego."], poprawna: 2, wyjasnienie: "BGK pełni unikalną rolę państwowego banku rozwoju, realizując programy rządowe i posiadając ustawowe umocowanie do operacyjnego wystawiania gwarancji w imieniu i na rachunek Skarbu Państwa." },
+                { pytanie: "Dyscyplina finansów publicznych to:", odpowiedzi: ["gałąź prawa finansowego, która całościowo reguluje problematykę odpowiedzialności za naruszenie dyscypliny finansów publicznych", "czyn (działanie lub zaniechanie) osoby o statusie wyznaczonym w ustawie określony w prawie, zawiniony i szkodliwy dla finansów publicznych;", "obowiązek przestrzegania określonych prawem reguł związanych z dysponowaniem środkami publicznymi, a także środkami pochodzącymi z zasobów publicznych, przekazanymi jednostkom spoza sektora finansów publicznych."], poprawna: 2, wyjasnienie: "Powtórzenie pytania nr 119." },
+                { pytanie: "Których kar ogłaszano najwięcej w sprawach o naruszenie dyscypliny finansów publicznych (w 2019 r.)?", odpowiedzi: ["nagan;", "kar pieniężnych;", "upomnień."], poprawna: 2, wyjasnienie: "Oficjalne statystyki GKO potwierdzają, że upomnienie, jako najłagodniejsza kara, jest najchętniej stosowane przez składy orzekające przy drobnych przewinieniach formalnych." },
+                { pytanie: "Karą za naruszenie dyscypliny finansów publicznych jest:", odpowiedzi: ["Zakaz pełnienia funkcji związanych z dysponowaniem środkami publicznymi na okres od roku do 5 lat;", "Upomnienie orzekane w przypadku stwierdzenia, że stopień szkodliwości naruszenia dyscypliny finansów publicznych nie jest znaczny;", "Odpowiedź a) i b) jest właściwa."], poprawna: 2, wyjasnienie: "Zestawia prawidłowo ramowe przesłanki wymiaru kary zakazu pełnienia funkcji (a) oraz upomnienia przy niskiej szkodliwości czynu (b)." },
+                { pytanie: "Bon skarbowy:", odpowiedzi: ["jest długoterminowym papierem wartościowym;", "może być emitowany m.in. przez NBP w imieniu Ministra Finansów;", "może być nabywany przez rezydentów, jak i przez nierezydentów."], poprawna: 2, wyjasnienie: "Bony skarbowe to instrumenty krótkoterminowe (co wyklucza opcję a). Są emitowane na rynku krajowym, ale dostęp do ich zakupu mają bez przeszkód zarówno podmioty krajowe (rezydenci), jak i inwestorzy zagraniczni (nierezydenci)." },
+                { pytanie: "Klasyfikacja dochodów publicznych w budżecie państwa dokonywana jest według następujących podziałek klasyfikacyjnych:", odpowiedzi: ["części, działów, rozdziałów oraz paragrafów;", "części, funkcji, zadań, podzadań i paragrafów;", "funkcji, celów i kodów dochodów."], poprawna: 0, wyjasnienie: "To kompletny zestaw tradycyjnych podziałek klasyfikacji budżetowej stosowanych w polskiej gospodarce finansowej." },
+                { pytanie: "Obligacja skarbowa:", odpowiedzi: ["sprzedawana jest na rynku pierwotnym wyłącznie z dyskontem;", "to papier wartościowy oferowany do sprzedaży w kraju lub za granica, oprocentowany w postaci dyskonta lub odsetek;", "może być emitowana przez Ministra właściwego do spraw Skarbu Państwa."], poprawna: 1, wyjasnienie: "Jest to klasyczna, ustawowa definicja obligacji skarbowej jako dłużnego instrumentu finansowego Skarbu Państwa. --- ### Sekcja III: Odpowiedzialność za Naruszenie Dyscypliny Finansów Publicznych (Pytania 118–127, 130, 132, 137–139, 144)" },
+                { pytanie: "Senat może uchwalić poprawki do ustawy budżetowej w ciągu:", odpowiedzi: ["21 dni od dnia przekazania jej Senatowi.", "30 dni od dnia przekazania jej Senatowi.", "20 dni od dnia przekazania jej Senatowi."], poprawna: 2, wyjasnienie: "Wynika bezpośrednio z art. 223 Konstytucji RP." },
+                { pytanie: "Pozytywną przesłanką odpowiedzialności dyscyplinarnej są:", odpowiedzi: ["zawinienie i szkodliwość czynu dla finansów publicznych;", "zdarzenie losowe i upływ terminu karalności czynu;", "nieumyślność popełnienia czynu oraz nieświadomość."], poprawna: 0, wyjasnienie: "Konstrukcja odpowiedzialności wymaga łącznego zaistnienia bezprawności, przypisywalnej winy (zawinienia) oraz materialnej szkodliwości zachowania dla finansów publicznych. --- ### Sekcja IV: Prawo Podatkowe i Zasady Ogólne (Pytania 141, 148–159, 160–172, 173–187, 188–199)" },
+                { pytanie: "Wybierz właściwą odpowiedź:", odpowiedzi: ["MF przedstawia Prezesowi RM strategie zarzadzania długiem Skarbu Państwa i oddziaływania na państwowy dług publiczny", "MF przedstawia RM strategię zarządzania długiem Skarbu Państwa i oddziaływania na państwowy dług publiczny", "Prezes RM przedstawia Sejmowi strategię zarządzania długiem Skarbu Państwa wraz z ustawą budżetowa."], poprawna: 1, wyjasnienie: "Minister Finansów przygotowuje ten 4-letni dokument i przedstawia go Radzie Ministrów do zatwierdzenia." },
+                { pytanie: "W przypadku, gdy wartość relacji kwoty państwowego długu publicznego do produktu krajowego brutto, wynosi 59,6 % uruchamiana jest:", odpowiedzi: ["pierwsza procedura sanacyjna", "druga procedura sanacyjna", "trzecia procedura sanacyjna."], poprawna: 0, wyjasnienie: "W stanie prawnym ustawy, przekroczenie poziomu 55% (aż do granicy konstytucyjnej 60%) uruchamia rygorystyczne procedury sanacyjne, w tym m.in. zakaz deficytu w budżetach JST i obowiązek przedstawienia przez rząd programu sanacyjnego Sejmowi." },
+                { pytanie: "Rezerwa ogólna:", odpowiedzi: ["tworzenie jej w ustawie budżetowej jest obligatoryjne;", "w ustawie budżetowej na 2021 r. nie zaplanowano rezerwy ogólnej;", "wysokość rezerwy ogólnej nie może być wyższa niż 3% PKB."], poprawna: 0, wyjasnienie: "Zgodnie z art. 140 ufp, utworzenie rezerwy ogólnej w budżecie państwa ma charakter bezwzględnie obowiązkowy (limit wynosi maksymalnie 0,2% wydatków). --- ### Sekcja II: Budżet Środków Europejskich i Instrumenty Finansowe (Pytania 111–117, 133, 136, 140, 142)" },
+                { pytanie: "Jaka jest podstawowa funkcja progresywnej skali podatkowej?", odpowiedzi: ["alokacyjna", "redystrybucyjna", "represyjna"], poprawna: 1, wyjasnienie: "Skala progresywna (wyższa stawka dla wyższych dochodów) służy ponownemu podziałowi PKB w celu niwelowania nierówności społecznych, co stanowi istotę funkcji redystrybucyjnej." },
+                { pytanie: "w drodze dziedziczenia, zapisu zwykłego, zapisu windykacyjnego, dalszego zapisu, polecenia testamentowego, darowizny lub polecenia darczyńcy przez osoby zaliczane do I grupy podatkowej,(...) - nie wlicza się do podstawy opodatkowania ich czystej wartości do łącznej wysokości nieprzekraczającej 110 m2 powierzchni użytkowej budynku lub lokalu. W przypadku nabycia części (udziału) budynku mieszkalnego lub lokalu albo udziału w spółdzielczym prawie do budynku mieszkalnego lub lokalu ulga przysługuje stosownie do wielkości udziału. Niniejszy przepis przewiduje:", odpowiedzi: ["Zwolnienie przedmiotowe", "Zwolnienie podmiotowe", "ulgę"], poprawna: 2, wyjasnienie: "Przepis modyfikuje podstawę opodatkowania w konkretnej sytuacji, stanowiąc w nomenklaturze podatkowej klasyczną *ulgę*, a nie całkowite zwolnienie podmiotowe bądź przedmiotowe." },
+                { pytanie: "Art. 1 ustawy o podatku dochodowym od osób fizycznych brzmi: Ustawa reguluje opodatkowanie podatkiem dochodowym dochodów osób fizycznych. Jakie elementy konstrukcji podatku przewiduje ten przepis:", odpowiedzi: ["podmiot", "przedmiot", "podmiot i przedmiot"], poprawna: 2, wyjasnienie: "Wskazuje na podmiot bierny (osoby fizyczne) oraz przedmiot opodatkowania (dochody)." },
+                { pytanie: "Podstawa opodatkowania to skonkretyzowany co do kwoty przedmiot opodatkowania", odpowiedzi: ["prawda", "fałsz (co do wartości bądź ilości, a nie co do kwoty)"], poprawna: 1, wyjasnienie: "Podstawa opodatkowania to ujęty ilościowo lub wartościowo przedmiot (np. litry paliwa w akcyzie, metry kwadratowe gruntu w podatku od nieruchomości), zatem określenie jej wyłącznie jako \"kwoty\" jest błędem metodologicznym." },
+                { pytanie: "Gmina płacąca podatek od towarów i usług:", odpowiedzi: ["jest podmiotem biernym tego podatku", "jest podmiotem czynnym", "jest inkasentem"], poprawna: 0, wyjasnienie: "Podmiotem biernym jest podatnik, na którym ciąży dług podatkowy. Gmina, wykonując czynności o charakterze cywilnoprawnym, staje się pełnoprawnym podatnikiem VAT." },
+                { pytanie: "Stawka podatkowa to:", odpowiedzi: ["relacja określająca stosunek wielkości stawki do wielkości podatku", "stosunek pomiędzy wielkością podstawy opodatkowania a wielkością podstawy jego wymiaru", "stosunek pomiędzy wielkością podstawy opodatkowania a wielkością podatku. (W sumie to żadna odpowiedź nie jest poprawna. W ostatniej odpowiedzi powinno być „stosunek pomiędzy wielkością podatku a wielkością podstawy opodatkowania. To tak jakby odwrócić ułamek - np. 2/5 a 5/2 XD)"], poprawna: 2, wyjasnienie: "Mimo trafnej matematycznej uwagi autora pytania (że w ułamku to podatek/podstawa), w ujęciu relacji pojęciowej stawka odzwierciedla stosunek łączący te dwie wielkości." },
+                { pytanie: "Konsument w podatku od towarów i usług", odpowiedzi: ["jest płatnikiem podatku", "jest podatnikiem rzeczywistym (podręcznik str. 158 - pkt 4. zjawisko przerzucalności)", "jest podatnikiem formalnym"], poprawna: 1, wyjasnienie: "Z uwagi na zjawisko przerzucalności podatków obrotowych, to konsument ponosi ekonomiczny ciężar podatku zawartego w cenie (podatnik rzeczywisty), podczas gdy przedsiębiorca jest jedynie podatnikiem formalnym rozliczającym podatek z urzędem." },
+                { pytanie: "Bezzwrotność daniny publicznej oznacza, iż podmiot uiszczający daninę nie otrzymuje nic w zamian.", odpowiedzi: ["prawda", "fałsz (opis odnosi się do nieodpłatności; bezzwrotność to coś innego)"], poprawna: 1, wyjasnienie: "Brak świadczenia wzajemnego to *nieodpłatność*. *Bezzwrotność* oznacza natomiast, że prawidłowo zapłacone świadczenie przechodzi definitywnie na własność podmiotu publicznego i podatnik nie może żądać jego zwrotu." },
+                { pytanie: "Która z niżej wymienionych danin nie jest odpłatna", odpowiedzi: ["cło", "składka", "opłata publiczna"], poprawna: 0, wyjasnienie: "Cło jest daniną nieodpłatną (podobnie jak podatek). Płacący cło nie dostaje od państwa żadnego ekwiwalentu. Opłata publiczna i składka dają określone, bezpośrednie prawa zwrotne (np. prawo do świadczeń medycznych, wydanie decyzji administracyjnej)." },
+                { pytanie: "Cechą stałą odróżniającą opłatę od podatku jest", odpowiedzi: ["bezzwrotność", "odpłatność", "celowość"], poprawna: 1, wyjasnienie: "Podatek z definicji ustawowej jest *nieodpłatny*, a opłata ma charakter *odpłatny* (ekwiwalentny) – wnosi się ją za konkretną usługę ze strony państwa." },
+                { pytanie: "Ponowny podział PKB dokonuje się za pośrednictwem funkcji:", odpowiedzi: ["stabilizacyjnej", "fiskalnej", "redystrybucyjnej"], poprawna: 2, wyjasnienie: "Powtórzenie mechanizmu opisanego w pytaniu nr 148." },
+                { pytanie: "Opłata od posiadania psów stanowi dochód budżetu państwa", odpowiedzi: ["prawda", "fałsz (jako opłata lokalna stanowi dochód gminy, a nie budżetu państwa)"], poprawna: 1, wyjasnienie: "Wpływy z tej opłaty lokalnej w całości zasilają budżet właściwej gminy, nie budżet centralny." },
+                { pytanie: "Która z organizacyjnych form sektora finansów publicznych przełamuje zasadę zupełności budżetu:", odpowiedzi: ["jednostka budżetowa", "zakład budżetowy", "państwowy fundusz celowy (podręcznik str. 94 pkt 2)"], poprawna: 2, wyjasnienie: "Zasada zupełności wymaga objęcia całego planu finansowego państwa jednym budżetem. Fundusze celowe prowadzą gospodarkę pozabudżetową na podstawie odrębnych planów, co łamie tę zasadę." },
+                { pytanie: "Zakłady budżetowe w celu wykonywania swoich zadań mogą prowadzić działalność gospodarczą.", odpowiedzi: ["prawda", "fałsz (podręcznik str. 47 pkt 7 - „…zakłady budżetowe nie prowadzą działalności gospodarczej”)"], poprawna: 1, wyjasnienie: "Materiał źródłowy wprost precyzuje: „zakłady budżetowe nie prowadzą działalności gospodarczej” – realizują wyłącznie zadania użyteczności publicznej." },
+                { pytanie: "Budżet Państwa obejmuje:", odpowiedzi: ["całość wydatków i dochodów samorządowego zakładu budżetowego", "jedynie wynik finansowy samorządowego zakładu budżetowego (stratę bądź zysk)", "samorządowy zakład budżetowy w żaden sposób nie rozlicza się z budżetem państwa"], poprawna: 2, wyjasnienie: "Samorządowy zakład budżetowy rozlicza się metodą netto wyłącznie z budżetem właściwej JST (gminy, powiatu), która go utworzyła, a nie z budżetem centralnym." },
+                { pytanie: "Przy metodzie budżetowania brutto jednostki sektora finansów publicznych:", odpowiedzi: ["różnicę między bieżącymi wydatkami a dochodami odprowadzają do budżetu", "wszystkie dochody uzyskane w toku swojej działalności odprowadzają na rachunek budżetu", "50% dochodów uzyskanych w toku swojej działalności odprowadzają na rachunek budżetu"], poprawna: 1, wyjasnienie: "Jest to klasyczna definicja metody brutto (zasada pełnego pokrywania wydatków z dotacji i całkowitego oddawania dochodów), stosowana wobec jednostek budżetowych." },
+                { pytanie: "Która z organizacyjnych form sektora finansów publicznych posiada osobowość prawną:", odpowiedzi: ["jednostka budżetowa", "samorządowy zakład budżetowy", "instytucja gospodarki budżetowej"], poprawna: 2, wyjasnienie: "Zgodnie z ufp, instytucje gospodarki budżetowej posiadają osobowość prawną. Jednostki budżetowe oraz zakłady budżetowe jej nie posiadają." },
+                { pytanie: "Przychody w rozumieniu, o którym mowa w ustawie o finansach publicznych:", odpowiedzi: ["zwiększają deficyt sektora finansów publicznych", "zmniejszają deficyt sektora finansów publicznych", "nie mają wpływu na rozmiar deficytu"], poprawna: 2, wyjasnienie: "Deficyt to ujemna relacja dochodów do wydatków. Przychody (np. pożyczki, obligacje) pojawiają się dopiero w celu *sfinansowania* istniejącego deficytu, więc ich kwota nie modyfikuje jego pierwotnego rozmiaru." },
+                { pytanie: "Senat może uchwalić poprawki do ustawy budżetowej:", odpowiedzi: ["prawda", "fałsz"], poprawna: 0, wyjasnienie: "Uprawnienie to gwarantuje Senatowi art. 223 Konstytucji RP." },
+                { pytanie: "Projekt ustawy wraz z uzasadnieniem tworzy:", odpowiedzi: ["Minister Finansów (art. 139 ust. 1 ufp)", "Rada Ministrów", "Minister Gospodarki"], poprawna: 0, wyjasnienie: "Kompetencja redakcyjna przygotowania rządowego projektu budżetu leży po stronie Ministra Finansów." },
+                { pytanie: "Wpływy uzyskane z prywatyzacji majątku Skarbu Państwa stanowią:", odpowiedzi: ["rozchody publiczne", "przychody publiczne", "dochody publiczne"], poprawna: 1, wyjasnienie: "Zgodnie z ustawą nie są to dochody publiczne, lecz przychody o charakterze zwrotnym/majątkowym, przeznaczone na finansowanie potrzeb pożyczkowych długu." },
+                { pytanie: "Nota budżetowa to", odpowiedzi: ["rozporządzenie Ministra Finansów określające szczegółowy tryb, sposób i terminy opracowania materiałów niezbędnych do stworzenia projektu ustawy budżetowej", "informacje Ministra Finansów na temat stanu finansowego państwa", "założenia projektu budżetu państwa na rok następny"], poprawna: 0, wyjasnienie: "Zgodnie z definicją doktrynalną: nota budżetowa to potoczna nazwa tego rozporządzenia wykonawczego." },
+                { pytanie: "W budżecie państwa subwencje ogólne dla JST ujęte są jako:", odpowiedzi: ["przychód publiczny", "dochód publicznych", "wydatek publiczny"], poprawna: 2, wyjasnienie: "Dla budżetu centralnego wypłata subwencji to transfer zewnętrzny, czyli wydatek publiczny. (Dla JST będzie to dochód)." },
+                { pytanie: "Osobowość prawną posiada:", odpowiedzi: ["państwowy fundusz celowy", "instytucja gospodarki budżetowej", "jednostka budżetowa"], poprawna: 1, wyjasnienie: "Powtórzenie pytania nr 164." },
+                { pytanie: "Wykup papierów wartościowych stanowi:", odpowiedzi: ["wydatek publiczny", "rozchód publiczny", "przychód publiczny"], poprawna: 1, wyjasnienie: "Spłata długu (wykup obligacji/bonów) to klasyczny rozchód budżetu." },
+                { pytanie: "W prawie finansowym prymat posiada wykładnia:", odpowiedzi: ["funkcjonalna", "celowościowa", "językowa"], poprawna: 2, wyjasnienie: "Z uwagi na zasadę władztwa i pewności prawa daninowego (art. 217 Konstytucji), interpretacja przepisów finansowych musi opierać się restrykcyjnie na brzmieniu słownym tekstu prawnego (wykładnia językowa/literalna)." },
+                { pytanie: "Do wykładni pozajęzykowych w prawie finansowym nie należy:", odpowiedzi: ["wykładnia teleologiczna", "wykładnia systemowa", "wykładnia literalna"], poprawna: 2, wyjasnienie: "Wykładnia literalna to inna nazwa wykładni językowej. Systemowa i celowościowa to wykładnie pozajęzykowe." },
+                { pytanie: "Główne źródło podatkowych dochodów budżetu państwa stanowi:", odpowiedzi: ["podatek dochodowy od osób fizycznych", "podatek dochodowy od osób prawnych", "podatek od towarów i usług"], poprawna: 2, wyjasnienie: "Podatek VAT generuje największy, dominujący strumień wpływów finansowych do polskiego budżetu centralnego (ponad 40%)." },
+                { pytanie: "Wykładnia celowościowa to:", odpowiedzi: ["to samo co wykładnia teleologiczna", "dokonywana jest ze względu na położenie danej normy w systemie prawa", "jest rodzajem wykładni językowej"], poprawna: 0, wyjasnienie: "Pojęcia te w metodologii prawa są stosowane jako synonimy (badanie celu ustanowienia normy)." },
+                { pytanie: "Deficyt sektora finansów publicznych to:", odpowiedzi: ["ujemna różnica między dochodami publicznymi a wydatkami publicznymi", "ujemna różnica między dochodami publicznymi a wydatkami publicznymi po wyeliminowaniu wewnętrznych przepływów między jednostkami sektora finansów publicznych", "ujemna różnica między dochodami a wydatkami budżetu państwa"], poprawna: 1, wyjasnienie: "Obliczenie skonsolidowanego wyniku całego *sektora* (metodologia GG) bezwzględnie wymaga dokonania konsolidacji, czyli wyeliminowania transferów wewnętrznych (np. dotacji rządowej dla JST)." },
+                { pytanie: "Samorządowe zakłady budżetowe:", odpowiedzi: ["mogą otrzymywać z budżetu wyłącznie dotacje przedmiotowe", "pokrywają koszty swojej działalności z przychodów własnych", "zobowiązane są wszystkie uzyskane dochody odprowadzić na rachunek budżetu j.s.t."], poprawna: 1, wyjasnienie: "Stanowi to istotę gospodarki metodą netto – dążenie do pełnego samofinansowania z wpłat od użytkowników." },
+                { pytanie: "Wśród dochodów podatkowych budżetu państwa największy udział mają wpływy z:", odpowiedzi: ["podatku dochodowego od nieruchomości", "podatku dochodowego od gier hazardowych", "żadne z powyższych"], poprawna: 2, wyjasnienie: "Największy udział ma VAT i akcyza, które nie pojawiły się w opcjach (podatek od nieruchomości to wyłączny dochód gmin)." },
+                { pytanie: "Uprawnienia i obowiązki prawnofinansowe podmiotów biernych prawa finansowego mają charakter:", odpowiedzi: ["materialny lub proceduralny", "abstrakcyjny", "imperatywno - atrybutywny"], poprawna: 0, wyjasnienie: "Podatnicy mają obowiązki materialne (zapłata kwoty) oraz proceduralne (deklaracje, terminy, księgowość)." },
+                { pytanie: "Które zdanie jest prawdziwe:", odpowiedzi: ["w prawie finansowym analogia nie jest dopuszczalna", "w prawie finansowym analogia dopuszczalna jest tylko na korzyść podmiotów biernych", "w prawie finansowym analogia dopuszczalna jest tylko na korzyść podmiotów czynnych"], poprawna: 1, wyjasnienie: "Analogia rozszerzająca obowiązki publicznoprawne (na niekorzyść obywatela) jest zakazana przez Konstytucję. Dopuszcza się ją wyjątkowo wyłącznie *in bonam partem* (na korzyść podmiotu biernego)." },
+                { pytanie: "Nieprzekraczalnym limitem w budżecie państwa są:", odpowiedzi: ["rozchody budżetowe", "wydatki budżetowe", "przychody budżetowe"], poprawna: 1, wyjasnienie: "Ustawa wprost precyzuje, że w przeciwieństwie do szacunkowych dochodów, kwoty wydatków stanowią limit nieprzekraczalny." },
+                { pytanie: "Wśród wydatków budżetu państwa największą pozycję stanowią:", odpowiedzi: ["udzielane dotacje i subwencje", "wydatki na obsługę długu publicznego", "wydatki majątkowe"], poprawna: 0, wyjasnienie: "Potwierdza to struktura polskiego budżetu (wielkie transfery do FUS na emerytury oraz subwencje ogólne dla samorządów)." },
+                { pytanie: "Zasada w myśl której całość dochodów budżetowych pokrywa całość wydatków, bez przypisywania konkretnych źródeł dochodów do finansowania określonych celów, nosi nazwę zasady:", odpowiedzi: ["jedności formalnej", "jedności materialnej", "zupełności budżetowej"], poprawna: 1, wyjasnienie: "Jest to klasyczna definicja zasady jedności materialnej (powszechności) budżetu." },
+                { pytanie: "Nieograniczony obowiązek podatkowy dotyczy osób fizycznych, które:", odpowiedzi: ["w roku podatkowym przebywają na terytorium RP przez okres co najmniej 183 dni", "w roku podatkowym przebywają na terytorium RP przez okres dłuższy niż 183 dni lub posiadają na terytorium RP ośrodek interesów życiowych lub gospodarczych"], poprawna: 1, wyjasnienie: "Dokładne przytoczenie warunków rezydencji podatkowej z ustawy o PIT (art. 3 ust. 1a)." },
+                { pytanie: "Zgodnie z Konstytucją RP: każdy jest obowiązany do ponoszenia ciężarów i świadczeń publicznych, w tym podatków, określonych w:", odpowiedzi: ["Konstytucji", "przepisach prawa", "ustawie"], poprawna: 2, wyjasnienie: "Cytat z art. 84 Konstytucji RP." },
+                { pytanie: "Zobowiązanie podatkowe powstaje z dniem:", odpowiedzi: ["doręczenia decyzji organu podatkowego określającej wysokość zobowiązania podatkowego", "doręczenia decyzji organu podatkowego ustalającej wysokość zobowiązania podatkowego", "wydania decyzji organu podatkowego ustalającej wysokość zobowiązania podatkowego"], poprawna: 1, wyjasnienie: "Zgodnie z art. 21 § 1 pkt 2 Ordynacji podatkowej, decyzja *ustalająca* (konstytutywna) tworzy zobowiązanie z dniem jej doręczenia dłużnikowi." },
+                { pytanie: "Zgodnie z ustawą o podatku dochodowym od osób fizycznych, wysokość kosztów uzyskania przychodów ze stosunku pracy:", odpowiedzi: ["zależy od tego, czy podatnik otrzymuje przychody z jednego czy z kilku zakładów pracy", "jest określona procentowo przez wskazanie jaki procent przychodów stanowią koszty jego uzyskania", "nie zależy od tego, czy podatnik mieszka blisko, czy daleko od zakładu pracy"], poprawna: 0, wyjasnienie: "Limity rocznych kosztów pracowniczych są wyższe dla osób pracujących wieloetatowo (w kilku zakładach pracy)." },
+                { pytanie: "Zgodnie z Ordynacją podatkową, podatkiem jest świadczenie pieniężne o charakterze:", odpowiedzi: ["odpłatnym, zwrotnym oraz ustalanym jednostronnie", "nieodpłatnym, przymusowym oraz bezzwrotnym", "odpłatnym, przymusowym oraz bezzwrotnym"], poprawna: 1, wyjasnienie: "Dosłowne przytoczenie definicji legalnej z art. 6 Ordynacji podatkowej." },
+                { pytanie: "Nadpłaty wraz z ich oprocentowaniem podlegają zaliczeniu z urzędu na poczet zaległości podatkowych wraz z odsetkami za zwłokę, odsetek za zwłokę od nieuregulowanych w terminie zaliczek na podatek, kosztów upomnienia oraz bieżących zobowiązań podatkowych", odpowiedzi: ["Prawda", "Fałsz"], poprawna: 0, wyjasnienie: "Zgodnie z Ordynacją podatkową, organ ma ustawowy obowiązek zaliczenia nadpłaty na zaległości dłużnika z urzędu (zwrot następuje dopiero, gdy brak jest zaległości)." },
+                { pytanie: "Małżonkowie nie mogą się razem rozliczać jeśli jedno z nich nie uzyskało dochodów w roku podatkowym za które następuje to rozliczenie", odpowiedzi: ["Prawda", "Fałsz"], poprawna: 1, wyjasnienie: "Wspólne rozliczenie z małżonkiem, który nie uzyskał żadnego dochodu, jest w pełni dopuszczalne i sankcjonowane przez ustawę o PIT." },
+                { pytanie: "Zobowiązanie podatkowe nie może powstać bez powstania obowiązku podatkowego", odpowiedzi: ["Prawda", "Fałsz"], poprawna: 0, wyjasnienie: "Obowiązek podatkowy (stan abstrakcyjny) jest zawsze bazą i warunkiem koniecznym do przekształcenia się w zobowiązanie podatkowe (stan skonkretyzowany)." },
+                { pytanie: "Zgodnie z Konstytucją RP Prezydent RP ma obowiązek podpisać ustawę budżetową w terminie 3 dni od jej otrzymania.", odpowiedzi: ["Prawda", "Fałsz"], poprawna: 1, wyjasnienie: "Konstytucja RP daje Prezydentowi termin 7 dni na podpisanie ustawy budżetowej." },
+                { pytanie: "Organy stanowiące jednostek samorządu terytorialnego mogą decydować o wysokości stawek podatków lokalnych bez ograniczeń.", odpowiedzi: ["Prawda", "Fałsz"], poprawna: 1, wyjasnienie: "Rady gmin są ściśle ograniczone górnymi limitami stawek kwotowych, które corocznie publikuje Minister Finansów w obwieszczeniu." },
+                { pytanie: "Zasada nieobładowywania ustawy budżetowej oznacza, że ustawa budżetowa nie powinna być zbyt obszerna.", odpowiedzi: ["Prawda", "Fałsz"], poprawna: 1, wyjasnienie: "Zasada ta oznacza zakaz wnoszenia do ustawy budżetowej zmian przepisów innych ustaw merytorycznych. Nie ma związku z fizyczną objętością dokumentu." },
+                { pytanie: "Wadą państwowych funduszy celowych jest brak kontroli Parlamentu nad zarządzanymi przez nie środkami publicznymi.", odpowiedzi: ["Prawda", "Fałsz"], poprawna: 0, wyjasnienie: "W doktrynie finansów uważa się, że rozrastanie się gospodarki funduszowej poza klasycznym budżetem osłabia spójność polityki budżetowej Sejmu i ogranicza jego elastyczną, bezpośrednią kontrolę nad alokacją tych środków, co uznawane jest za wadę strukturalną." },
+                { pytanie: "Zasada jedności formalej budżetu określana jest mianem zasady \"wspólnego kotła\".", odpowiedzi: ["Prawda", "Fałsz"], poprawna: 1, wyjasnienie: "Pojęciem \"wspólnego kotła\" określa się zasadę jedności *materialnej* (por. pytanie nr 184)." },
+                { pytanie: "Największy udział w wydatkach publicznych mają dotacje i subwencje.", odpowiedzi: ["Prawda", "Fałsz"], poprawna: 0, wyjasnienie: "Powtórzenie pytania nr 183." },
+                { pytanie: "Wykonaniem ustawy budżetowej kieruje Rada Ministrów.", odpowiedzi: ["Prawda", "Fałsz"], poprawna: 0, wyjasnienie: "Wynika to wprost z art. 146 ust. 4 pkt 5 Konstytucji RP oraz założeń ufp." },
               ]
             }
           ]

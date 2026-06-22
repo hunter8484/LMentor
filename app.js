@@ -100,6 +100,8 @@ function renderBrowse(catIdx) {
    ========================================================= */
 let qIndex = 0, score = 0, answeredCount = 0, answered = false;
 let activeQuestions = [];
+let wrongSrc = [];   // źródłowe pytania, na które w tej sesji odpowiedziano błędnie
+let lastWrong = [];  // zestaw błędnych z ostatnio zakończonego podejścia
 
 // Tasowanie (Fisher–Yates)
 function shuffle(arr) {
@@ -115,11 +117,12 @@ function shuffle(arr) {
 // i przelicza indeks poprawnej odpowiedzi.
 function buildActiveQuestions(test) {
   const pytania = shuffle(test.pytania).map((q) => {
-    if (!Array.isArray(q.odpowiedzi) || typeof q.poprawna !== "number") return Object.assign({}, q);
+    if (!Array.isArray(q.odpowiedzi) || typeof q.poprawna !== "number") return Object.assign({}, q, { _src: q });
     const order = shuffle(q.odpowiedzi.map((_, i) => i));
     return Object.assign({}, q, {
       odpowiedzi: order.map((i) => q.odpowiedzi[i]),
-      poprawna: order.indexOf(q.poprawna)
+      poprawna: order.indexOf(q.poprawna),
+      _src: q
     });
   });
   return pytania;
@@ -135,6 +138,7 @@ function startTest(si, ti) {
 
 function restartTest() {
   qIndex = 0; score = 0; answeredCount = 0; answered = false;
+  wrongSrc = [];
   activeQuestions = buildActiveQuestions(activeTest); // nowa losowa kolejność za każdym razem
   document.getElementById("result-view").classList.add("hidden");
   document.getElementById("quiz-view").classList.remove("hidden");
@@ -231,6 +235,7 @@ function answer(choice, btn) {
     btn.classList.add("wrong");
     fb.textContent = "✕ Niepoprawnie";
     fb.style.color = "var(--red)";
+    wrongSrc.push(q._src || q);
   }
   document.getElementById("q-score").textContent = "Poprawne: " + score;
 
@@ -279,6 +284,7 @@ function checkLuka() {
     inp.classList.add("luka-bad");
     fb.textContent = "✕ Niepoprawnie — poprawna odpowiedź: " + (q.luki ? q.luki[0] : "");
     fb.style.color = "var(--red)";
+    wrongSrc.push(q._src || q);
   }
   document.getElementById("q-score").textContent = "Poprawne: " + score;
 
@@ -347,6 +353,28 @@ function showResult() {
     pct >= 80 ? "Znakomicie!" : pct >= 50 ? "Niezły wynik" : "Jeszcze popracuj";
   document.getElementById("result-text").textContent =
     "Poprawne odpowiedzi: " + score + " z " + total + " (odpowiedzi udzielone).";
+
+  // zapamiętaj błędne i pokaż przycisk „Powtórz błędne (N)”
+  lastWrong = wrongSrc.slice();
+  const rw = document.getElementById("retry-wrong-btn");
+  if (rw) {
+    if (lastWrong.length > 0) {
+      rw.textContent = "Powtórz błędne (" + lastWrong.length + ") ↻";
+      rw.classList.remove("hidden");
+    } else {
+      rw.classList.add("hidden");
+    }
+  }
+}
+
+// Ponowne podejście tylko do pytań, na które odpowiedziano błędnie
+function retryWrong() {
+  if (!lastWrong.length) return;
+  activeTest = {
+    nazwa: (activeTest && activeTest.nazwa ? activeTest.nazwa : "Test") + " — błędne",
+    pytania: lastWrong.slice()
+  };
+  restartTest();
 }
 
 function backToBrowse() {

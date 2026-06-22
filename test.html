@@ -67,7 +67,8 @@
       <h2 id="result-title">Gotowe!</h2>
       <p id="result-text"></p>
       <div class="res-actions">
-        <button class="btn btn-gold" onclick="restartTest()">Rozwiąż ponownie ↺</button>
+        <button class="btn btn-gold hidden" id="retry-wrong-btn" onclick="retryWrong()">Powtórz błędne ↻</button>
+        <button class="btn btn-ghost" onclick="restartTest()">Rozwiąż ponownie ↺</button>
         <button class="btn btn-ghost" onclick="backToBrowse()">← Inne testy</button>
       </div>
     </div>
