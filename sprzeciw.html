@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Sprzeciw! — LexMentor</title>
+  <meta name="description" content="Sprzeciw! — przesuwaj twierdzenia prawne: w lewo, jeśli fałszywe, w prawo, jeśli prawdziwe. Gra LexMentor na czas nowelizacji." />
+  <meta name="theme-color" content="#070b18" />
+  <meta property="og:title" content="Sprzeciw! — gra LexMentor" />
+  <meta property="og:description" content="Prawda czy fałsz? Przesuń i orzekaj, zanim upłynie termin." />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23070b18'/%3E%3Ctext x='32' y='47' font-family='Georgia,serif' font-size='44' font-weight='700' text-anchor='middle' fill='%23d8b463'%3E§%3C/text%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;0,9..144,700;0,9..144,900;1,9..144,500;1,9..144,600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg-0: #070b18;
+      --bg-1: #0b1226;
+      --navy: #111a35;
+      --line: rgba(255,255,255,0.08);
+      --line-2: rgba(255,255,255,0.14);
+      --gold: #d8b463;
+      --gold-2: #f0d489;
+      --indigo: #6f8bff;
+      --indigo-2: #9db0ff;
+      --ink: #eef1fb;
+      --muted: #9aa4c2;
+      --green: #46e0a0;
+      --red: #ff5f6d;
+      --serif: "Fraunces", Georgia, serif;
+      --sans: "Plus Jakarta Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+      --p: 0;              /* wychylenie karty: -1 (sprzeciw) … 1 (podtrzymuję) */
+      --safe-b: env(safe-area-inset-bottom, 0px);
+      --safe-t: env(safe-area-inset-top, 0px);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { height: 100%; overflow: hidden; }
+    body {
+      font-family: var(--sans); color: var(--ink); background: var(--bg-0);
+      position: fixed; inset: 0; overflow: hidden; overscroll-behavior: none; -webkit-font-smoothing: antialiased;
+      -webkit-user-select: none; user-select: none; -webkit-tap-highlight-color: transparent;
+      -webkit-touch-callout: none;
+    }
+    button { font: inherit; color: inherit; border: 0; background: none; cursor: pointer; touch-action: manipulation; }
+    a { color: inherit; }
+
+    /* ---------- tło: sala rozpraw na sterydach ---------- */
+    .bg { position: fixed; inset: 0; overflow: hidden; z-index: 0; pointer-events: none;
+      background: radial-gradient(120% 80% at 50% 0%, #121c3d 0%, var(--bg-0) 60%); }
+    .grid {
+      position: absolute; left: -50%; right: -50%; bottom: -10%; height: 60%;
+      background-image: linear-gradient(rgba(216,180,99,.18) 1px, transparent 1px), linear-gradient(90deg, rgba(216,180,99,.18) 1px, transparent 1px);
+      background-size: 44px 44px; transform: perspective(420px) rotateX(62deg); transform-origin: 50% 0;
+      -webkit-mask-image: linear-gradient(to top, #000 10%, transparent 85%); mask-image: linear-gradient(to top, #000 10%, transparent 85%);
+      animation: gridmove 3.2s linear infinite;
+    }
+    @keyframes gridmove { to { background-position: 0 44px; } }
+    .beam {
+      position: absolute; top: -20%; width: 46vmax; height: 140%;
+      background: conic-gradient(from 180deg at 50% 0%, transparent 168deg, rgba(240,212,137,.20) 180deg, transparent 192deg);
+      filter: blur(6px); transform-origin: 50% 0; mix-blend-mode: screen;
+    }
+    .beam.b1 { left: -12vmax; animation: sway 7s ease-in-out infinite alternate; }
+    .beam.b2 { right: -12vmax; animation: sway 8.5s ease-in-out infinite alternate-reverse;
+      background: conic-gradient(from 180deg at 50% 0%, transparent 168deg, rgba(157,176,255,.20) 180deg, transparent 192deg); }
+    @keyframes sway { from { transform: rotate(-16deg); } to { transform: rotate(16deg); } }
+    .giant {
+      position: absolute; left: 50%; top: 44%; font: 900 min(120vw, 780px)/1 var(--serif); color: transparent;
+      -webkit-text-stroke: 1.5px rgba(216,180,99,.10); transform: translate(-50%, -50%); animation: spin 60s linear infinite;
+    }
+    @keyframes spin { to { transform: translate(-50%, -50%) rotate(360deg); } }
+    .wash { position: absolute; inset: 0; transition: opacity .15s;
+      background: radial-gradient(80% 60% at 0% 50%, rgba(255,95,109,.55), transparent 70%); opacity: calc(max(0, -1 * var(--p)) * .9); }
+    .wash.r { background: radial-gradient(80% 60% at 100% 50%, rgba(70,224,160,.5), transparent 70%); opacity: calc(max(0, var(--p)) * .9); }
+    .flash { position: fixed; inset: 0; z-index: 40; pointer-events: none; opacity: 0; }
+    .flash.bad { background: radial-gradient(circle, rgba(255,95,109,.0) 30%, rgba(255,95,109,.55)); animation: flash .6s ease-out; }
+    .flash.good { background: radial-gradient(circle, rgba(240,212,137,.35), transparent 70%); animation: flash .5s ease-out; }
+    @keyframes flash { 0% { opacity: 1; } 100% { opacity: 0; } }
+
+    /* tryb gorączki — długa seria */
+    body.fever .bg { background: radial-gradient(120% 80% at 50% 0%, #3a2a0e 0%, #140d05 45%, var(--bg-0) 75%); }
+    body.fever .grid { animation-duration: .9s; background-image: linear-gradient(rgba(240,212,137,.45) 1px, transparent 1px), linear-gradient(90deg, rgba(240,212,137,.45) 1px, transparent 1px); }
+    body.fever .giant { animation-duration: 8s; -webkit-text-stroke-color: rgba(240,212,137,.28); }
+    body.fever .beam { animation-duration: 1.6s; }
+
+    #fx { position: fixed; inset: 0; width: 100%; height: 100%; z-index: 30; pointer-events: none; }
+
+    /* ---------- układ ---------- */
+    .app {
+      position: relative; z-index: 1; height: 100vh; height: 100dvh; display: flex; flex-direction: column;
+      padding: calc(10px + var(--safe-t)) 14px calc(14px + var(--safe-b)); max-width: 520px; margin: 0 auto;
+    }
+    .bar { display: flex; align-items: center; gap: 10px; height: 44px; }
+    .back, .snd {
+      width: 40px; height: 40px; flex: none; display: grid; place-items: center; border-radius: 12px;
+      border: 1px solid var(--line-2); background: rgba(7,11,24,.5); color: var(--gold-2); text-decoration: none; font-size: 22px;
+    }
+    .snd svg { width: 20px; height: 20px; }
+    .hud { flex: 1; display: flex; align-items: center; justify-content: center; gap: 14px; }
+    .lives { display: flex; gap: 5px; }
+    .life { font: 700 22px/1 var(--serif); color: var(--gold-2); text-shadow: 0 0 12px rgba(240,212,137,.7); transition: all .4s; }
+    .life.lost { color: rgba(255,255,255,.14); text-shadow: none; transform: scale(.8) rotate(-20deg); }
+    .life.pop { animation: lifepop .6s; }
+    @keyframes lifepop { 30% { transform: scale(1.8) rotate(25deg); color: var(--red); } }
+    .pts { display: flex; align-items: baseline; gap: 4px; padding: 5px 12px; border-radius: 999px; border: 1px solid rgba(216,180,99,.3); background: rgba(7,11,24,.55); }
+    .pts b { font: 700 20px var(--serif); font-variant-numeric: tabular-nums; color: var(--ink); min-width: 1.5ch; text-align: right; }
+    .pts span { font-size: 11px; font-weight: 700; letter-spacing: .1em; color: var(--muted); text-transform: uppercase; }
+    .pts.bump b { animation: bump .45s; }
+    @keyframes bump { 40% { transform: scale(1.35); color: var(--gold-2); } }
+
+    .fuse { height: 6px; margin: 10px 4px 0; border-radius: 99px; background: rgba(255,255,255,.08); overflow: visible; position: relative; }
+    .fuse i { position: absolute; left: 0; top: 0; bottom: 0; width: 100%; border-radius: 99px;
+      background: linear-gradient(90deg, var(--gold), var(--gold-2)); box-shadow: 0 0 12px rgba(240,212,137,.6); }
+    .fuse i::after { content: ""; position: absolute; right: -5px; top: 50%; width: 12px; height: 12px; margin-top: -6px; border-radius: 50%;
+      background: #fff; box-shadow: 0 0 10px 4px rgba(255,210,120,.9), 0 0 24px 8px rgba(255,120,60,.6); animation: spark .15s infinite alternate; }
+    @keyframes spark { to { transform: scale(.6); } }
+    .fuse.hot i { background: linear-gradient(90deg, #ff8a5c, var(--red)); box-shadow: 0 0 14px rgba(255,95,109,.8); }
+    .fuse.hot { animation: fusepulse .5s infinite alternate; }
+    @keyframes fusepulse { to { box-shadow: 0 0 0 3px rgba(255,95,109,.25); } }
+
+    .combo { height: 30px; margin-top: 8px; text-align: center; font: 800 13px/30px var(--sans); letter-spacing: .14em; text-transform: uppercase; color: var(--gold-2); }
+    .combo b { font: italic 700 22px/1 var(--serif); letter-spacing: 0; vertical-align: -2px; margin: 0 4px;
+      background: linear-gradient(100deg, #fff, var(--gold-2), var(--indigo-2)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    .combo.pop { animation: combopop .5s cubic-bezier(.2,1.6,.4,1); }
+    @keyframes combopop { from { transform: scale(1.6); opacity: 0; } }
+
+    /* ---------- stół z kartami ---------- */
+    .table { flex: 1; position: relative; perspective: 900px; margin: 6px 0 12px; min-height: 0; }
+    .table.shake { animation: shake .45s; }
+    @keyframes shake { 15% { transform: translate(-9px, 4px); } 30% { transform: translate(8px, -5px); } 45% { transform: translate(-6px, 3px); } 60% { transform: translate(5px, -2px); } 80% { transform: translate(-2px, 1px); } }
+    .card {
+      position: absolute; inset: 0; margin: auto; width: 100%; max-height: 470px; border-radius: 26px;
+      display: flex; flex-direction: column; padding: 22px 22px 18px; overflow: hidden;
+      background: linear-gradient(160deg, #18244a 0%, #0f1733 55%, #0b1128 100%);
+      border: 1px solid rgba(216,180,99,.28);
+      box-shadow: 0 30px 60px -20px rgba(0,0,0,.8), inset 0 1px 0 rgba(255,255,255,.08);
+      transition: transform .45s cubic-bezier(.2,.9,.25,1.15), opacity .3s, filter .3s;
+      touch-action: none; will-change: transform;
+    }
+    .card::before { /* folia holograficzna */
+      content: ""; position: absolute; inset: 0; pointer-events: none; opacity: .5; mix-blend-mode: color-dodge;
+      background: linear-gradient(115deg, transparent 30%, rgba(255,120,200,.35) 42%, rgba(120,220,255,.35) 50%, rgba(255,240,150,.35) 58%, transparent 70%);
+      background-size: 250% 250%; background-position: calc(50% + var(--p) * 60%) 50%; transition: background-position .15s;
+    }
+    .card::after { content: ""; position: absolute; inset: 9px; border-radius: 19px; border: 1px dashed rgba(216,180,99,.18); pointer-events: none; }
+    .card.back1 { transform: translateY(18px) scale(.93); filter: brightness(.6); }
+    .card.back2 { transform: translateY(34px) scale(.86); filter: brightness(.38); }
+    .card.enter { animation: enter .5s cubic-bezier(.2,.9,.25,1.2); }
+    @keyframes enter { from { transform: translateY(18px) scale(.93); filter: brightness(.6); } }
+    .card.dragging { transition: none; }
+    .c-top { display: flex; justify-content: space-between; align-items: center; gap: 8px; position: relative; z-index: 1; }
+    .tag { font-size: 11px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; padding: 5px 10px; border-radius: 999px;
+      color: var(--indigo-2); background: rgba(111,139,255,.13); border: 1px solid rgba(111,139,255,.3); }
+    .sygn { font-size: 11px; color: var(--muted); letter-spacing: .06em; font-variant-numeric: tabular-nums; }
+    .who { margin-top: 18px; font: italic 500 14px var(--serif); color: var(--gold); position: relative; z-index: 1; }
+    .claim { flex: 1; display: flex; align-items: center; position: relative; z-index: 1;
+      font: 600 clamp(21px, 6.2vw, 27px)/1.28 var(--serif); letter-spacing: -.005em; text-wrap: balance; padding: 6px 0; }
+    .claim::before { content: "„"; position: absolute; left: -8px; top: -6px; font: 900 90px/1 var(--serif); color: rgba(216,180,99,.12); }
+    .c-foot { display: flex; justify-content: space-between; font-size: 11px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; position: relative; z-index: 1; }
+    .c-foot .l { color: rgba(255,95,109,.8); }
+    .c-foot .r { color: rgba(70,224,160,.8); }
+    .stamp {
+      position: absolute; top: 64px; z-index: 3; padding: 8px 14px; border-radius: 10px; border: 4px solid currentColor;
+      font: 900 26px/1 var(--sans); letter-spacing: .04em; text-transform: uppercase; pointer-events: none;
+      opacity: 0; mix-blend-mode: screen;
+      -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='60'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='.9' numOctaves='2'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -2.2 1.9'/%3E%3C/filter%3E%3Crect width='120' height='60' filter='url(%23n)'/%3E%3C/svg%3E");
+              mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='60'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='.9' numOctaves='2'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -2.2 1.9'/%3E%3C/filter%3E%3Crect width='120' height='60' filter='url(%23n)'/%3E%3C/svg%3E");
+    }
+    .stamp.no { right: 16px; color: var(--red); transform: rotate(14deg); opacity: calc(max(0, -1 * var(--p)) * 1.4); text-shadow: 0 0 18px rgba(255,95,109,.7); }
+    .stamp.yes { left: 16px; color: var(--green); transform: rotate(-12deg); opacity: calc(max(0, var(--p)) * 1.4); text-shadow: 0 0 18px rgba(70,224,160,.7); font-size: 21px; }
+    .card:not(.top) .stamp { opacity: 0; }
+    .card.glitch .claim { animation: glitch .5s steps(2) 2; }
+    @keyframes glitch {
+      0% { text-shadow: 3px 0 var(--red), -3px 0 #3ff; transform: translateX(2px) skewX(-6deg); }
+      50% { text-shadow: -4px 0 var(--red), 4px 0 #3ff; transform: translateX(-3px) skewX(5deg); }
+      100% { text-shadow: none; transform: none; }
+    }
+
+    /* ---------- przyciski ---------- */
+    .ctrl { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .act {
+      position: relative; display: flex; align-items: center; justify-content: center; gap: 10px; height: 68px; border-radius: 20px;
+      font-weight: 800; font-size: 16px; letter-spacing: .02em; overflow: hidden;
+      transition: transform .12s, box-shadow .2s;
+    }
+    .act small { display: block; font-size: 10.5px; letter-spacing: .14em; text-transform: uppercase; opacity: .75; font-weight: 700; }
+    .act .ic { width: 36px; height: 36px; border-radius: 50%; display: grid; place-items: center; font-size: 18px; font-weight: 900; }
+    .act .lb { text-align: left; line-height: 1.15; }
+    .act.no { color: #ffd9dc; background: linear-gradient(160deg, rgba(255,95,109,.28), rgba(255,95,109,.08)); border: 1px solid rgba(255,95,109,.5);
+      box-shadow: 0 0 calc(max(0, -1 * var(--p)) * 40px) rgba(255,95,109,.8); }
+    .act.no .ic { background: var(--red); color: var(--bg-0); }
+    .act.yes { color: #d3ffee; background: linear-gradient(160deg, rgba(70,224,160,.26), rgba(70,224,160,.07)); border: 1px solid rgba(70,224,160,.5);
+      box-shadow: 0 0 calc(max(0, var(--p)) * 40px) rgba(70,224,160,.8); }
+    .act.yes .ic { background: var(--green); color: var(--bg-0); }
+    .act:active { transform: scale(.96); }
+    .act:disabled { opacity: .5; }
+
+    .toast {
+      position: absolute; left: 14px; right: 14px; top: calc(112px + var(--safe-t)); z-index: 5; pointer-events: none;
+      padding: 10px 14px; border-radius: 14px; font-size: 13.5px; line-height: 1.4; color: #d3ffee;
+      background: rgba(10,40,32,.92); border: 1px solid rgba(70,224,160,.45); box-shadow: 0 10px 30px -10px rgba(0,0,0,.8);
+      opacity: 0; transform: translateY(-12px); transition: opacity .25s, transform .25s;
+    }
+    .toast.on { opacity: 1; transform: none; }
+    .toast b { color: var(--green); }
+
+    /* ---------- młotek ---------- */
+    .gavel { position: fixed; left: 50%; top: 42%; width: 170px; height: 170px; margin: -150px 0 0 -40px; z-index: 35; pointer-events: none; opacity: 0; transform-origin: 85% 85%; }
+    .gavel.slam { animation: slam .8s forwards; }
+    @keyframes slam {
+      0% { opacity: 0; transform: rotate(-75deg) translateY(-30px); animation-timing-function: cubic-bezier(.6,0,.9,.5); }
+      12% { opacity: 1; }
+      40% { transform: rotate(8deg); animation-timing-function: ease-out; }
+      55% { transform: rotate(-7deg); }
+      80% { transform: rotate(-3deg); opacity: 1; }
+      100% { transform: rotate(-10deg) translateY(-10px); opacity: 0; }
+    }
+    .ring { position: fixed; left: 50%; top: 42%; width: 40px; height: 40px; margin: -20px 0 0 -20px; border-radius: 50%; z-index: 34; pointer-events: none; opacity: 0;
+      border: 3px solid var(--gold-2); box-shadow: 0 0 30px rgba(240,212,137,.8), inset 0 0 20px rgba(240,212,137,.6); }
+    .ring.go { animation: ring .6s ease-out .3s; }
+    @keyframes ring { 0% { opacity: 1; transform: scale(.4); } 100% { opacity: 0; transform: scale(9); } }
+    .shout { position: fixed; left: 0; right: 0; top: 30%; z-index: 36; text-align: center; pointer-events: none; opacity: 0;
+      font: italic 900 clamp(40px, 13vw, 64px)/1 var(--serif); letter-spacing: -.02em; }
+    .shout.go { animation: shout .9s cubic-bezier(.2,1.5,.4,1) forwards; }
+    .shout.good { background: linear-gradient(100deg, #fff, var(--gold-2) 50%, var(--gold)); -webkit-background-clip: text; background-clip: text; color: transparent; filter: drop-shadow(0 4px 20px rgba(240,212,137,.6)); }
+    @keyframes shout { 0% { opacity: 0; transform: scale(2.2) rotate(-8deg); } 25% { opacity: 1; transform: scale(1) rotate(-4deg); } 75% { opacity: 1; } 100% { opacity: 0; transform: scale(.9) translateY(-30px) rotate(-4deg); } }
+
+    /* ---------- nakładki ---------- */
+    .ov { position: fixed; inset: 0; z-index: 50; display: flex; flex-direction: column; padding: calc(20px + var(--safe-t)) 18px calc(20px + var(--safe-b));
+      background: rgba(4,7,16,.78); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); overflow-y: auto; }
+    .ov[hidden] { display: none; }
+    .ov > * { margin: auto; }   /* wyśrodkowane, ale przewijalne, gdy się nie mieści */
+    .intro { text-align: center; max-width: 420px; width: 100%; }
+    .intro .eyebrow { font-size: 11px; font-weight: 800; letter-spacing: .2em; text-transform: uppercase; color: var(--muted); }
+    .logo {
+      display: inline-block; margin: 14px 0 6px; padding: 6px 18px 12px; border: 5px solid var(--red); border-radius: 16px; transform: rotate(-6deg);
+      font: italic 900 clamp(56px, 18vw, 84px)/1 var(--serif); letter-spacing: -.03em; color: var(--red);
+      text-shadow: 0 0 30px rgba(255,95,109,.6); box-shadow: 0 0 40px -6px rgba(255,95,109,.7), inset 0 0 30px -10px rgba(255,95,109,.7);
+      animation: logoin .8s cubic-bezier(.2,1.6,.4,1) both, logoflicker 4s 1s infinite;
+    }
+    @keyframes logoin { from { transform: scale(3) rotate(-20deg); opacity: 0; } }
+    @keyframes logoflicker { 0%, 92%, 100% { opacity: 1; } 93% { opacity: .5; } 95% { opacity: 1; } 97% { opacity: .7; } }
+    .rise-txt { font: italic 600 20px var(--serif); color: var(--gold-2); margin-top: 10px; min-height: 1.4em; }
+    .demo { position: relative; height: 150px; margin: 18px auto 8px; max-width: 300px; }
+    .demo .mini {
+      position: absolute; left: 50%; top: 10px; width: 150px; height: 110px; margin-left: -75px; border-radius: 16px; padding: 14px;
+      background: linear-gradient(160deg, #18244a, #0b1128); border: 1px solid rgba(216,180,99,.35);
+      font: 600 13px/1.3 var(--serif); text-align: left; animation: demo 4s ease-in-out infinite;
+    }
+    .demo .mini i { display: block; height: 7px; border-radius: 4px; background: rgba(255,255,255,.18); margin-bottom: 8px; }
+    .demo .mini i:nth-child(2) { width: 80%; } .demo .mini i:nth-child(3) { width: 60%; }
+    @keyframes demo {
+      0%, 8% { transform: none; box-shadow: none; }
+      22%, 30% { transform: translateX(-70px) rotate(-12deg); box-shadow: 0 0 30px rgba(255,95,109,.8); border-color: var(--red); }
+      42%, 52% { transform: none; box-shadow: none; }
+      66%, 74% { transform: translateX(70px) rotate(12deg); box-shadow: 0 0 30px rgba(70,224,160,.8); border-color: var(--green); }
+      88%, 100% { transform: none; box-shadow: none; }
+    }
+    .demo .side { position: absolute; top: 130px; font-size: 12px; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; }
+    .demo .side.l { left: 0; color: var(--red); } .demo .side.r { right: 0; color: var(--green); }
+    .demo .side small { display: block; font-weight: 600; letter-spacing: 0; text-transform: none; color: var(--muted); font-size: 12px; }
+    .rules { color: var(--muted); font-size: 14px; line-height: 1.55; margin: 26px 0 20px; }
+    .rules b { color: var(--ink); }
+    .big {
+      display: inline-flex; align-items: center; justify-content: center; gap: 10px; width: 100%; height: 60px; border-radius: 18px;
+      font: 800 17px var(--sans); color: var(--bg-0); text-decoration: none;
+      background: linear-gradient(135deg, var(--gold-2), var(--gold)); box-shadow: 0 14px 40px -12px rgba(240,212,137,.8);
+      animation: breathe 2.2s ease-in-out infinite;
+    }
+    @keyframes breathe { 50% { box-shadow: 0 14px 50px -6px rgba(240,212,137,.95); transform: scale(1.02); } }
+    .ghost { display: inline-flex; align-items: center; justify-content: center; width: 100%; height: 52px; margin-top: 10px; border-radius: 16px;
+      border: 1px solid var(--line-2); font-weight: 700; font-size: 15px; color: var(--ink); text-decoration: none; background: rgba(255,255,255,.04); }
+    .best { margin-top: 14px; font-size: 13px; color: var(--muted); }
+    .best b { color: var(--gold-2); }
+
+    /* arkusz z uzasadnieniem */
+    .sheet-ov { padding: 0; background: rgba(40,4,10,.55); backdrop-filter: blur(3px); -webkit-backdrop-filter: blur(3px); }
+    .sheet-ov > .sheet { margin: auto auto 0; }
+    .sheet {
+      width: 100%; max-width: 520px; padding: 24px 20px calc(20px + var(--safe-b)); border-radius: 26px 26px 0 0;
+      background: linear-gradient(180deg, #2a0f18, #150811); border: 1px solid rgba(255,95,109,.45); border-bottom: 0;
+      box-shadow: 0 -20px 60px rgba(255,95,109,.25); animation: sheetin .4s cubic-bezier(.2,.9,.25,1.1);
+    }
+    @keyframes sheetin { from { transform: translateY(100%); } }
+    .sheet h3 { font: italic 900 34px/1 var(--serif); color: var(--red); letter-spacing: -.01em; text-shadow: 0 0 24px rgba(255,95,109,.6); }
+    .sheet .verdict { margin-top: 10px; font-size: 14px; font-weight: 700; color: #ffd9dc; }
+    .sheet .verdict b { color: #fff; }
+    .sheet .claim-s { margin-top: 12px; font: italic 500 16px/1.4 var(--serif); color: var(--muted); }
+    .sheet .why { margin-top: 12px; padding: 12px 14px; border-radius: 14px; background: rgba(255,255,255,.05); border: 1px solid var(--line-2); font-size: 14.5px; line-height: 1.5; color: var(--ink); }
+    .sheet .big { margin-top: 18px; animation: none; }
+
+    /* wyrok końcowy */
+    .paper {
+      position: relative; width: 100%; max-width: 420px; padding: 28px 22px 22px; border-radius: 6px; color: #2a2317; text-align: left;
+      background: #f3ead5 radial-gradient(120% 90% at 20% 0%, #fbf5e6, #efe2c4 70%, #e6d4ad);
+      box-shadow: 0 40px 80px -20px rgba(0,0,0,.9), 0 0 0 1px rgba(0,0,0,.2);
+      font-family: var(--serif); animation: paperin .7s cubic-bezier(.2,1.2,.3,1);
+    }
+    @keyframes paperin { from { transform: translateY(60px) rotate(4deg) scale(.9); opacity: 0; } }
+    .paper h2 { text-align: center; font: 900 34px/1 var(--serif); letter-spacing: .28em; margin-right: -.28em; }
+    .paper .in { text-align: center; font-style: italic; font-size: 14px; margin-top: 6px; color: #6b5c40; }
+    .paper p { font-size: 15px; line-height: 1.5; margin-top: 14px; }
+    .paper ol { margin: 8px 0 0 1.3em; font-size: 15.5px; line-height: 1.55; }
+    .paper ol b { font-weight: 700; }
+    .paper .rank { display: block; font: italic 700 26px/1.15 var(--serif); color: #7a1f2b; margin: 14px 0 2px; text-align: center; }
+    .paper .foot { font-size: 12.5px; font-style: italic; color: #6b5c40; margin-top: 16px; }
+    .paper .rec {
+      position: absolute; right: 14px; top: 64px; padding: 6px 10px; border: 3px solid #b3202f; border-radius: 8px; color: #b3202f;
+      font: 900 15px/1 var(--sans); letter-spacing: .06em; transform: rotate(12deg); opacity: 0; animation: recin .5s cubic-bezier(.2,1.8,.4,1) .9s forwards;
+    }
+    @keyframes recin { from { opacity: 0; transform: rotate(12deg) scale(3); } to { opacity: .85; transform: rotate(12deg) scale(1); } }
+    .end-actions { width: 100%; max-width: 420px; margin-top: 16px; }
+    .end-wrap { display: flex; flex-direction: column; align-items: center; width: 100%; }
+
+    .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+
+    @media (min-height: 760px) { .card { max-height: 520px; } .claim { font-size: clamp(22px, 6.4vw, 29px); } }
+    @media (max-height: 620px) {
+      .act { height: 58px; }
+      .who { margin-top: 10px; }
+      .claim { font-size: clamp(18px, 5.6vw, 22px); }
+      .card { padding: 16px 18px 14px; }
+      .demo { height: 130px; } .demo .side { top: 118px; }
+      .rules { margin: 20px 0 14px; }
+    }
+    @media (hover: hover) { .act:hover { filter: brightness(1.15); } }
+    @media (prefers-reduced-motion: reduce) {
+      .grid, .beam, .giant, .logo, .big, .demo .mini, .fuse i::after { animation: none !important; }
+    }
+  </style>
+</head>
+<body>
+  <div class="bg" aria-hidden="true">
+    <div class="giant">§</div>
+    <div class="beam b1"></div><div class="beam b2"></div>
+    <div class="grid"></div>
+    <div class="wash"></div><div class="wash r"></div>
+  </div>
+  <canvas id="fx" aria-hidden="true"></canvas>
+  <div class="flash" id="flash" aria-hidden="true"></div>
+
+  <div class="app" id="app">
+    <header class="bar">
+      <a class="back" href="index.html" aria-label="Wróć na stronę główną">‹</a>
+      <div class="hud">
+        <div class="lives" id="lives" aria-label="Pozostałe szanse"></div>
+        <div class="pts" id="pts"><b id="score">0</b><span>pkt</span></div>
+      </div>
+      <button class="snd" id="snd" aria-label="Włącz dźwięk"></button>
+    </header>
+    <div class="fuse" id="fuse-wrap" aria-hidden="true"><i id="fuse"></i></div>
+    <div class="combo" id="combo" aria-live="polite"></div>
+    <main class="table" id="table"></main>
+    <div class="toast" id="toast" aria-live="polite"></div>
+    <nav class="ctrl">
+      <button class="act no" id="b-no" aria-label="Sprzeciw — twierdzenie fałszywe"><span class="ic">✕</span><span class="lb">Sprzeciw!<small>fałsz</small></span></button>
+      <button class="act yes" id="b-yes" aria-label="Podtrzymuję — twierdzenie prawdziwe"><span class="ic">✓</span><span class="lb">Podtrzymuję<small>prawda</small></span></button>
+    </nav>
+  </div>
+
+  <svg class="gavel" id="gavel" viewBox="0 0 100 100" aria-hidden="true">
+    <defs>
+      <linearGradient id="wood" x1="0" x2="1"><stop offset="0" stop-color="#f0d489" /><stop offset=".5" stop-color="#d8b463" /><stop offset="1" stop-color="#8a6526" /></linearGradient>
+    </defs>
+    <rect x="46" y="26" width="9" height="66" rx="4" fill="url(#wood)" transform="rotate(-45 50 50)" />
+    <g transform="rotate(-45 50 50)">
+      <rect x="24" y="8" width="54" height="26" rx="7" fill="url(#wood)" stroke="#6b4a18" stroke-width="1.5" />
+      <rect x="20" y="10" width="7" height="22" rx="3" fill="#fff5d6" />
+      <rect x="75" y="10" width="7" height="22" rx="3" fill="#fff5d6" />
+    </g>
+  </svg>
+  <div class="ring" id="ring" aria-hidden="true"></div>
+  <div class="shout" id="shout" aria-hidden="true"></div>
+
+  <!-- start -->
+  <div class="ov" id="intro">
+    <div class="intro">
+      <div class="eyebrow">LexMentor · gra na czas nowelizacji</div>
+      <div class="logo">Sprzeciw!</div>
+      <div class="rise-txt" id="rise-txt"></div>
+      <div class="demo" aria-hidden="true">
+        <div class="mini"><i></i><i></i><i></i></div>
+        <div class="side l">← Sprzeciw!<small>twierdzenie fałszywe</small></div>
+        <div class="side r">Podtrzymuję →<small>twierdzenie prawdziwe</small></div>
+      </div>
+      <p class="rules">Pełnomocnik rzuca twierdzenia. <b>Przesuń kartę</b> albo użyj przycisków, zanim upłynie termin. Seria poprawnych odpowiedzi <b>mnoży punkty</b>, a <b>trzy pomyłki</b> kończą rozprawę.</p>
+      <button class="big" id="start">Rozpocznij rozprawę</button>
+      <p class="best" id="best-line"></p>
+    </div>
+  </div>
+
+  <!-- pomyłka -->
+  <div class="ov sheet-ov" id="sheet" hidden>
+    <div class="sheet" role="dialog" aria-labelledby="sheet-h">
+      <h3 id="sheet-h">Uchylone!</h3>
+      <p class="verdict" id="sheet-v"></p>
+      <p class="claim-s" id="sheet-c"></p>
+      <p class="why" id="sheet-w"></p>
+      <button class="big" id="sheet-next">Dalej</button>
+    </div>
+  </div>
+
+  <!-- wyrok -->
+  <div class="ov" id="end" hidden>
+    <div class="end-wrap">
+      <article class="paper" id="paper"></article>
+      <div class="end-actions">
+        <button class="big" id="again">Apelacja — zagraj jeszcze raz</button>
+        <button class="ghost" id="share">Udostępnij wyrok</button>
+        <a class="ghost" href="index.html">Wróć na stronę główną</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+  /* =========================================================
+     TWIERDZENIA — ok: true = prawdziwe (w prawo), false = fałszywe (w lewo)
+     ========================================================= */
+  const CLAIMS = [
+    { t: "Zdolność prawną człowiek nabywa z chwilą urodzenia.", ok: true, k: "prawo cywilne", w: "Art. 8 § 1 k.c. — każdy człowiek od chwili urodzenia ma zdolność prawną." },
+    { t: "Pełną zdolność do czynności prawnych nabywa się z chwilą uzyskania pełnoletności.", ok: true, k: "prawo cywilne", w: "Art. 11 k.c. — pełną zdolność do czynności prawnych nabywa się z chwilą uzyskania pełnoletności." },
+    { t: "Małoletni, który ukończył 13 lat, ma ograniczoną zdolność do czynności prawnych.", ok: true, k: "prawo cywilne", w: "Art. 15 k.c. — ograniczoną zdolność mają małoletni, którzy ukończyli lat trzynaście, oraz osoby ubezwłasnowolnione częściowo." },
+    { t: "Dziesięciolatek może samodzielnie i ważnie kupić samochód.", ok: false, k: "prawo cywilne", w: "Do 13. roku życia brak zdolności do czynności prawnych (art. 12 k.c.). Samodzielnie można zawierać tylko drobne umowy w bieżących sprawach życia codziennego (art. 14 § 2 k.c.)." },
+    { t: "Ogólny termin przedawnienia roszczeń majątkowych wynosi 10 lat.", ok: false, k: "prawo cywilne", w: "Art. 118 k.c. — co do zasady 6 lat, a dla świadczeń okresowych i roszczeń związanych z działalnością gospodarczą — 3 lata." },
+    { t: "Roszczenia o świadczenia okresowe przedawniają się z upływem 3 lat.", ok: true, k: "prawo cywilne", w: "Art. 118 k.c. — dla roszczeń o świadczenia okresowe termin przedawnienia wynosi trzy lata." },
+    { t: "Koniec terminu przedawnienia przypada co do zasady na ostatni dzień roku kalendarzowego.", ok: true, k: "prawo cywilne", w: "Art. 118 zd. 2 k.c. — chyba że termin przedawnienia jest krótszy niż dwa lata." },
+    { t: "Umowa sprzedaży nieruchomości zawarta ustnie jest ważna.", ok: false, k: "prawo cywilne", w: "Art. 158 k.c. wymaga formy aktu notarialnego, a jej niezachowanie powoduje nieważność (art. 73 § 2 k.c.)." },
+    { t: "Czynność prawna sprzeczna z ustawą jest co do zasady nieważna.", ok: true, k: "prawo cywilne", w: "Art. 58 § 1 k.c. — chyba że właściwy przepis przewiduje inny skutek." },
+    { t: "Oświadczenie woli złożone drugiej stronie dla pozoru jest nieważne.", ok: true, k: "prawo cywilne", w: "Art. 83 § 1 k.c. — pozorność powoduje nieważność oświadczenia woli." },
+    { t: "Od skutków oświadczenia woli złożonego pod wpływem błędu można się uchylić w ciągu 5 lat od jego wykrycia.", ok: false, k: "prawo cywilne", w: "Art. 88 § 2 k.c. — uprawnienie wygasa z upływem roku od wykrycia błędu." },
+    { t: "Milczenie nigdy nie może zostać uznane za oświadczenie woli.", ok: false, k: "prawo cywilne", w: "Wola może być wyrażona przez każde zachowanie (art. 60 k.c.), a milczenie przedsiębiorcy w stałych stosunkach gospodarczych poczytuje się za przyjęcie oferty (art. 68² k.c.)." },
+    { t: "Pełnomocnikiem może być osoba ograniczona w zdolności do czynności prawnych.", ok: true, k: "prawo cywilne", w: "Art. 100 k.c. — ograniczona zdolność do czynności prawnych nie wyłącza możliwości bycia pełnomocnikiem." },
+    { t: "Ciężar udowodnienia faktu spoczywa na tym, kto z faktu tego wywodzi skutki prawne.", ok: true, k: "prawo cywilne", w: "Art. 6 k.c. — to ogólna reguła rozkładu ciężaru dowodu." },
+    { t: "Zadatek i zaliczka to w prawie cywilnym dokładnie to samo.", ok: false, k: "zobowiązania", w: "Zadatek (art. 394 k.c.) pełni funkcję zabezpieczającą — przy niewykonaniu umowy można go zatrzymać lub żądać dwukrotności. Zaliczka podlega po prostu zwrotowi." },
+    { t: "Jeśli druga strona nie wykona umowy z przyczyn, za które odpowiada, można zatrzymać otrzymany zadatek.", ok: true, k: "zobowiązania", w: "Art. 394 § 1 k.c. — strona może bez wyznaczania terminu dodatkowego odstąpić od umowy i otrzymany zadatek zachować." },
+    { t: "Karę umowną można zastrzec na wypadek niewykonania zobowiązania pieniężnego.", ok: false, k: "zobowiązania", w: "Art. 483 § 1 k.c. — kara umowna dotyczy tylko zobowiązań niepieniężnych. Przy pieniężnych należą się odsetki." },
+    { t: "Wierzyciel może żądać od jednego dłużnika solidarnego zapłaty całego długu.", ok: true, k: "zobowiązania", w: "Art. 366 § 1 k.c. — wierzyciel może żądać całości lub części świadczenia od wszystkich dłużników łącznie, od kilku z nich lub od każdego z osobna." },
+    { t: "Odsetki maksymalne nie mogą w stosunku rocznym przekraczać dwukrotności odsetek ustawowych.", ok: true, k: "zobowiązania", w: "Art. 359 § 2¹ k.c. — tak wyznaczono górną granicę odsetek kapitałowych." },
+    { t: "Konsument może odstąpić od umowy zawartej na odległość w ciągu 14 dni bez podania przyczyny.", ok: true, k: "prawa konsumenta", w: "Art. 27 ustawy o prawach konsumenta — 14 dni, bez podania przyczyny i co do zasady bez ponoszenia kosztów." },
+    { t: "Poręczenie jest ważne także wtedy, gdy poręczyciel udzielił go wyłącznie ustnie.", ok: false, k: "zobowiązania", w: "Art. 876 § 2 k.c. — oświadczenie poręczyciela powinno być złożone na piśmie pod rygorem nieważności." },
+    { t: "Najem na czas dłuższy niż rok zawarty bez formy pisemnej jest nieważny.", ok: false, k: "zobowiązania", w: "Art. 660 k.c. — umowa jest ważna, ale w razie niezachowania formy pisemnej poczytuje się ją za zawartą na czas nieoznaczony." },
+    { t: "Darowizna, której nie zawarto w formie aktu notarialnego, zawsze pozostaje nieważna.", ok: false, k: "zobowiązania", w: "Art. 890 § 1 k.c. — umowa zawarta bez zachowania tej formy staje się ważna, jeżeli przyrzeczone świadczenie zostało spełnione." },
+    { t: "Za szkodę wyrządzoną przez zwierzę odpowiada co do zasady ten, kto je chowa albo się nim posługuje.", ok: true, k: "zobowiązania", w: "Art. 431 § 1 k.c. — chyba że ani on, ani osoba, za którą odpowiada, nie ponoszą winy." },
+    { t: "Roszczenie o naprawienie szkody z czynu niedozwolonego przedawnia się co do zasady po 3 latach od dowiedzenia się o szkodzie i sprawcy.", ok: true, k: "zobowiązania", w: "Art. 442¹ § 1 k.c. — nie później jednak niż z upływem 10 lat od zdarzenia wywołującego szkodę." },
+    { t: "Posiadacz nieruchomości w dobrej wierze nabywa ją przez zasiedzenie po 20 latach.", ok: true, k: "prawo rzeczowe", w: "Art. 172 § 1 k.c. — 20 lat w dobrej wierze, 30 lat w złej wierze (§ 2)." },
+    { t: "Posiadacz w złej wierze nigdy nie może zasiedzieć nieruchomości.", ok: false, k: "prawo rzeczowe", w: "Art. 172 § 2 k.c. — może, ale po upływie 30 lat samoistnego posiadania." },
+    { t: "Hipoteką można obciążyć samochód.", ok: false, k: "prawo rzeczowe", w: "Hipoteka obciąża nieruchomości (i niektóre prawa). Do zabezpieczenia na rzeczach ruchomych służy zastaw, np. rejestrowy." },
+    { t: "Służebność gruntowa przysługuje każdoczesnemu właścicielowi nieruchomości władnącej.", ok: true, k: "prawo rzeczowe", w: "Art. 285 k.c. — służebność gruntowa służy nieruchomości władnącej, a nie konkretnej osobie. Tym różni się od służebności osobistej." },
+    { t: "Nabywca ruchomości w dobrej wierze może co do zasady nabyć jej własność od osoby nieuprawnionej.", ok: true, k: "prawo rzeczowe", w: "Art. 169 § 1 k.c. — z wyjątkami dla rzeczy zgubionych, skradzionych lub w inny sposób utraconych (§ 2)." },
+    { t: "Oświadczenie o przyjęciu lub odrzuceniu spadku składa się w terminie 6 miesięcy od dowiedzenia się o tytule powołania.", ok: true, k: "prawo spadkowe", w: "Art. 1015 § 1 k.c." },
+    { t: "Brak oświadczenia spadkobiercy w terminie oznacza proste przyjęcie spadku.", ok: false, k: "prawo spadkowe", w: "Art. 1015 § 2 k.c. — brak oświadczenia oznacza przyjęcie spadku z dobrodziejstwem inwentarza." },
+    { t: "Testament własnoręczny można napisać na komputerze, jeśli spadkodawca go odręcznie podpisze.", ok: false, k: "prawo spadkowe", w: "Art. 949 § 1 k.c. — całość testamentu musi być napisana pismem ręcznym, podpisana i opatrzona datą." },
+    { t: "Rodzeństwu spadkodawcy przysługuje zachowek.", ok: false, k: "prawo spadkowe", w: "Art. 991 § 1 k.c. — zachowek przysługuje tylko zstępnym, małżonkowi i rodzicom, jeśli byliby powołani do spadku z ustawy." },
+    { t: "Umowa o spadek po osobie żyjącej jest co do zasady nieważna.", ok: true, k: "prawo spadkowe", w: "Art. 1047 k.c. — wyjątkiem jest umowa o zrzeczenie się dziedziczenia (art. 1048 k.c.)." },
+    { t: "Z chwilą zawarcia małżeństwa powstaje z mocy ustawy wspólność majątkowa.", ok: true, k: "prawo rodzinne", w: "Art. 31 § 1 k.r.o. — ustawowa wspólność majątkowa obejmuje przedmioty nabyte w czasie jej trwania." },
+    { t: "Rzeczy odziedziczone przez małżonka w czasie małżeństwa wchodzą do majątku wspólnego.", ok: false, k: "prawo rodzinne", w: "Art. 33 pkt 2 k.r.o. — należą do majątku osobistego, chyba że spadkodawca inaczej postanowił." },
+    { t: "Przestępstwo można popełnić także przez zaniechanie.", ok: true, k: "prawo karne", w: "Art. 2 k.k. — za skutkowe przestępstwo z zaniechania odpowiada ten, na kim ciążył prawny, szczególny obowiązek zapobiegnięcia skutkowi." },
+    { t: "Wiek odpowiedzialności karnej wynosi co do zasady 17 lat.", ok: true, k: "prawo karne", w: "Art. 10 § 1 k.k. — z wyjątkami dla nieletnich od 15 lat za najcięższe czyny (§ 2)." },
+    { t: "Zbrodnią jest czyn zagrożony karą pozbawienia wolności do lat 3.", ok: false, k: "prawo karne", w: "Art. 7 § 2 k.k. — zbrodnia to czyn zagrożony karą nie niższą od 3 lat pozbawienia wolności albo karą surowszą." },
+    { t: "W obronie koniecznej można odpierać wyłącznie zamach na własne dobra.", ok: false, k: "prawo karne", w: "Art. 25 § 1 k.k. — obrona konieczna dotyczy zamachu na jakiekolwiek dobro chronione prawem, także cudze." },
+    { t: "Za usiłowanie sąd wymierza karę w granicach zagrożenia przewidzianego dla danego przestępstwa.", ok: true, k: "prawo karne", w: "Art. 14 § 1 k.k. — usiłowanie jest karane w granicach zagrożenia jak za dokonanie." },
+    { t: "Oskarżony może odmówić składania wyjaśnień bez podawania przyczyn.", ok: true, k: "procedura karna", w: "Art. 175 § 1 k.p.k. — oskarżony ma prawo składać wyjaśnienia, ale może też bez podania powodów odmówić ich składania." },
+    { t: "Apelację w procesie cywilnym wnosi się w terminie dwóch tygodni od doręczenia wyroku z uzasadnieniem.", ok: true, k: "procedura cywilna", w: "Art. 369 § 1 k.p.c." },
+    { t: "Od decyzji administracyjnej wydanej w I instancji odwołanie wnosi się w terminie 14 dni.", ok: true, k: "k.p.a.", w: "Art. 129 § 2 k.p.a. — 14 dni od doręczenia lub ogłoszenia decyzji." },
+    { t: "Kadencja Prezydenta RP trwa 4 lata.", ok: false, k: "konstytucja", w: "Art. 127 ust. 2 Konstytucji — Prezydent jest wybierany na 5 lat i może być ponownie wybrany tylko raz." },
+    { t: "Kadencja Sejmu trwa 4 lata.", ok: true, k: "konstytucja", w: "Art. 98 ust. 1 Konstytucji." },
+    { t: "Senat RP liczy 460 senatorów.", ok: false, k: "konstytucja", w: "Senat liczy 100 senatorów (art. 97 ust. 1 Konstytucji). 460 to liczba posłów." },
+    { t: "Trybunał Konstytucyjny składa się z 15 sędziów wybieranych przez Sejm.", ok: true, k: "konstytucja", w: "Art. 194 ust. 1 Konstytucji — sędziowie wybierani są indywidualnie na 9 lat." },
+    { t: "Pracownik ze stażem co najmniej 10 lat ma prawo do 26 dni urlopu wypoczynkowego w roku.", ok: true, k: "prawo pracy", w: "Art. 154 § 1 pkt 2 k.p. — przy stażu krótszym niż 10 lat przysługuje 20 dni." },
+    { t: "Przy zatrudnieniu krótszym niż 6 miesięcy okres wypowiedzenia umowy o pracę wynosi 2 tygodnie.", ok: true, k: "prawo pracy", w: "Art. 36 § 1 pkt 1 k.p." }
+  ];
+
+  const RANKS = [
+    [0, "Stażysta od ksero"], [600, "Aplikant pierwszego roku"], [1500, "Aplikant z ambicjami"], [3000, "Mecenas"],
+    [5000, "Sędzia"], [8000, "Sędzia Sądu Najwyższego"], [12000, "Justynian Wielki"]
+  ];
+  const RISE = ["Proszę wstać, sąd idzie.", "Sprawa z powództwa Łaciny przeciwko Pamięci.", "Wysoki Sądzie, mam pytanie…", "Protokolant gotowy. Zaczynamy."];
+  const PRAISE = ["Podtrzymane!", "Trafnie!", "Brawo!", "Zasadne!", "Bez uwag!", "Oddalone!"];
+
+  /* ---------- pomocnicze ---------- */
+  const $ = id => document.getElementById(id);
+  const root = document.documentElement;
+  const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const shuffle = a => { for (let i = a.length - 1; i > 0; i--) { const j = (Math.random() * (i + 1)) | 0; [a[i], a[j]] = [a[j], a[i]]; } return a; };
+  const store = {
+    get(k, d) { try { const v = localStorage.getItem("lm-sp-" + k); return v === null ? d : JSON.parse(v); } catch (e) { return d; } },
+    set(k, v) { try { localStorage.setItem("lm-sp-" + k, JSON.stringify(v)); } catch (e) {} }
+  };
+  const buzz = p => { try { navigator.vibrate && navigator.vibrate(p); } catch (e) {} };
+  const restart = (el, cls) => { el.classList.remove(cls); void el.offsetWidth; el.classList.add(cls); };
+  const flash = kind => { const f = $("flash"); f.className = "flash"; void f.offsetWidth; f.className = "flash " + kind; };
+  const rankOf = s => RANKS.reduce((r, x) => (s >= x[0] ? x[1] : r), RANKS[0][1]);
+
+  /* ---------- dźwięk (syntezowany, domyślnie wyłączony) ---------- */
+  const SND = (function () {
+    let ctx = null, on = store.get("sound", false);
+    const btn = $("snd");
+    const ICON_ON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H3v6h3l5 4V5z"/><path d="M15.5 8.5a5 5 0 0 1 0 7M18.5 5.5a9 9 0 0 1 0 13"/></svg>';
+    const ICON_OFF = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H3v6h3l5 4V5z"/><path d="m22 9-6 6M16 9l6 6"/></svg>';
+    function paint() { btn.innerHTML = on ? ICON_ON : ICON_OFF; btn.setAttribute("aria-label", on ? "Wyłącz dźwięk" : "Włącz dźwięk"); }
+    function ac() {
+      if (!ctx) { const C = window.AudioContext || window.webkitAudioContext; if (!C) return null; ctx = new C(); }
+      if (ctx.state === "suspended") ctx.resume();
+      return ctx;
+    }
+    function tone(f1, f2, dur, type, vol, delay) {
+      const c = ac(); if (!c) return;
+      const t = c.currentTime + (delay || 0), o = c.createOscillator(), g = c.createGain();
+      o.type = type; o.frequency.setValueAtTime(f1, t); o.frequency.exponentialRampToValueAtTime(f2, t + dur);
+      g.gain.setValueAtTime(vol, t); g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+      o.connect(g).connect(c.destination); o.start(t); o.stop(t + dur + 0.02);
+    }
+    function noise(dur, vol) {
+      const c = ac(); if (!c) return;
+      const b = c.createBuffer(1, c.sampleRate * dur, c.sampleRate), d = b.getChannelData(0);
+      for (let i = 0; i < d.length; i++) d[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / d.length, 3);
+      const s = c.createBufferSource(), g = c.createGain(), f = c.createBiquadFilter();
+      f.type = "lowpass"; f.frequency.value = 1400; g.gain.value = vol;
+      s.buffer = b; s.connect(f).connect(g).connect(c.destination); s.start();
+    }
+    btn.addEventListener("click", () => { on = !on; store.set("sound", on); paint(); if (on) SND.good(0); });
+    paint();
+    return {
+      unlock() { if (on) ac(); },
+      good(streak) { if (!on) return; noise(0.12, 0.9); tone(160, 60, 0.18, "sine", 0.9); const n = Math.min(streak, 8); tone(520 + n * 60, 1040 + n * 120, 0.12, "triangle", 0.18, 0.05); },
+      bad() { if (!on) return; tone(220, 70, 0.45, "sawtooth", 0.22); tone(233, 74, 0.45, "square", 0.08); },
+      tick() { if (!on) return; tone(1400, 1300, 0.03, "square", 0.05); },
+      fever() { if (!on) return; [0, 0.08, 0.16, 0.24].forEach((d, i) => tone(520 * Math.pow(1.26, i), 540 * Math.pow(1.26, i), 0.12, "triangle", 0.15, d)); }
+    };
+  })();
+
+  /* ---------- efekty cząsteczkowe ---------- */
+  const FX = (function () {
+    const cv = $("fx"), cx = cv.getContext("2d");
+    let W = 0, H = 0, parts = [], running = false;
+    function resize() { const d = Math.min(devicePixelRatio || 1, 2); W = innerWidth; H = innerHeight; cv.width = W * d; cv.height = H * d; cx.setTransform(d, 0, 0, d, 0, 0); }
+    addEventListener("resize", resize); resize();
+    function loop() {
+      cx.clearRect(0, 0, W, H);
+      for (let i = parts.length - 1; i >= 0; i--) {
+        const p = parts[i];
+        p.vy += p.g; p.vx *= 0.985; p.x += p.vx; p.y += p.vy; p.r += p.vr; p.life -= p.decay;
+        if (p.life <= 0 || p.y > H + 40) { parts.splice(i, 1); continue; }
+        cx.save(); cx.globalAlpha = Math.min(1, p.life); cx.translate(p.x, p.y); cx.rotate(p.r); cx.fillStyle = p.c;
+        if (p.ch) { cx.font = "700 " + p.s + "px Fraunces, Georgia, serif"; cx.textAlign = "center"; cx.fillText(p.ch, 0, p.s / 3); }
+        else cx.fillRect(-p.s / 2, -p.s / 4, p.s, p.s / 2);
+        cx.restore();
+      }
+      if (parts.length) requestAnimationFrame(loop); else { running = false; cx.clearRect(0, 0, W, H); }
+    }
+    function emit(x, y, n, colors, opts) {
+      if (reduce) return;
+      opts = opts || {};
+      for (let i = 0; i < n; i++) {
+        const a = opts.dir != null ? opts.dir + (Math.random() - 0.5) * 1.4 : Math.random() * 6.283;
+        const v = (opts.v || 7) * (0.35 + Math.random());
+        parts.push({ x, y, vx: Math.cos(a) * v, vy: Math.sin(a) * v - (opts.up || 3), g: opts.g || 0.22, r: Math.random() * 6, vr: (Math.random() - 0.5) * 0.3,
+          s: opts.glyph && Math.random() < 0.25 ? 16 + Math.random() * 14 : 5 + Math.random() * 6, ch: opts.glyph && Math.random() < 0.25 ? opts.glyph : null,
+          c: colors[(Math.random() * colors.length) | 0], life: 1.2, decay: 0.012 + Math.random() * 0.01 });
+      }
+      if (!running) { running = true; requestAnimationFrame(loop); }
+    }
+    return { emit, size: () => [W, H] };
+  })();
+
+  /* =========================================================
+     GRA
+     ========================================================= */
+  const el = { table: $("table"), score: $("score"), pts: $("pts"), lives: $("lives"), fuse: $("fuse"), fuseWrap: $("fuse-wrap"), combo: $("combo"),
+    toast: $("toast"), no: $("b-no"), yes: $("b-yes"), flash: $("flash"), gavel: $("gavel"), ring: $("ring"), shout: $("shout") };
+  const MAX_LIVES = 3;
+  let deck = [], di = 0, caseNo = 0, cur = null, topCard = null;
+  let score = 0, lives = MAX_LIVES, streak = 0, bestStreak = 0, answered = 0, correct = 0;
+  let limit = 12000, tLeft = 0, tLast = 0, timerOn = false, busy = false, playing = false, lastTick = 0, toastT = null;
+
+  function nextClaim() {
+    if (di >= deck.length) { deck = shuffle(CLAIMS.slice()); di = 0; }
+    return deck[di++];
+  }
+
+  function cardHTML(c, n) {
+    return '<div class="c-top"><span class="tag"></span><span class="sygn">Sygn. akt LM ' + n + '/26</span></div>' +
+      '<div class="who">Pełnomocnik twierdzi:</div><p class="claim"></p>' +
+      '<div class="c-foot"><span class="l">← sprzeciw</span><span class="r">podtrzymuję →</span></div>' +
+      '<div class="stamp no">Sprzeciw!</div><div class="stamp yes">Podtrzymuję</div>';
+  }
+  function makeCard(c, n) {
+    const d = document.createElement("div");
+    d.className = "card"; d.innerHTML = cardHTML(c, n);
+    d.querySelector(".tag").textContent = c.k;
+    d.querySelector(".claim").textContent = c.t;
+    return d;
+  }
+
+  let queue = []; // [bieżąca, następna, kolejna] — {c, n}
+  function fillQueue() { while (queue.length < 3) queue.push({ c: nextClaim(), n: ++caseNo }); }
+
+  function renderStack(entering) {
+    fillQueue();
+    el.table.innerHTML = "";
+    for (let i = 2; i >= 0; i--) {
+      const q = queue[i], d = makeCard(q.c, q.n);
+      if (i === 2) d.classList.add("back2");
+      if (i === 1) d.classList.add("back1");
+      if (i === 0) { d.classList.add("top"); if (entering) d.classList.add("enter"); topCard = d; cur = q.c; bindDrag(d); }
+      d.setAttribute("aria-hidden", i === 0 ? "false" : "true");
+      el.table.appendChild(d);
+    }
+  }
+
+  function renderLives(lostIdx) {
+    el.lives.innerHTML = "";
+    for (let i = 0; i < MAX_LIVES; i++) {
+      const s = document.createElement("span");
+      s.className = "life" + (i >= lives ? " lost" : "") + (i === lostIdx ? " pop" : "");
+      s.textContent = "§";
+      el.lives.appendChild(s);
+    }
+  }
+  function renderScore(bump) { el.score.textContent = score; if (bump) restart(el.pts, "bump"); }
+  function mult() { return 1 + Math.min(6, Math.floor(streak / 3)) * 0.5; }
+  function renderCombo(pop) {
+    if (streak < 2) { el.combo.innerHTML = ""; return; }
+    el.combo.innerHTML = "Seria <b>×" + streak + "</b>" + (mult() > 1 ? " · mnożnik " + mult().toFixed(1).replace(".0", "") + "×" : "");
+    if (pop) restart(el.combo, "pop");
+  }
+
+  /* ---------- czas ---------- */
+  function startTimer() { tLeft = limit; tLast = performance.now(); timerOn = true; lastTick = 0; requestAnimationFrame(timerLoop); }
+  function timerLoop(now) {
+    if (!timerOn) return;
+    const dt = Math.min(100, now - tLast); tLast = now;
+    if (!document.hidden) tLeft -= dt;
+    const f = Math.max(0, tLeft / limit);
+    el.fuse.style.width = (f * 100) + "%";
+    const hot = tLeft < 3000;
+    el.fuseWrap.classList.toggle("hot", hot);
+    if (hot && Math.ceil(tLeft / 1000) !== lastTick) { lastTick = Math.ceil(tLeft / 1000); SND.tick(); }
+    if (tLeft <= 0) { timerOn = false; verdict(null); return; }
+    requestAnimationFrame(timerLoop);
+  }
+
+  /* ---------- przeciąganie ---------- */
+  function setP(p) { root.style.setProperty("--p", p.toFixed(3)); }
+  function bindDrag(card) {
+    let sx = 0, sy = 0, dx = 0, dy = 0, t0 = 0, on = false, id = null;
+    card.addEventListener("pointerdown", e => {
+      if (busy || !playing) return;
+      on = true; id = e.pointerId; sx = e.clientX; sy = e.clientY; dx = dy = 0; t0 = performance.now();
+      card.setPointerCapture(id); card.classList.add("dragging"); card.classList.remove("enter");
+    });
+    card.addEventListener("pointermove", e => {
+      if (!on || e.pointerId !== id) return;
+      dx = e.clientX - sx; dy = e.clientY - sy;
+      const w = card.offsetWidth;
+      card.style.transform = "translate(" + dx + "px," + dy * 0.35 + "px) rotate(" + dx * 0.07 + "deg)";
+      setP(Math.max(-1, Math.min(1, dx / (w * 0.42))));
+    });
+    const end = e => {
+      if (!on || e.pointerId !== id) return;
+      on = false; card.classList.remove("dragging");
+      const w = card.offsetWidth, v = dx / Math.max(1, performance.now() - t0);
+      if (Math.abs(dx) > w * 0.3 || (Math.abs(v) > 0.55 && Math.abs(dx) > 40)) decide(dx > 0, dy);
+      else { card.style.transform = ""; setP(0); }
+    };
+    card.addEventListener("pointerup", end);
+    card.addEventListener("pointercancel", end);
+  }
+
+  function fly(right, dy) {
+    const w = innerWidth;
+    topCard.classList.remove("enter");
+    topCard.style.transition = "transform .42s cubic-bezier(.3,.6,.4,1), opacity .42s";
+    topCard.style.transform = "translate(" + (right ? 1.3 : -1.3) * w + "px," + ((dy || 0) * 0.35 - 40) + "px) rotate(" + (right ? 32 : -32) + "deg)";
+    topCard.style.opacity = "0";
+  }
+
+  function decide(saysTrue, dy) {
+    if (busy || !playing) return;
+    busy = true; timerOn = false;
+    setP(saysTrue ? 1 : -1);
+    fly(saysTrue, dy);
+    setTimeout(() => setP(0), 260);
+    verdict(saysTrue);
+  }
+
+  /* ---------- rozstrzygnięcie ---------- */
+  function verdict(saysTrue) {
+    busy = true;
+    const c = cur, timeout = saysTrue === null, ok = !timeout && saysTrue === c.ok;
+    answered++;
+    if (ok) {
+      correct++; streak++; bestStreak = Math.max(bestStreak, streak);
+      const gain = Math.round((100 + Math.round(Math.max(0, tLeft) / 100)) * mult());
+      score += gain;
+      renderScore(true); renderCombo(true);
+      slam(gain);
+      limit = Math.max(5000, limit - 220);
+      toast("<b>✓ " + (c.ok ? "Prawda." : "Fałsz.") + "</b> " + c.w);
+      if (streak === 5) { document.body.classList.add("fever"); SND.fever(); shout("Tryb Wysokiego Sądu!", true, 1200); }
+      setTimeout(advance, 480);
+    } else {
+      lives--; streak = 0; document.body.classList.remove("fever");
+      renderLives(lives); renderCombo(false);
+      if (timeout) { topCard.classList.add("glitch"); topCard.style.opacity = ".35"; }
+      flash("bad");
+      restart(el.table, "shake");
+      buzz([70, 50, 90]); SND.bad();
+      hideToast();
+      setTimeout(() => openSheet(c, timeout), timeout ? 450 : 320);
+    }
+  }
+
+  function slam(gain) {
+    restart(el.gavel, "slam"); restart(el.ring, "go");
+    setTimeout(() => {
+      flash("good");
+      buzz(35); SND.good(streak);
+      const [W, H] = FX.size();
+      FX.emit(W / 2, H * 0.42, 50 + Math.min(streak, 10) * 8, ["#f0d489", "#d8b463", "#fff5d6", "#9db0ff", "#46e0a0"], { glyph: "§", v: 9 });
+      shout(streak >= 3 ? "+" + gain + " ×" + mult().toFixed(1).replace(".0", "") : PRAISE[(Math.random() * PRAISE.length) | 0], true, 0);
+    }, 300);
+  }
+  function shout(txt, good, delay) {
+    setTimeout(() => { el.shout.textContent = txt; el.shout.className = "shout" + (good ? " good" : ""); restart(el.shout, "go"); }, delay || 0);
+  }
+  function toast(html) {
+    el.toast.innerHTML = html; el.toast.classList.add("on");
+    clearTimeout(toastT); toastT = setTimeout(hideToast, 2600);
+  }
+  function hideToast() { el.toast.classList.remove("on"); }
+
+  function advance() {
+    queue.shift();
+    renderStack(true);
+    busy = false;
+    startTimer();
+  }
+
+  /* ---------- arkusz pomyłki ---------- */
+  function openSheet(c, timeout) {
+    $("sheet-h").textContent = timeout ? "Termin upłynął!" : "Uchylone!";
+    $("sheet-v").innerHTML = (timeout ? "Czynność bezskuteczna. " : "") + "To twierdzenie jest <b>" + (c.ok ? "PRAWDZIWE" : "FAŁSZYWE") + "</b>" + (c.ok ? " — należało podtrzymać." : " — należało zgłosić sprzeciw.");
+    $("sheet-c").textContent = "„" + c.t + "”";
+    $("sheet-w").textContent = c.w;
+    $("sheet-next").textContent = lives > 0 ? "Dalej (zostały " + lives + " " + (lives === 1 ? "szansa" : "szanse") + ")" : "Ogłoś wyrok";
+    $("sheet").hidden = false;
+    $("sheet-next").focus({ preventScroll: true });
+  }
+  $("sheet-next").addEventListener("click", () => {
+    $("sheet").hidden = true;
+    if (lives <= 0) finish(); else advance();
+  });
+
+  /* ---------- koniec gry ---------- */
+  function finish() {
+    playing = false; timerOn = false; document.body.classList.remove("fever");
+    const best = store.get("best", 0), rec = score > best;
+    if (rec) store.set("best", score);
+    const acc = answered ? Math.round((correct / answered) * 100) : 0;
+    const d = new Date().toLocaleDateString("pl-PL", { day: "numeric", month: "long", year: "numeric" });
+    $("paper").innerHTML =
+      (rec && score > 0 ? '<div class="rec">NOWY REKORD</div>' : "") +
+      "<h2>WYROK</h2><div class='in'>w imieniu LexMentor<br>dnia " + d + " r.</div>" +
+      "<p>Sąd Paremiczny w składzie jednoosobowym, po rozpoznaniu <b>" + answered + "</b> " + (answered === 1 ? "sprawy" : "spraw") + ", orzeka:</p>" +
+      "<ol><li>przyznaje grającemu <b>" + score + " pkt</b>;</li><li>stwierdza trafność orzeczeń na poziomie <b>" + acc + "%</b>;</li>" +
+      "<li>ustala najdłuższą serię na <b>" + bestStreak + "</b>;</li><li>nadaje tytuł:</li></ol>" +
+      "<span class='rank'>„" + rankOf(score) + "”</span>" +
+      "<p class='foot'>Wyrok jest nieprawomocny. Przysługuje apelacja — bez opłat, bez terminu." + (!rec && best ? " Rekord do pobicia: " + best + " pkt." : "") + "</p>";
+    $("end").hidden = false;
+    const [W] = FX.size();
+    if (score > 0) FX.emit(W / 2, 120, rec ? 160 : 70, ["#f0d489", "#d8b463", "#fff5d6", "#ff5f6d"], { glyph: "§", v: 10, up: 6 });
+  }
+
+  $("share").addEventListener("click", async () => {
+    const url = /^https?:/.test(location.href) ? location.origin + location.pathname : "https://lexmentor.com.pl/sprzeciw.html";
+    const text = "Wyrok w grze „Sprzeciw!”: " + score + " pkt, tytuł „" + rankOf(score) + "”. Wniesiesz apelację?";
+    try {
+      if (navigator.share) { await navigator.share({ title: "Sprzeciw! — LexMentor", text, url }); return; }
+      await navigator.clipboard.writeText(text + " " + url);
+      $("share").textContent = "Skopiowano do schowka ✓";
+    } catch (e) {}
+  });
+
+  function start() {
+    SND.unlock();
+    deck = shuffle(CLAIMS.slice()); di = 0; queue = []; caseNo = 0;
+    score = 0; lives = MAX_LIVES; streak = 0; bestStreak = 0; answered = 0; correct = 0; limit = 12000;
+    renderScore(false); renderLives(-1); renderCombo(false); hideToast();
+    $("intro").hidden = true; $("end").hidden = true; $("sheet").hidden = true;
+    $("share").textContent = "Udostępnij wyrok";
+    playing = true; busy = false;
+    renderStack(true);
+    startTimer();
+  }
+
+  $("start").addEventListener("click", start);
+  $("again").addEventListener("click", start);
+  el.no.addEventListener("click", () => decide(false, 0));
+  el.yes.addEventListener("click", () => decide(true, 0));
+  document.addEventListener("keydown", e => {
+    if (!$("sheet").hidden) { if (e.key === "Enter" && document.activeElement !== $("sheet-next")) $("sheet-next").click(); return; }
+    if (!playing || busy) return;
+    if (e.key === "ArrowLeft") decide(false, 0);
+    else if (e.key === "ArrowRight") decide(true, 0);
+  });
+
+  /* ---------- ekran startowy ---------- */
+  (function intro() {
+    const best = store.get("best", 0);
+    $("best-line").innerHTML = best ? "Twój rekord: <b>" + best + " pkt</b> · " + rankOf(best) : CLAIMS.length + " twierdzeń z prawa cywilnego, karnego, konstytucyjnego i nie tylko";
+    const t = RISE[(Math.random() * RISE.length) | 0], out = $("rise-txt");
+    let i = 0;
+    (function type() { out.textContent = t.slice(0, ++i); if (i < t.length) setTimeout(type, reduce ? 0 : 38); })();
+    // podgląd stołu za nakładką
+    deck = shuffle(CLAIMS.slice()); renderStack(false); renderLives(-1);
+  })();
+  </script>
+</body>
+</html>
