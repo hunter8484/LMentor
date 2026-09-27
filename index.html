@@ -109,7 +109,7 @@
     @keyframes rise { to { opacity: 1; transform: none; } }
 
     /* ---------- sections ---------- */
-    section { padding: 80px 0; }
+    section { padding: 80px 0; scroll-margin-top: 64px; }
     .sec-head { text-align: center; margin-bottom: 36px; }
     .sec-head .eyebrow { color: var(--gold); }
 
@@ -138,8 +138,12 @@
       padding: 14px 16px; border-radius: 14px; border: 1px solid var(--line-2);
       background: rgba(255,255,255,.03); color: var(--ink); font: 500 15.5px/1.45 var(--sans);
       cursor: pointer; transition: border-color .2s, background .2s, transform .15s;
+      touch-action: manipulation; -webkit-tap-highlight-color: transparent;
     }
-    .opt:hover:not(:disabled) { border-color: rgba(216,180,99,.55); background: rgba(216,180,99,.06); transform: translateY(-1px); }
+    .opt:active:not(:disabled) { background: rgba(216,180,99,.08); }
+    @media (hover: hover) {
+      .opt:hover:not(:disabled) { border-color: rgba(216,180,99,.55); background: rgba(216,180,99,.06); transform: translateY(-1px); }
+    }
     .opt:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
     .opt .k { flex: none; width: 26px; height: 26px; border-radius: 8px; display: grid; place-items: center; font-size: 12.5px; font-weight: 800; color: var(--muted); border: 1px solid var(--line-2); }
     .opt:disabled { cursor: default; }
@@ -159,8 +163,30 @@
     @media (max-width: 600px) {
       .hero { padding-top: 72px; }
       #stage { min-height: 32vh; }
-      .pill { font-size: 12px; padding: 6px 11px; }
-      .score { gap: 16px; }
+      .nav { padding: 12px 0; }
+      .pill { font-size: 12px; padding: 6px 11px; white-space: nowrap; }
+      .facts { margin-top: 18px; }
+      .scroll-hint { margin-top: 22px; }
+
+      /* gra: cała karta ma się mieścić na ekranie telefonu */
+      section { padding: 20px 0 40px; }
+      .sec-head { margin-bottom: 14px; }
+      .card { padding: 18px 16px 16px; border-radius: 18px; }
+      .latin { font-size: clamp(24px, 7.4vw, 32px); margin: 14px 0 4px; min-height: 2.4em; }
+      .ask { font-size: 13px; margin-bottom: 14px; }
+      .opts { gap: 8px; }
+      .opt { gap: 12px; padding: 12px 13px; font-size: 15px; line-height: 1.38; border-radius: 12px; }
+      .opt .k { width: 24px; height: 24px; font-size: 12px; }
+      .feedback { min-height: 40px; margin-top: 12px; font-size: 14px; line-height: 1.45; }
+      .q-foot { padding-top: 12px; }
+      .score { gap: 20px; }
+      .score b { font-size: 20px; }
+    }
+    @media (max-width: 360px) {
+      .brand { gap: 8px; }
+      .brand .mark { width: 32px; height: 32px; font-size: 18px; }
+      .brand .name { font-size: 18px; }
+      .pill { font-size: 11px; padding: 5px 10px; gap: 6px; }
     }
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after { animation: none !important; transition: none !important; }
@@ -583,7 +609,12 @@
       advance = setTimeout(next, ok ? 1600 : 3200); // kolejna paremia pojawia się sama
     }
 
-    function next() { clearTimeout(advance); qi++; render(); }
+    function next() {
+      clearTimeout(advance); qi++; render();
+      // na telefonie karta bywa przewinięta — pokaż nową paremię od góry
+      const top = els.latin.closest(".card").getBoundingClientRect().top;
+      if (top < 64) window.scrollBy({ top: top - 72, behavior: "smooth" });
+    }
 
     document.addEventListener("keydown", e => {
       if (e.metaKey || e.ctrlKey || e.altKey) return;
